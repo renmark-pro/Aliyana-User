@@ -1,0 +1,97 @@
+package com.aliyanaresorts.aliyanahotelresorts;
+
+import android.content.DialogInterface;
+import androidx.annotation.NonNull;
+
+import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
+import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.AccountFragment;
+import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.HomeFragment;
+import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.StatusFragment;
+
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    int HOME=0;
+
+    public static BottomNavigationView bottomNavigationView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        if (savedInstanceState == null) {
+            HOME=0;
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,
+                    new HomeFragment()).commit();
+            bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        }
+    }
+
+    AccountFragment accountFragment = new AccountFragment();
+    HomeFragment homeFragment = new HomeFragment();
+    StatusFragment statusFragment = new StatusFragment();
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        switch (menuItem.getItemId()){
+            case R.id.navigation_account:
+                if (SPData.getInstance(this).isLoggedIn()) {
+                    HOME = 1;
+                    getSupportFragmentManager().beginTransaction().detach(accountFragment).attach(accountFragment).setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, accountFragment).commit();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, MasukActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            case R.id.navigation_home:
+                HOME=0;
+                getSupportFragmentManager().beginTransaction().detach(homeFragment).attach(homeFragment).setCustomAnimations(R.anim.fade_in,R.anim.fade_out).replace(R.id.container, homeFragment).commit();
+                return true;
+            case R.id.navigation_status:
+                HOME=1;
+                getSupportFragmentManager().beginTransaction().detach(statusFragment).attach(statusFragment).setCustomAnimations(R.anim.fade_in,R.anim.fade_out).replace(R.id.container, statusFragment).commit();
+                return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (HOME!=0) {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(false);
+            builder.setMessage(R.string.alert_keluar);
+            builder.setPositiveButton(R.string.alert_ya, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            builder.setNegativeButton(R.string.alert_tidak, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
+
+}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    android:orientation="vertical"
+    android:id="@+id/fragment_home"
+    tools:context=".activity.fragment.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/colorPrimaryDark"/>
+
+            <ImageView
+                android:contentDescription="@string/app_name"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/bg_header"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/whome"
+                android:textSize="20sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:id="@+id/textWelcome"
+                android:textColor="@color/putih"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="125dp"
+                >
+
+                <technolifestyle.com.imageslider.FlipperLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/flipper"
+                    android:background="@drawable/image_slider_1"
+                    />
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <ImageView
+                android:contentDescription="@string/kamar"
+                android:id="@+id/bt_rooms"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_room_home"
+                tools:ignore="NestedWeights" />
+
+            <ImageView
+                android:id="@+id/bt_book"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_book_home"
+                android:contentDescription="@string/pesan_skrg" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <ImageView
+                android:contentDescription="@string/ttg"
+                android:id="@+id/bt_about"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_about_home"
+                tools:ignore="NestedWeights" />
+
+            <ImageView
+                android:id="@+id/bt_promo"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_promotion_home"
+                android:contentDescription="@string/promo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/bt_galleries"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_info_home"
+                tools:ignore="NestedWeights"
+                android:contentDescription="@string/galeri" />
+
+            <ImageView
+                android:id="@+id/bt_facilities"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_facility_home"
+                android:contentDescription="@string/fasilitas1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

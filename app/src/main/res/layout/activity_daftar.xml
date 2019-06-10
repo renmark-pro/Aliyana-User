@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DaftarActivity"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    android:background="@drawable/bg_log">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:contentDescription="@string/daftar"
+            android:layout_marginTop="32dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_logo_log"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/goldtua"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/goldtua"
+                >
+
+                <technolifestyle.com.imageslider.FlipperLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/flipper"
+                    android:background="@drawable/image_slider_1"
+                    />
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/nama"
+                android:hint="@string/nama"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="textPersonName"
+                android:autofillHints="@string/nama"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <org.angmarch.views.NiceSpinner
+            android:layout_marginTop="5dp"
+            android:id="@+id/jenisId"
+            android:backgroundTint="@color/putih_trans"
+            app:arrowTint="@color/colorPrimaryDark"
+            app:textTint="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/nomerId"
+                android:hint="@string/nomor_id"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="text"
+                android:autofillHints="@string/nomor_id"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/email"
+                android:hint="@string/email"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="textEmailAddress"
+                android:autofillHints="@string/email"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/telpon"
+                android:hint="@string/hp"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="phone"
+                android:autofillHints="@string/hp"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/alamat"
+                android:hint="@string/alamat"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="text"
+                android:autofillHints="@string/alamat"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/kota"
+                android:hint="@string/kota"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="text"
+                android:autofillHints="@string/kota"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/negara"
+                android:hint="@string/negara"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="text"
+                android:autofillHints="@string/negara"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/goldtua"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/password"
+                android:hint="@string/password"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="textPassword"
+                android:autofillHints="@string/password"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/goldtua"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/kpassword"
+                android:hint="@string/kpassword"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="textPassword"
+                android:autofillHints="@string/kpassword"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginBottom="32dp">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/btnMasuk"
+                android:text="@string/masuk"
+                android:textColor="@color/goldtua"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bt_cek"
+                android:layout_marginEnd="16dp"/>
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/btnDaftar"
+                android:text="@string/daftar"
+                android:textColor="@color/abu"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bt_book"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

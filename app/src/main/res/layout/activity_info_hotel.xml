@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_about"
+    android:orientation="vertical"
+    tools:context=".activity.InfoHotelActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="fill_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/goldtua"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="@string/info"
+            app:titleTextColor="@color/putih" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/bt_ball"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_ballroom_info"
+                android:contentDescription="@string/ballroom" />
+
+            <ImageView
+                android:id="@+id/bt_meet"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_meeting_info"
+                android:contentDescription="@string/meeting" />
+
+            <ImageView
+                android:id="@+id/bt_resto"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_resto_info"
+                android:contentDescription="@string/resto" />
+
+            <ImageView
+                android:id="@+id/bt_spa"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_spa_info"
+                android:contentDescription="@string/spa" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

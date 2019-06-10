@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MasukActivity"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    android:background="@drawable/bg_log">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:contentDescription="@string/masuk"
+            android:layout_marginTop="32dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_logo_log"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/goldtua"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/goldtua"
+                >
+
+                <technolifestyle.com.imageslider.FlipperLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/flipper"
+                    android:background="@drawable/image_slider_1"
+                    />
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:contentDescription="@string/hp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_usrname"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginStart="8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:autofillHints="@string/hp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/telpon"
+                    android:hint="@string/hp"
+                    android:textColor="@color/goldtua"
+                    android:textColorHighlight="@color/goldtua"
+                    android:inputType="phone"
+                    tools:targetApi="o" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:contentDescription="@string/password"
+                android:layout_gravity="center_vertical"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_password"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginStart="8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/goldtua"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:autofillHints="@string/password"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/password"
+                    android:hint="@string/password"
+                    android:textColor="@color/goldtua"
+                    android:textColorHighlight="@color/goldtua"
+                    android:inputType="textPassword"
+                    tools:targetApi="o" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/btnDaftar"
+                android:text="@string/daftar"
+                android:textColor="@color/goldtua"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bt_cek"
+                android:layout_marginEnd="16dp"/>
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/btnMasuk"
+                android:text="@string/masuk"
+                android:textColor="@color/abu"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bt_book"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">Aliyana Hotel &amp; Resorts</string>
+    <string name="beranda">Beranda</string>
+    <string name="status">Status</string>
+    <string name="akun">Akun</string>
+    <string name="kamar">Kamar</string>
+    <string name="alert_keluar">Apakah Anda ingin Keluar?</string>
+    <string name="alert_ya">Ya</string>
+    <string name="alert_tidak">Tidak</string>
+    <string name="pesankosong">maaf,\nkamu belum memesan apapun</string>
+    <string name="akunkosong">Maaf, anda belum masuk.</string>
+    <string name="masuksekarang">Masuk Sekarang.</string>
+    <string name="nama_kamar">Nama Kamar</string>
+    <string name="harga_kamar">Rp 123.456</string>
+    <string name="harga">Harga : \t</string>
+    <string name="fasilitas">Fasilitas : \t</string>
+    <string name="fasilitas1">Fasilitas</string>
+    <string name="deskripsi">Deskripsi : \t</string>
+    <string name="pesan_skrg">Pesan Sekarang</string>
+    <string name="tunggu">Harap Menunggu</string>
+    <string name="pesan">Pemesanan</string>
+    <string name="pilih">Pilih Kamar</string>
+    <string name="orang">Orang</string>
+    <string name="malam">Malam</string>
+    <string name="malams">Malam</string>
+    <string name="piltgl">Pilih Tanggal</string>
+    <string name="masuk">Masuk</string>
+    <string name="daftar">Daftar</string>
+    <string name="ttg">Tentang Kami</string>
+    <string name="vm">Visi &amp; Misi</string>
+    <string name="kd">Kontak &amp; Detail</string>
+    <string name="pertanyaan">Ajukan Pertanyaan</string>
+    <string name="bug">Laporkan Bug</string>
+    <string name="lokasi">Lokasi</string>
+    <string name="email">Email</string>
+    <string name="wa">Whatsapp</string>
+    <string name="web">Website</string>
+    <string name="hp">Telepon</string>
+    <string name="fax">Fax</string>
+    <string name="ig">Instagram</string>
+    <string name="fb">Facebook</string>
+    <string name="password">Kata Sandi</string>
+    <string name="kpassword">Konfirmasi Kata Sandi</string>
+    <string name="nama">Nama Lengkap</string>
+    <string name="jenis_id">Jenis Identitas</string>
+    <string name="nomor_id">Nomor Identitas</string>
+    <string name="alamat">Alamat</string>
+    <string name="kota">Kota</string>
+    <string name="negara">Negara</string>
+    <string name="xmasuk">Gagal Masuk</string>
+    <string name="smasuk">Telepon atau Password Salah!</string>
+    <string name="bmasuk">Berhasil Masuk!</string>
+    <string name="bdaftar">Berhasil Daftar!</string>
+    <string name="xdaftar">Gagal Daftar</string>
+    <string name="whome">Selamat Datang di Aliyana Hotel &amp; Resorts.</string>
+    <string name="dtv">Harap Masukan data yang Valid!</string>
+    <string name="passalah">Kata Sandi Tidak Cocok!</string>
+    <string name="isi">Wajib diisi!</string>
+    <string name="idm">Nomor Identitas Sudah Terdaftar!</string>
+    <string name="edit">Sunting</string>
+    <string name="kpromo">Masukan Kode Promo</string>
+    <string name="voucher">Voucher Saya</string>
+    <string name="bahasa">Bahasa</string>
+    <string name="bantuan">Bantuan</string>
+    <string name="keluar">Keluar</string>
+    <string name="visi">Visi</string>
+    <string name="misi">Misi</string>
+    <string name="ihp">Nomor Ponsel Tidak Valid!</string>
+    <string name="imail">Alamat Surel Tidak Valid!</string>
+    <string name="ipw">Katasandi Minimal 8 Karakter</string>
+    <string name="simpan">Simpan</string>
+    <string name="psalah">Katasandi Salah!</string>
+    <string name="bupdate">Pembaruan Berhasil!</string>
+    <string name="xupdate">Pembaruan Gagal!</string>
+    <string name="iusr">Pengguna Tidak Ditemukan!</string>
+    <string name="komen">Komentar Anda</string>
+    <string name="enquiry">Enquiry</string>
+    <string name="submit">Kirim</string>
+    <string name="report">Laporan Anda</string>
+    <string name="kolom">Kolom Wajib Diisi!</string>
+    <string name="gagal">Gagal!</string>
+    <string name="bisa">Berhasil!</string>
+    <string name="rincian">Rincian</string>
+    <string name="pkamar">Pengguna Kamar</string>
+    <string name="cek">Periksa</string>
+    <string name="promo">Promosi</string>
+
+    <string name="dnamapesan">Nama Pemesan </string>
+    <string name="dnamapguna">Nama Pengguna </string>
+    <string name="dtipekmr">Tipe Kamar </string>
+    <string name="dtanggal">Tanggal Masuk </string>
+    <string name="djmlorg">Pengguna </string>
+    <string name="djmlmlm">Jumlah Malam </string>
+    <string name="td">\t:\t</string>
+
+    <string-array name="jenisid">
+        <item>Pilih Jenis Kartu Identitasmu</item>
+        <item>KTP</item>
+        <item>SIM</item>
+        <item>Passport</item>
+    </string-array>
+
+
+    <string name="salamh">Salam Hangat</string>
+    <string name="foto">Foto Profile</string>
+    <string name="kfoto">Foto Kamar Hotel</string>
+    <string name="galeri">Galeri</string>
+    <string name="kamera">Kamera</string>
+    <string name="indo">Indonesia</string>
+    <string name="ballroom">Ballroom</string>
+    <string name="meeting">Meeting Room</string>
+    <string name="resto">Restaurant</string>
+    <string name="spa">SPA</string>
+    <string name="info">Info Hotel</string>
+    <string name="kcr">Cinnamon &amp; Kayu Manis Resto</string>
+</resources>
