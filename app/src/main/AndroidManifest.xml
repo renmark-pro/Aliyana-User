@@ -22,9 +22,7 @@
         android:theme="@style/AppThemeGold"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activity.BallroomActivity"></activity>
-        <activity
-            android:name=".activity.RestoActivity"
+        <activity android:name=".activity.RestoActivity"
             android:parentActivityName=".activity.InfoHotelActivity"
             android:screenOrientation="portrait" />
         <activity
