@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".activity.ExRestoAct">
+    tools:context=".activity.RestoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

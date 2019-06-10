@@ -16,11 +16,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class RestoListAdapter extends RecyclerView.Adapter<RestoListAdapter.RestoViewHolder> {
@@ -55,7 +53,7 @@ public class RestoListAdapter extends RecyclerView.Adapter<RestoListAdapter.Rest
     @NonNull
     @Override
     public RestoListAdapter.RestoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_ex_resto,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_resto,parent,false);
         return new RestoViewHolder(v);
     }
 

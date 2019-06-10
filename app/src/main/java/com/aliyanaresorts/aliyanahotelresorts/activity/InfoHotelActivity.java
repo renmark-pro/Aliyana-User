@@ -55,7 +55,7 @@ public class InfoHotelActivity extends AppCompatActivity {
         resto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InfoHotelActivity.this, ExRestoAct.class);
+                Intent intent = new Intent(InfoHotelActivity.this, RestoActivity.class);
                 startActivity(intent);
             }
         });

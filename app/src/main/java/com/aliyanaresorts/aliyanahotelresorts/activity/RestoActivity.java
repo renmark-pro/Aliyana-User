@@ -2,16 +2,12 @@ package com.aliyanaresorts.aliyanahotelresorts.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -32,11 +28,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarTransparent;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_MENU_RESTO;
 
-public class ExRestoAct extends AppCompatActivity {
+public class RestoActivity extends AppCompatActivity {
 
     ArrayList<RestoList> arrayList;
     private RecyclerView.Adapter adapter;
@@ -48,7 +43,7 @@ public class ExRestoAct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ex_resto);
+        setContentView(R.layout.activity_resto);
         setStyleStatusBarTransparent(this);
 
         toolbar = findViewById(R.id.toolbar);
@@ -111,7 +106,7 @@ public class ExRestoAct extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(ExRestoAct.this, getResources().getString(R.string.tunggu), "", false, false);
+                loading = ProgressDialog.show(RestoActivity.this, getResources().getString(R.string.tunggu), "", false, false);
             }
 
             @Override
