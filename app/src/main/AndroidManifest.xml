@@ -22,8 +22,12 @@
         android:theme="@style/AppThemeGold"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activity.MeetingActivity"></activity>
-        <activity android:name=".activity.BallroomActivity" />
+        <activity android:name=".activity.MeetingActivity"
+            android:parentActivityName=".activity.InfoHotelActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BallroomActivity"
+            android:parentActivityName=".activity.InfoHotelActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.RestoActivity"
             android:parentActivityName=".activity.InfoHotelActivity"

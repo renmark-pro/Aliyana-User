@@ -113,4 +113,17 @@
     <string name="spa">SPA</string>
     <string name="info">Info Hotel</string>
     <string name="kcr">Cinnamon &amp; Kayu Manis Resto</string>
+
+    <string name="ballali">Aliyana Ballroom</string>
+    <string name="balldesc">Designed in in modern and luxurious style, this exclutive venue with
+        capacity up to 300 person located in the center city of Temanggung.</string>
+    <string name="ballcap">ROOM DIMENSIONS AND CAPACITIES</string>
+    <string name="ballfas">Fasilitas : \n
+        Screen Projector - Sound System - Air Conditioner</string>
+    <string name="meetroom">Meeting Room</string>
+    <string name="meetdesc">Hosting your business meetings, conferences, or group events is more
+        efficient and effective than ever. Our meetin packages and group rates on guest accommodation
+        are designed to streamline the meeting planning process.</string>
+    <string name="meetcap">OPEN MEETING ROOM</string>
+
 </resources>

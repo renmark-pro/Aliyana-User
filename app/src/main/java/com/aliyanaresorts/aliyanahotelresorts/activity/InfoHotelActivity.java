@@ -41,14 +41,14 @@ public class InfoHotelActivity extends AppCompatActivity {
         ballroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Holder
+                startActivity(new Intent(InfoHotelActivity.this, BallroomActivity.class));
             }
         });
 
         meeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Holder
+                startActivity(new Intent(InfoHotelActivity.this, MeetingActivity.class));
             }
         });
 
