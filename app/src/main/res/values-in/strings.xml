@@ -126,4 +126,13 @@
         are designed to streamline the meeting planning process.</string>
     <string name="meetcap">OPEN MEETING ROOM</string>
 
+    <string name="bc1"> Class Room 1 </string>
+    <string name="bc2"> Class Room 2 </string>
+    <string name="br"> Round Table </string>
+    <string name="bt"> Theater Class </string>
+
+    <string name="m1"> Open 1 Meeting Room</string>
+    <string name="m2"> Open 2 Meeting Room</string>
+    <string name="m3"> Open 3 Meeting Room</string>
+
 </resources>

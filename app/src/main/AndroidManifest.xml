@@ -22,12 +22,20 @@
         android:theme="@style/AppThemeGold"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activity.MeetingActivity"
-            android:parentActivityName=".activity.InfoHotelActivity"
+        <activity android:name=".activity.info.BallroomDetailActivity"
+            android:parentActivityName=".activity.info.BallroomActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.BallroomActivity"
-            android:parentActivityName=".activity.InfoHotelActivity"
+        <activity android:name=".activity.info.MeetingDetailActivity"
+            android:parentActivityName=".activity.info.MeetingActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.info.MeetingActivity"
+            android:parentActivityName=".activity.InfoHotelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.info.BallroomActivity"
+            android:parentActivityName=".activity.InfoHotelActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RestoActivity"
             android:parentActivityName=".activity.InfoHotelActivity"

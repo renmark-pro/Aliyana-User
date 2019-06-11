@@ -35,7 +35,6 @@ public class RestoActivity extends AppCompatActivity {
 
     ArrayList<RestoList> arrayList;
     private RecyclerView.Adapter adapter;
-    Toolbar toolbar;
 
     AppBarLayout appBarLayout;
     CollapsingToolbarLayout collapsingToolbarLayout;
@@ -45,13 +44,6 @@ public class RestoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resto);
         setStyleStatusBarTransparent(this);
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        @SuppressLint("PrivateResource") final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
-        Objects.requireNonNull(upArrow).setColorFilter(ContextCompat.getColor(this, R.color.putih), PorterDuff.Mode.SRC_ATOP);
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         arrayList = new ArrayList<>();
         RecyclerView recyclerView = findViewById(R.id.restoList);

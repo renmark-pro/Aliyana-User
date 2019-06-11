@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.activity.info.BallroomActivity;
+import com.aliyanaresorts.aliyanahotelresorts.activity.info.MeetingActivity;
 
 import java.util.Objects;
 
