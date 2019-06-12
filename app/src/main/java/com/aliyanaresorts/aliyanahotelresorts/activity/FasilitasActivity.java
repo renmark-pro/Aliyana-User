@@ -33,9 +33,8 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplika
 
 public class FasilitasActivity extends AppCompatActivity {
 
-    ArrayList<FasilitasList> arrayList;
+    private ArrayList<FasilitasList> arrayList;
     private RecyclerView.Adapter adapter;
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,7 @@ public class FasilitasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fasilitas);
         setTemaAplikasi(FasilitasActivity.this, 1);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         @SuppressLint("PrivateResource") final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);

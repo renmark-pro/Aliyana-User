@@ -36,14 +36,12 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag
 
 public class DetailActivity extends AppCompatActivity {
 
-    CardView lokasi , email, wa, web, phone, fax, ig, fb;
-    TextView textView;
+    private CardView lokasi , email, wa, web, phone, fax, ig, fb;
+    private TextView textView;
 
-    ArrayList<HashMap<String, String>> list_data;
+    private ArrayList<HashMap<String, String>> list_data;
 
-    ProgressDialog mDialog;
-
-    Toolbar toolbar;
+    private ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         fb=findViewById(R.id.btFb);
         textView=findViewById(R.id.textTentang);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 

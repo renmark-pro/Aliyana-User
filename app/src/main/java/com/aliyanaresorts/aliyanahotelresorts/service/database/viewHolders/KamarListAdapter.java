@@ -24,9 +24,9 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class KamarListAdapter extends RecyclerView.Adapter<KamarListAdapter.KamarViewHolder> {
 
-    private Context context;
+    private final Context context;
 
-    private List<KamarList> kamarListList;
+    private final List<KamarList> kamarListList;
 
     public KamarListAdapter(List<KamarList> kamarLists, Context context){
         this.kamarListList = kamarLists;
@@ -36,8 +36,8 @@ public class KamarListAdapter extends RecyclerView.Adapter<KamarListAdapter.Kama
 
     class KamarViewHolder extends RecyclerView.ViewHolder {
         //Views
-        private ImageView fotoKamar;
-        TextView hargaKamar,namaKamar;
+        private final ImageView fotoKamar;
+        final TextView hargaKamar,namaKamar;
 
 
         //Initializing Views

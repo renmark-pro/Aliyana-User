@@ -32,14 +32,12 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag
 
 public class VisiActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-
-    TextView visi, misi;
+    private TextView visi, misi;
 
 
-    ArrayList<HashMap<String, String>> list_data;
+    private ArrayList<HashMap<String, String>> list_data;
 
-    ProgressDialog mDialog;
+    private ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +49,7 @@ public class VisiActivity extends AppCompatActivity {
         setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
         getWindow().setStatusBarColor(getResources().getColor(R.color.goldtrans));
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 

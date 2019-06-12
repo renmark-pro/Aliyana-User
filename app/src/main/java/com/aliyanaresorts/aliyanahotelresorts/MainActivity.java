@@ -19,9 +19,9 @@ import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.StatusFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    int HOME=0;
+    private int HOME=0;
 
-    public static BottomNavigationView bottomNavigationView;
+    private static BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    AccountFragment accountFragment = new AccountFragment();
-    HomeFragment homeFragment = new HomeFragment();
-    StatusFragment statusFragment = new StatusFragment();
+    private final AccountFragment accountFragment = new AccountFragment();
+    private final HomeFragment homeFragment = new HomeFragment();
+    private final StatusFragment statusFragment = new StatusFragment();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

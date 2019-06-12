@@ -16,9 +16,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatu
 
 public class MeetingActivity extends AppCompatActivity {
 
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    AppBarLayout appBarLayout;
-    Button book, detail;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +24,11 @@ public class MeetingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meeting);
         setStyleStatusBarTransparent(this);
 
-        book = findViewById(R.id.bt_book);
-        detail = findViewById(R.id.bt_detail);
+        Button book = findViewById(R.id.bt_book);
+        Button detail = findViewById(R.id.bt_detail);
 
         collapsingToolbarLayout = findViewById(R.id.coll);
-        appBarLayout = findViewById(R.id.app_bar_layout);
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar_layout);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {

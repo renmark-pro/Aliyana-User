@@ -57,20 +57,17 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class ProfilAccountActivity extends AppCompatActivity {
 
-    ImageView imageView;
-    Toolbar toolbar;
-    Bitmap decoded;
+    private ImageView imageView;
+    private Bitmap decoded;
 
     private static final String TAG = ProfilAccountActivity.class.getSimpleName();
-
-    String tag_json_obj = "json_obj_req";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_account);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(SPData.getInstance(this).getKeyNama());
         toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
         setSupportActionBar(toolbar);
@@ -160,10 +157,11 @@ public class ProfilAccountActivity extends AppCompatActivity {
             }
         };
 
+        String tag_json_obj = "json_obj_req";
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
     }
 
-    public String getStringImage(Bitmap bmp) {
+    private String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
@@ -193,7 +191,7 @@ public class ProfilAccountActivity extends AppCompatActivity {
         return true;
     }
 
-    public void pickImage() {
+    private void pickImage() {
         CropImage.startPickImageActivity(this);
     }
 
@@ -231,7 +229,7 @@ public class ProfilAccountActivity extends AppCompatActivity {
         }
     }
 
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+    private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -246,7 +244,7 @@ public class ProfilAccountActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
-    public void getPermissions() {
+    private void getPermissions() {
         /* Check and Request permission */
         if (ContextCompat.checkSelfPermission(ProfilAccountActivity.this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ProfilAccountActivity.this,

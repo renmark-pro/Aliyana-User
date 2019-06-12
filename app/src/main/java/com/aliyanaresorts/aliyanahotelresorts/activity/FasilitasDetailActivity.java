@@ -5,7 +5,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -39,7 +38,7 @@ public class FasilitasDetailActivity extends AppCompatActivity {
 
     private FlipperLayout flipper;
     private ArrayList<HashMap<String, String>> list_dataS;
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

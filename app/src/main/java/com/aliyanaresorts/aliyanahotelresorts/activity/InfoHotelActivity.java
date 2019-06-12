@@ -20,25 +20,22 @@ import java.util.Objects;
 
 public class InfoHotelActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-    ImageView ballroom, meeting, resto, spa;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_hotel);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         @SuppressLint("PrivateResource") final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
         Objects.requireNonNull(upArrow).setColorFilter(ContextCompat.getColor(this, R.color.putih), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        ballroom= findViewById(R.id.bt_ball);
-        meeting= findViewById(R.id.bt_meet);
-        resto= findViewById(R.id.bt_resto);
-        spa= findViewById(R.id.bt_spa);
+        ImageView ballroom = findViewById(R.id.bt_ball);
+        ImageView meeting = findViewById(R.id.bt_meet);
+        ImageView resto = findViewById(R.id.bt_resto);
+        ImageView spa = findViewById(R.id.bt_spa);
 
         ballroom.setOnClickListener(new View.OnClickListener() {
             @Override

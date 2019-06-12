@@ -135,4 +135,8 @@
     <string name="m2"> Open 2 Meeting Room</string>
     <string name="m3"> Open 3 Meeting Room</string>
 
+    <string name="logindulu">Harap Masuk Terlebih dahulu</string>
+    <string name="logy">Masuk Sekarang</string>
+    <string name="logn">Nanti</string>
+
 </resources>

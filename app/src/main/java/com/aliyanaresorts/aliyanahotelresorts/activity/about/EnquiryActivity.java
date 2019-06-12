@@ -33,15 +33,9 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag
 
 public class EnquiryActivity extends AppCompatActivity {
 
-    EditText mNama, mEmail, mIsi;
-
-    Button submit;
-
-    Toolbar toolbar;
+    private  EditText mNama, mEmail, mIsi;
 
     private static final String TAG = EnquiryActivity.class.getSimpleName();
-
-    String tag_json_obj = "json_obj_req";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +47,14 @@ public class EnquiryActivity extends AppCompatActivity {
         setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
         getWindow().setStatusBarColor(getResources().getColor(R.color.goldtrans));
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         mNama = findViewById(R.id.nama);
         mEmail = findViewById(R.id.email);
         mIsi = findViewById(R.id.isi);
-        submit = findViewById(R.id.btnKirim);
+        Button submit = findViewById(R.id.btnKirim);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +132,7 @@ public class EnquiryActivity extends AppCompatActivity {
             }
         };
 
+        String tag_json_obj = "json_obj_req";
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
     }
 

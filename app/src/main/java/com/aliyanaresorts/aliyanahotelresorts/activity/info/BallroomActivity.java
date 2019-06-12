@@ -1,13 +1,8 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.info;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -17,16 +12,11 @@ import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import java.util.Objects;
-
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarTransparent;
 
 public class BallroomActivity extends AppCompatActivity {
 
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    AppBarLayout appBarLayout;
-
-    Button detail, book;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +24,11 @@ public class BallroomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ballroom);
         setStyleStatusBarTransparent(this);
 
-        detail= findViewById(R.id.bt_detail);
-        book = findViewById(R.id.bt_book);
+        Button detail = findViewById(R.id.bt_detail);
+        Button book = findViewById(R.id.bt_book);
 
         collapsingToolbarLayout = findViewById(R.id.coll);
-        appBarLayout = findViewById(R.id.app_bar_layout);
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar_layout);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {

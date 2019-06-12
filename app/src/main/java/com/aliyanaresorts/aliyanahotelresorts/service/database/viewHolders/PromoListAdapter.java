@@ -21,9 +21,9 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.PromoViewHolder> {
 
-    private Context context;
+    private final Context context;
 
-    private List<PromoList> promoLists;
+    private final List<PromoList> promoLists;
 
     public PromoListAdapter(List<PromoList> promoLists1, Context context){
         this.promoLists = promoLists1;
@@ -33,8 +33,8 @@ public class PromoListAdapter extends RecyclerView.Adapter<PromoListAdapter.Prom
 
     class PromoViewHolder extends RecyclerView.ViewHolder {
         //Views
-        private ImageView fotoPromo;
-        TextView namaPromo,deskPromo;
+        private final ImageView fotoPromo;
+        final TextView namaPromo,deskPromo;
 
 
         //Initializing Views

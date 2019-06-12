@@ -114,7 +114,7 @@
     <string name="kcr">Cinnamon &amp; Kayu Manis Resto</string>
 
     <string name="ballali">Aliyana Ballroom</string>
-    <string name="balldesc">Designed in in modern and luxurious style, this exclutive venue with
+    <string name="balldesc">Designed in modern and luxurious style, this exclusive venue with
         capacity up to 300 person located in the center city of Temanggung.</string>
     <string name="ballcap">ROOM DIMENSIONS AND CAPACITIES</string>
     <string name="ballfas">Facility : \n
@@ -133,5 +133,9 @@
     <string name="m1"> Open 1 Meeting Room</string>
     <string name="m2"> Open 2 Meeting Room</string>
     <string name="m3"> Open 3 Meeting Room</string>
+
+    <string name="logindulu">Please Sign In First</string>
+    <string name="logy">Sign In Now</string>
+    <string name="logn">Later</string>
 
 </resources>

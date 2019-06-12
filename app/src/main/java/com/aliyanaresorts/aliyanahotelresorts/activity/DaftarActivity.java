@@ -48,16 +48,15 @@ public class DaftarActivity extends AppCompatActivity {
 
     private FlipperLayout flipper;
 
-    EditText mnama, mnomerId, memail, mtelepon, malamat, mkota, mnegara,mpassword, mcpassword;
-    NiceSpinner mjenisId;
-    Button masuk, daftar;
+    private EditText mnama, mnomerId, memail, mtelepon, malamat, mkota, mnegara,mpassword, mcpassword;
+    private NiceSpinner mjenisId;
 
     private ArrayList<HashMap<String, String>> list_dataS;
 
-    int success;
-    ConnectivityManager conMgr;
+    private int success;
+    private ConnectivityManager conMgr;
 
-    ProgressDialog pDialog;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +73,8 @@ public class DaftarActivity extends AppCompatActivity {
         mpassword = findViewById(R.id.password);
         mcpassword = findViewById(R.id.kpassword);
         mjenisId = findViewById(R.id.jenisId);
-        masuk = findViewById(R.id.btnMasuk);
-        daftar = findViewById(R.id.btnDaftar);
+        Button masuk = findViewById(R.id.btnMasuk);
+        Button daftar = findViewById(R.id.btnDaftar);
 
         List<String> datajenis = new LinkedList<>(Arrays.asList(getResources().getStringArray(R.array.jenisid)));
         mjenisId.attachDataSource(datajenis);

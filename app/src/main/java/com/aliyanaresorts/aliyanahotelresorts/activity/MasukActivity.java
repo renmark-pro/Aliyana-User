@@ -48,13 +48,12 @@ public class MasukActivity extends AppCompatActivity {
 
     private ArrayList<HashMap<String, String>> list_dataS;
 
-    Button masuk, daftar;
-    EditText mtelepon, mpassword;
+    private EditText mtelepon, mpassword;
 
-    int success;
-    ConnectivityManager conMgr;
+    private int success;
+    private ConnectivityManager conMgr;
 
-    ProgressDialog pDialog;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +62,8 @@ public class MasukActivity extends AppCompatActivity {
         setStyleStatusBarGoldTrans(this);
 
         flipper = findViewById(R.id.flipper);
-        masuk = findViewById(R.id.btnMasuk);
-        daftar= findViewById(R.id.btnDaftar);
+        Button masuk = findViewById(R.id.btnMasuk);
+        Button daftar = findViewById(R.id.btnDaftar);
         mtelepon= findViewById(R.id.telpon);
         mpassword= findViewById(R.id.password);
 

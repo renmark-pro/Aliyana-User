@@ -22,9 +22,9 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class FasilitasListAdapter extends RecyclerView.Adapter<FasilitasListAdapter.FasilitasViewHolder>   {
 
-    private Context context;
+    private final Context context;
 
-    private List<FasilitasList> fasilitasLists;
+    private final List<FasilitasList> fasilitasLists;
 
     public FasilitasListAdapter(List<FasilitasList> fasilitasLists1, Context context){
         this.fasilitasLists = fasilitasLists1;
@@ -34,8 +34,8 @@ public class FasilitasListAdapter extends RecyclerView.Adapter<FasilitasListAdap
 
     class FasilitasViewHolder extends RecyclerView.ViewHolder {
         //Views
-        private ImageView fotoFasilitas;
-        TextView namaFasilitas;
+        private final  ImageView fotoFasilitas;
+        final TextView namaFasilitas;
 
 
         //Initializing Views

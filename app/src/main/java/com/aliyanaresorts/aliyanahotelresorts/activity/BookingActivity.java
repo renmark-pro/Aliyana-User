@@ -1,8 +1,11 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -27,15 +30,15 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplika
 
 public class BookingActivity extends AppCompatActivity{
 
-    TextView tanggal, malam, txt;
+    private TextView tanggal, malam, txt;
     private DateRangeCalendarView calendar;
-    SimpleDateFormat format;
-    EditText penggunaKamar, jmlOrang;
+    private SimpleDateFormat format;
+    private EditText penggunaKamar, jmlOrang;
 
-    CardView layDetail;
+    private CardView layDetail;
 
-    EditText namaPengguna, namaPemesan, tipeKamar, tanggalMasuk, jumlahOrang, jumlahMalam;
-    Button cek, kirim;
+    private EditText namaPengguna, namaPemesan, tipeKamar, tanggalMasuk, jumlahOrang, jumlahMalam;
+    private Button cek, kirim;
 
     String cek_in=null, cek_out=null;
     String spin=null;
@@ -157,36 +160,57 @@ public class BookingActivity extends AppCompatActivity{
         cek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nPengguna = penggunaKamar.getText().toString();
-                String nPemesan = SPData.getInstance(getBaseContext()).getKeyNama();
-                String tKamar = kamar.getText().toString();
-                String tMasuk = tanggal.getText().toString();
-                String jMalam = malam.getText().toString();
-                String jOrang = jmlOrang.getText().toString();
+                if(SPData.getInstance(BookingActivity.this).isLoggedIn()){
+                    String nPengguna = penggunaKamar.getText().toString();
+                    String nPemesan = SPData.getInstance(getBaseContext()).getKeyNama();
+                    String tKamar = kamar.getText().toString();
+                    String tMasuk = tanggal.getText().toString();
+                    String jMalam = malam.getText().toString();
+                    String jOrang = jmlOrang.getText().toString();
 
-                if (nPengguna.isEmpty()){
-                    penggunaKamar.setError(getResources().getString(R.string.kolom));
-                    penggunaKamar.requestFocus();
-                }else if (kamar.getSelectedIndex()==0){
-                    kamar.requestFocus();
-                }else if (tMasuk.equals(getResources().getString(R.string.piltgl))){
-                    calendar.requestFocus();
-                }else if (jOrang.isEmpty()){
-                    jmlOrang.requestFocus();
-                    jmlOrang.setError(getResources().getString(R.string.kolom));
+                    if (nPengguna.isEmpty()){
+                        penggunaKamar.setError(getResources().getString(R.string.kolom));
+                        penggunaKamar.requestFocus();
+                    }else if (kamar.getSelectedIndex()==0){
+                        kamar.requestFocus();
+                    }else if (tMasuk.equals(getResources().getString(R.string.piltgl))){
+                        calendar.requestFocus();
+                    }else if (jOrang.isEmpty()){
+                        jmlOrang.requestFocus();
+                        jmlOrang.setError(getResources().getString(R.string.kolom));
+                    }else {
+                        layDetail.setVisibility(View.VISIBLE);
+                        cek.setVisibility(View.GONE);
+                        kirim.setVisibility(View.VISIBLE);
+
+                        namaPemesan.setText(nPemesan);
+                        namaPengguna.setText(nPengguna);
+                        tipeKamar.setText(tKamar);
+                        String tgl = cek_in+" - "+cek_out;
+                        tanggalMasuk.setText(tgl);
+                        jumlahOrang.setText(jOrang);
+                        jumlahMalam.setText(jMalam);
+                    }
                 }else {
-                    layDetail.setVisibility(View.VISIBLE);
-                    cek.setVisibility(View.GONE);
-                    kirim.setVisibility(View.VISIBLE);
-
-                    namaPemesan.setText(nPemesan);
-                    namaPengguna.setText(nPengguna);
-                    tipeKamar.setText(tKamar);
-                    String tgl = cek_in+" - "+cek_out;
-                    tanggalMasuk.setText(tgl);
-                    jumlahOrang.setText(jOrang);
-                    jumlahMalam.setText(jMalam);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(BookingActivity.this);
+                    builder.setCancelable(false);
+                    builder.setMessage(R.string.logindulu);
+                    builder.setPositiveButton(R.string.logy, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(BookingActivity.this, MasukActivity.class));
+                        }
+                    });
+                    builder.setNegativeButton(R.string.logn, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
+
             }
         });
     }

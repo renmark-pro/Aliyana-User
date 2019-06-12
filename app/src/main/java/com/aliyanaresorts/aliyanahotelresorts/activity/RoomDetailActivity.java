@@ -45,14 +45,14 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class RoomDetailActivity extends AppCompatActivity {
 
-    ImageView fotoKamar;
-    TextView hargaKamar,deskripsiKamar,fasilitasKamar;
-    Button button;
+    private ImageView fotoKamar;
+    private TextView hargaKamar,deskripsiKamar,fasilitasKamar;
+    private Button button;
 
-    ArrayList<HashMap<String, String>> list_data;
+    private ArrayList<HashMap<String, String>> list_data;
 
-    ProgressDialog mDialog;
-    Toolbar toolbar;
+    private ProgressDialog mDialog;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

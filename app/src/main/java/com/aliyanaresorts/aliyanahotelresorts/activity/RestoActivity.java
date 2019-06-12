@@ -2,15 +2,11 @@ package com.aliyanaresorts.aliyanahotelresorts.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,18 +22,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarTransparent;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_MENU_RESTO;
 
 public class RestoActivity extends AppCompatActivity {
 
-    ArrayList<RestoList> arrayList;
+    private ArrayList<RestoList> arrayList;
     private RecyclerView.Adapter adapter;
 
-    AppBarLayout appBarLayout;
-    CollapsingToolbarLayout collapsingToolbarLayout;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +49,7 @@ public class RestoActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         collapsingToolbarLayout = findViewById(R.id.coll);
-        appBarLayout = findViewById(R.id.app_bar_layout);
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar_layout);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {

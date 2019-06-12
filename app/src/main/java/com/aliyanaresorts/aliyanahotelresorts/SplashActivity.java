@@ -11,13 +11,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
-import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarTransparent;
-import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -44,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    public void getPermissions() {
+    private void getPermissions() {
         if (ContextCompat.checkSelfPermission(SplashActivity.this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(SplashActivity.this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE,

@@ -15,14 +15,12 @@ import java.util.Objects;
 
 public class MeetingDetailActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_detail);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar;
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -23,9 +23,9 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class RestoListAdapter extends RecyclerView.Adapter<RestoListAdapter.RestoViewHolder> {
 
-    private Context context;
+    private final Context context;
 
-    private List<RestoList> restoLists;
+    private final List<RestoList> restoLists;
 
     public RestoListAdapter(List<RestoList> restoLists1, Context context){
         this.restoLists = restoLists1;
@@ -35,8 +35,8 @@ public class RestoListAdapter extends RecyclerView.Adapter<RestoListAdapter.Rest
 
     class RestoViewHolder extends RecyclerView.ViewHolder {
         //Views
-        TextView namaMenu, hargaMenu;
-        ImageView fotoMenu;
+        final TextView namaMenu, hargaMenu;
+        final ImageView fotoMenu;
 
 
         //Initializing Views

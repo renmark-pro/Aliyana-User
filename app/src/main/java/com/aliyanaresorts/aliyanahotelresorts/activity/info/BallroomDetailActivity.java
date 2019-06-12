@@ -15,14 +15,12 @@ import java.util.Objects;
 
 public class BallroomDetailActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ballroom_detail);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar;
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
