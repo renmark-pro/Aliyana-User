@@ -84,7 +84,7 @@ public class FasilitasActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(FasilitasActivity.this, getResources().getString(R.string.tunggu), "", false, false);
+                loading = ProgressDialog.show(FasilitasActivity.this, "", getResources().getString(R.string.tunggu), false, false);
             }
 
             @Override

@@ -33,10 +33,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag
 public class VisiActivity extends AppCompatActivity {
 
     private TextView visi, misi;
-
-
     private ArrayList<HashMap<String, String>> list_data;
-
     private ProgressDialog mDialog;
 
     @Override

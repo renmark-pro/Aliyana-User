@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/header"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:id="@+id/fotoKamar"
+            android:src="@drawable/image_slider_1"
+            android:scaleType="centerCrop"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/resto" />
+
+        <LinearLayout
+            android:layout_toEndOf="@id/fotoKamar"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nama_kamar"
+                android:id="@+id/namaKamar"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/harga_kamar"
+                android:textSize="18sp"
+                android:id="@+id/kapasitasKamar"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/harga_kamar"
+                android:textSize="18sp"
+                android:id="@+id/hargaKamar"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:id="@+id/btnKirim"
+            android:layout_gravity="center_vertical|end"
+            android:padding="8dp"
+            android:text="@string/order"
+            android:drawableStart="@drawable/ic_cart"
+            android:textColor="@color/putih"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bt_book"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

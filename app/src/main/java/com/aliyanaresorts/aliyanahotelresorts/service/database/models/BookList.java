@@ -1,6 +1,6 @@
 package com.aliyanaresorts.aliyanahotelresorts.service.database.models;
 
-public class KamarList {
+public class BookList {
 
     private String id;
     private String tipe;
@@ -8,7 +8,7 @@ public class KamarList {
     private String kapasitas;
     private String lokasi;
 
-    public KamarList(String id, String tipe, String harga, String kapasitas, String lokasi) {
+    public BookList(String id, String tipe, String harga, String kapasitas, String lokasi) {
         this.id = id;
         this.tipe = tipe;
         this.harga = harga;

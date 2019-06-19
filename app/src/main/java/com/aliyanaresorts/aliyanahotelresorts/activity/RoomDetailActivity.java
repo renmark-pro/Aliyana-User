@@ -126,7 +126,7 @@ public class RoomDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(RoomDetailActivity.this, BookingActivity.class);
-                            intent.putExtra("posisi", list_data.get(0).get("id"));
+                            intent.putExtra("posisi", list_data.get(0).get("nama"));
                             startActivity(intent);
                         }
                     });

@@ -1,6 +1,5 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.account;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -48,9 +47,9 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getPermissions;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_UPDATE;
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -72,12 +71,11 @@ public class ProfilAccountActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         @SuppressLint("PrivateResource") final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
         Objects.requireNonNull(upArrow).setColorFilter(ContextCompat.getColor(this, R.color.putih), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        getPermissions();
+        getPermissions(ProfilAccountActivity.this);
 
         imageView = findViewById(R.id.imageView);
 
@@ -220,7 +218,7 @@ public class ProfilAccountActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
-                    setToImageView(getResizedBitmap(bitmap, 1024));
+                    setToImageView(getResizedBitmap(bitmap));
                     uploadImage(getWindow().getDecorView().getRootView());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -229,29 +227,19 @@ public class ProfilAccountActivity extends AppCompatActivity {
         }
     }
 
-    private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+    private Bitmap getResizedBitmap(Bitmap image) {
         int width = image.getWidth();
         int height = image.getHeight();
 
         float bitmapRatio = (float) width / (float) height;
         if (bitmapRatio > 1) {
-            width = maxSize;
+            width = 1024;
             height = (int) (width / bitmapRatio);
         } else {
-            height = maxSize;
+            height = 1024;
             width = (int) (height * bitmapRatio);
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
-    }
-
-    private void getPermissions() {
-        /* Check and Request permission */
-        if (ContextCompat.checkSelfPermission(ProfilAccountActivity.this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ProfilAccountActivity.this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                    MY_PERMISSIONS_REQUEST_GET_ACCESS);
-        }
     }
 
     @Override

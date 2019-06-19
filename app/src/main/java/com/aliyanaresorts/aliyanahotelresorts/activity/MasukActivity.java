@@ -37,10 +37,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.convertPassMd5;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_MASUK;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.convertPassMd5;
 
 public class MasukActivity extends AppCompatActivity {
 
@@ -83,6 +84,8 @@ public class MasukActivity extends AppCompatActivity {
         masuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeKeyboard(MasukActivity.this);
+
                 String telepon = mtelepon.getText().toString();
                 String password = mpassword.getText().toString();
 

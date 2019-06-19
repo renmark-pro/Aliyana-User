@@ -1,4 +1,4 @@
-package com.aliyanaresorts.aliyanahotelresorts.activity;
+package com.aliyanaresorts.aliyanahotelresorts.activity.info;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -92,7 +92,7 @@ public class RestoActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(RestoActivity.this, getResources().getString(R.string.tunggu), "", false, false);
+                loading = ProgressDialog.show(RestoActivity.this, "", getResources().getString(R.string.tunggu), false, false);
             }
 
             @Override

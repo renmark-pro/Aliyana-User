@@ -22,12 +22,18 @@
         android:theme="@style/AppThemeGold"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activity.info.BallroomDetailActivity"
+
+        <activity android:name=".activity.BookingListingActivity"
+            android:parentActivityName=".activity.BookingActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.info.BallroomDetailActivity"
             android:parentActivityName=".activity.info.BallroomActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.info.MeetingDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.info.MeetingDetailActivity"
             android:parentActivityName=".activity.info.MeetingActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.info.MeetingActivity"
             android:parentActivityName=".activity.InfoHotelActivity"
@@ -37,7 +43,7 @@
             android:parentActivityName=".activity.InfoHotelActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.RestoActivity"
+            android:name=".activity.info.RestoActivity"
             android:parentActivityName=".activity.InfoHotelActivity"
             android:screenOrientation="portrait" />
         <activity

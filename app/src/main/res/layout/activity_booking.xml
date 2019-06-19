@@ -47,7 +47,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:layout_gravity="center_vertical"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -168,150 +168,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:visibility="gone"
-                android:id="@+id/layDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="5dp"
-                app:cardUseCompatPadding="true"
-                android:layout_margin="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/rincian"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/goldtua"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp"
-                        />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/namaPemesan"
-                            android:hint="@string/dnamapesan"
-                            android:textColor="@color/goldtua"
-                            android:textColorHighlight="@color/goldtua"
-                            android:inputType="textPersonName"
-                            android:autofillHints="@string/dnamapesan"
-                            tools:targetApi="o" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/namaPengguna"
-                            android:hint="@string/dnamapguna"
-                            android:textColor="@color/goldtua"
-                            android:textColorHighlight="@color/goldtua"
-                            android:inputType="textPersonName"
-                            android:autofillHints="@string/dnamapguna"
-                            tools:targetApi="o" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/tipeKamar"
-                            android:hint="@string/dtipekmr"
-                            android:textColor="@color/goldtua"
-                            android:textColorHighlight="@color/goldtua"
-                            android:inputType="textPersonName"
-                            android:autofillHints="@string/dtipekmr"
-                            tools:targetApi="o" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/tanggalMasuk"
-                            android:hint="@string/dtanggal"
-                            android:textColor="@color/goldtua"
-                            android:textColorHighlight="@color/goldtua"
-                            android:inputType="textPersonName"
-                            android:autofillHints="@string/dtanggal"
-                            tools:targetApi="o" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/jumlahOrang"
-                            android:hint="@string/djmlorg"
-                            android:textColor="@color/goldtua"
-                            android:textColorHighlight="@color/goldtua"
-                            android:inputType="textPersonName"
-                            android:autofillHints="@string/djmlorg"
-                            tools:targetApi="o" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/jumlahMalam"
-                            android:hint="@string/djmlmlm"
-                            android:textColor="@color/goldtua"
-                            android:textColorHighlight="@color/goldtua"
-                            android:inputType="textPersonName"
-                            android:autofillHints="@string/djmlmlm"
-                            tools:targetApi="o" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
             <Button
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
@@ -322,19 +178,6 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bt_cek"/>
-
-            <Button
-                android:visibility="gone"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
-                android:id="@+id/btnKirim"
-                android:layout_gravity="end"
-                android:text="@string/submit"
-                android:textColor="@color/putih"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bt_book"/>
 
         </LinearLayout>
 

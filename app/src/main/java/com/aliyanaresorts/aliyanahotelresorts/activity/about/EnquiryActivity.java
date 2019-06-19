@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_ENQ;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag;
 
@@ -59,6 +60,7 @@ public class EnquiryActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeKeyboard(EnquiryActivity.this);
 
                 String nama = mNama.getText().toString();
                 String email = mEmail.getText().toString();

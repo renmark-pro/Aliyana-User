@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DAFTAR;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
@@ -115,6 +116,7 @@ public class DaftarActivity extends AppCompatActivity {
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeKeyboard(DaftarActivity.this);
                 String nama = mnama.getText().toString();
                 String nomer_id = mnomerId.getText().toString();
                 String email = memail.getText().toString();

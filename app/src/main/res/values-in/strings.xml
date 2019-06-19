@@ -20,6 +20,7 @@
     <string name="tunggu">Harap Menunggu</string>
     <string name="pesan">Pemesanan</string>
     <string name="pilih">Pilih Kamar</string>
+    <string name="semua">Semua Tipe</string>
     <string name="orang">Orang</string>
     <string name="malam">Malam</string>
     <string name="malams">Malam</string>
@@ -138,5 +139,10 @@
     <string name="logindulu">Harap Masuk Terlebih dahulu</string>
     <string name="logy">Masuk Sekarang</string>
     <string name="logn">Nanti</string>
+
+    <string name="kamar0">Maaf, Kamar Tidak Tersedia</string>
+    <string name="kamar1">Kamar yang Tersedia</string>
+
+    <string name="order">Pesan</string>
 
 </resources>

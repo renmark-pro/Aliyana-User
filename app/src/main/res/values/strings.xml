@@ -20,6 +20,7 @@
     <string name="tunggu">Please Wait</string>
     <string name="pesan">Booking</string>
     <string name="pilih">Select Rooms</string>
+    <string name="semua">All Types</string>
     <string name="orang">Pax</string>
     <string name="malam">Night</string>
     <string name="malams">Nights</string>
@@ -137,5 +138,10 @@
     <string name="logindulu">Please Sign In First</string>
     <string name="logy">Sign In Now</string>
     <string name="logn">Later</string>
+
+    <string name="kamar0">Sorry, Rooms Aren\'t Available</string>
+    <string name="kamar1">Available Rooms</string>\
+
+    <string name="order">Order</string>
 
 </resources>

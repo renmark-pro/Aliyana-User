@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:background="@drawable/bg_about"
-    tools:context=".activity.RestoActivity">
+    tools:context=".activity.info.RestoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

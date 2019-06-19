@@ -1,18 +1,16 @@
 package com.aliyanaresorts.aliyanahotelresorts;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getPermissions;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 
 public class SplashActivity extends AppCompatActivity {
@@ -25,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         setStyleStatusBarGoldTrans(this);
 
-        getPermissions();
+        getPermissions(SplashActivity.this);
 
     }
 
@@ -37,16 +35,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(masuk);
                 finish();
             }
-        }, 2000);
-    }
-
-    private void getPermissions() {
-        if (ContextCompat.checkSelfPermission(SplashActivity.this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(SplashActivity.this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                    MY_PERMISSIONS_REQUEST_GET_ACCESS);
-        }
+        }, 2);
     }
 
     @Override

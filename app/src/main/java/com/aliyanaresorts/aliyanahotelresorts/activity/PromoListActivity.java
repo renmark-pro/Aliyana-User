@@ -84,7 +84,7 @@ public class PromoListActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(PromoListActivity.this, getResources().getString(R.string.tunggu), "", false, false);
+                loading = ProgressDialog.show(PromoListActivity.this,"",  getResources().getString(R.string.tunggu), false, false);
             }
 
             @Override

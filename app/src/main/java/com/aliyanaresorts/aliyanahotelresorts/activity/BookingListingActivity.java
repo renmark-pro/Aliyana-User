@@ -1,5 +1,11 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -7,18 +13,14 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.Interface.RecyclerTouchListener;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.ReqHandler;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.models.BookList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.KamarList;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.BookListAdapter;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.KamarListAdapter;
 
 import org.json.JSONArray;
@@ -28,19 +30,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_KAMAR_LIST;
+import static com.aliyanaresorts.aliyanahotelresorts.activity.BookingActivity.listOke;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_KAMAR_LIST;
 
-public class RoomListActivity extends AppCompatActivity   {
+public class BookingListingActivity extends AppCompatActivity {
 
-    private ArrayList<KamarList> arrayList;
+    private ArrayList<BookList> arrayList;
     private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_list);
-        setTemaAplikasi(RoomListActivity.this, 1);
+        setContentView(R.layout.activity_booking_listing);
+        setTemaAplikasi(this, 1);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,25 +57,9 @@ public class RoomListActivity extends AppCompatActivity   {
         recyclerView.setHasFixedSize(true);
         getDetail();
         LinearLayoutManager layoutManager= new LinearLayoutManager(this);
-        adapter = new KamarListAdapter(arrayList, this);
+        adapter = new BookListAdapter(arrayList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
-
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                final KamarList produk = arrayList.get(position);
-                String id = produk.getId();
-                Intent i = new Intent(getApplicationContext(), RoomDetailActivity.class);
-                i.putExtra("posisi",id);
-                startActivity(i);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
 
     }
 
@@ -84,7 +71,7 @@ public class RoomListActivity extends AppCompatActivity   {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(RoomListActivity.this, "", getResources().getString(R.string.tunggu), false, false);
+                loading = ProgressDialog.show(BookingListingActivity.this, "", getResources().getString(R.string.tunggu), false, false);
             }
 
             @Override
@@ -108,20 +95,35 @@ public class RoomListActivity extends AppCompatActivity   {
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONArray result = jsonObject.getJSONArray("kamar");
-            for(int i =0;i<result.length(); i++) {
+            for(int i =0;i<listOke.size(); i++) {
                 JSONObject productObject = result.getJSONObject(i);
-                arrayList.add(new KamarList(
-                        productObject.getString("id"),
-                        productObject.getString("tipe"),
-                        productObject.getString("harga"),
-                        productObject.getString("kapasitas"),
-                        productObject.getString("lokasi")
-                ));
+                for(int j=0; j<result.length();j++) {
+                    if (i==0){
+                        arrayList.add(new BookList(
+                                productObject.getString("id"),
+                                productObject.getString("tipe"),
+                                productObject.getString("harga"),
+                                productObject.getString("kapasitas"),
+                                productObject.getString("lokasi")
+                        ));
+                    }else{
+                        if (!listOke.get(i).equals(listOke.get(i-1))){
+                            arrayList.add(new BookList(
+                                    productObject.getString("id"),
+                                    productObject.getString("tipe"),
+                                    productObject.getString("harga"),
+                                    productObject.getString("kapasitas"),
+                                    productObject.getString("lokasi")
+                            ));
+                        }
+                    }
+
+
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         adapter.notifyDataSetChanged();
     }
-
 }

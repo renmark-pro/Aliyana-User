@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.info.BallroomActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.info.MeetingActivity;
+import com.aliyanaresorts.aliyanahotelresorts.activity.info.RestoActivity;
 
 import java.util.Objects;
 
@@ -35,7 +36,7 @@ public class InfoHotelActivity extends AppCompatActivity {
         ImageView ballroom = findViewById(R.id.bt_ball);
         ImageView meeting = findViewById(R.id.bt_meet);
         ImageView resto = findViewById(R.id.bt_resto);
-        ImageView spa = findViewById(R.id.bt_spa);
+//        ImageView spa = findViewById(R.id.bt_spa);
 
         ballroom.setOnClickListener(new View.OnClickListener() {
             @Override
