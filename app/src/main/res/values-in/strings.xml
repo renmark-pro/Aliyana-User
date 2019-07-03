@@ -31,7 +31,6 @@
     <string name="vm">Visi &amp; Misi</string>
     <string name="kd">Kontak &amp; Detail</string>
     <string name="pertanyaan">Ajukan Pertanyaan</string>
-    <string name="bug">Laporkan Bug</string>
     <string name="lokasi">Lokasi</string>
     <string name="email">Email</string>
     <string name="wa">Whatsapp</string>
@@ -68,7 +67,7 @@
     <string name="misi">Misi</string>
     <string name="ihp">Nomor Ponsel Tidak Valid!</string>
     <string name="imail">Alamat Surel Tidak Valid!</string>
-    <string name="ipw">Katasandi Minimal 8 Karakter</string>
+    <string name="ipw">Katasandi Minimal 6 Karakter</string>
     <string name="simpan">Simpan</string>
     <string name="psalah">Katasandi Salah!</string>
     <string name="bupdate">Pembaruan Berhasil!</string>
@@ -98,7 +97,7 @@
         <item>Pilih Jenis Kartu Identitasmu</item>
         <item>KTP</item>
         <item>SIM</item>
-        <item>Passport</item>
+        <item>PASSPORT</item>
     </string-array>
 
 
@@ -144,5 +143,9 @@
     <string name="kamar1">Kamar yang Tersedia</string>
 
     <string name="order">Pesan</string>
+    <string name="history">History</string>
+    <string name="detail">Detail</string>
+    <string name="proses">Proses\t</string>
+    <string name="hapus">Hapus</string>
 
 </resources>

@@ -32,12 +32,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Objects;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_KAMAR_DETAIL;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
@@ -82,7 +82,7 @@ public class RoomDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RoomDetailActivity.this, BookingActivity.class);
-                intent.putExtra("posisi", getIntent().getStringExtra("posisi"));
+                intent.putExtra("posisi", getIntentData(RoomDetailActivity.this,"posisi"));
                 startActivity(intent);
             }
         });
@@ -92,7 +92,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         list_data = new ArrayList<>();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, KEY_KAMAR_DETAIL +
-                getIntent().getStringExtra("posisi"), new Response.Listener<String>() {
+                getIntentData(this,"posisi"), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -119,9 +119,7 @@ public class RoomDetailActivity extends AppCompatActivity {
                     deskripsiKamar.setText(list_data.get(0).get("deskripsi"));
                     fasilitasKamar.setText(list_data.get(0).get("fasilitas"));
                     toolbar.setTitle(list_data.get(0).get("nama"));
-                    Locale localeID = new Locale("in", "ID");
-                    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-                    hargaKamar.setText(formatRupiah.format((double)Double.valueOf(Objects.requireNonNull(list_data.get(0).get("harga")))));
+                    hargaKamar.setText(formatingRupiah(Objects.requireNonNull(list_data.get(0).get("harga"))));
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

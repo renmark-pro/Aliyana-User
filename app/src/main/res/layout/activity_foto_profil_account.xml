@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/hitam"
-    tools:context=".activity.account.ProfilAccountActivity">
+    tools:context=".activity.account.FotoProfilAccountActivity">
 
 
     <androidx.appcompat.widget.Toolbar

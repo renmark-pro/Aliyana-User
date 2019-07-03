@@ -74,35 +74,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <org.angmarch.views.NiceSpinner
-            android:layout_marginTop="5dp"
-            android:id="@+id/jenisId"
-            android:backgroundTint="@color/putih_trans"
-            app:arrowTint="@color/colorPrimaryDark"
-            app:textTint="@color/colorPrimaryDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/nomerId"
-                android:hint="@string/nomor_id"
-                android:textColor="@color/goldtua"
-                android:textColorHighlight="@color/goldtua"
-                android:inputType="text"
-                android:autofillHints="@string/nomor_id"
-                tools:targetApi="o" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="5dp"
             android:layout_gravity="center_vertical"
@@ -143,65 +114,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/alamat"
-                android:hint="@string/alamat"
-                android:textColor="@color/goldtua"
-                android:textColorHighlight="@color/goldtua"
-                android:inputType="text"
-                android:autofillHints="@string/alamat"
-                tools:targetApi="o" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/kota"
-                android:hint="@string/kota"
-                android:textColor="@color/goldtua"
-                android:textColorHighlight="@color/goldtua"
-                android:inputType="text"
-                android:autofillHints="@string/kota"
-                tools:targetApi="o" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/negara"
-                android:hint="@string/negara"
-                android:textColor="@color/goldtua"
-                android:textColorHighlight="@color/goldtua"
-                android:inputType="text"
-                android:autofillHints="@string/negara"
-                tools:targetApi="o" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="5dp"

@@ -67,7 +67,7 @@ public class VisiActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("result");
+                    JSONArray jsonArray = jsonObject.getJSONArray("konfig");
                     for (int a = 0; a < jsonArray.length(); a++) {
                         JSONObject json = jsonArray.getJSONObject(a);
                         HashMap<String, String> map = new HashMap<>();

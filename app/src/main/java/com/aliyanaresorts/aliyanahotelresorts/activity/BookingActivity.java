@@ -1,11 +1,7 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -13,11 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
@@ -30,7 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONArray;
@@ -45,22 +43,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_CEK_KAMAR;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_TIPE_KAMAR;
 
-public class BookingActivity extends AppCompatActivity{
+public class BookingActivity extends AppCompatActivity {
 
     private TextView tanggal, malam, txt;
     private DateRangeCalendarView calendar;
     private SimpleDateFormat format, upload;
     private EditText jmlOrang;
-    private TextInputEditText penggunaKamar;
-
-    public static ArrayList <String> listOke;
 
     String cek_in=null, cek_out=null, uCekIn, uCekOut, id_kamar;
     String spin=null;
@@ -86,7 +81,6 @@ public class BookingActivity extends AppCompatActivity{
         malam=findViewById(R.id.malam);
         txt=findViewById(R.id.txt);
         calendar = findViewById(R.id.calendar);
-        penggunaKamar = findViewById(R.id.nama);
         jmlOrang = findViewById(R.id.jml_org);
         format = new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT);
         upload = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
@@ -94,7 +88,7 @@ public class BookingActivity extends AppCompatActivity{
         Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
         calendar.setFonts(typeface);
 
-        spin=getIntent().getStringExtra("posisi");
+        spin=getIntentData(this,"posisi");
 
         tanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,20 +165,17 @@ public class BookingActivity extends AppCompatActivity{
             public void onClick(View v) {
                 closeKeyboard(BookingActivity.this);
                 if(SPData.getInstance(BookingActivity.this).isLoggedIn()){
-                    String nPengguna = Objects.requireNonNull(penggunaKamar.getText()).toString();
-//                    String nPemesan = SPData.getInstance(getBaseContext()).getKeyNama();
-//                    String tKamar = kamar.getText().toString();
                     String tMasuk = tanggal.getText().toString();
-//                    String jMalam = malam.getText().toString();
                     String jOrang = jmlOrang.getText().toString();
 
-                    if (nPengguna.isEmpty()){
-                        penggunaKamar.setError(getResources().getString(R.string.kolom));
-                        penggunaKamar.requestFocus();
-                    }else if (kamar.getSelectedIndex()==0){
+                    if (kamar.getSelectedIndex()==0){
                         kamar.requestFocus();
+                        closeKeyboard(BookingActivity.this);
+                        Snackbar.make(v, getResources().getString(R.string.isi), Snackbar.LENGTH_SHORT).show();
                     }else if (tMasuk.equals(getResources().getString(R.string.piltgl))){
                         calendar.requestFocus();
+                        closeKeyboard(BookingActivity.this);
+                        Snackbar.make(v, getResources().getString(R.string.isi), Snackbar.LENGTH_SHORT).show();
                     }else if (jOrang.isEmpty()){
                         jmlOrang.requestFocus();
                         jmlOrang.setError(getResources().getString(R.string.kolom));
@@ -281,6 +272,7 @@ public class BookingActivity extends AppCompatActivity{
         Log.e("cekout", cekout);
         Log.e("tamu", tamu);
         Log.e("id", id);
+        Log.e("auth", SPData.getInstance(BookingActivity.this).getKeyToken());
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
         pDialog.setMessage(getResources().getString(R.string.tunggu));
@@ -297,13 +289,14 @@ public class BookingActivity extends AppCompatActivity{
                     JSONArray jsonArray = jObj.getJSONArray("kamar");
                     if (jsonArray.length()>0) {
                         Log.e("hasil : ", String.valueOf(jsonArray.length()));
-                        startActivity(new Intent(BookingActivity.this, BookingListingActivity.class));
-                        listOke = new ArrayList<>();
-                        for (int a=0; a<jsonArray.length();a++){
-                            JSONObject object = jsonArray.getJSONObject(a);
-                            listOke.add(object.getString("id_tipe"));
-                            Log.e("Tipe : ", listOke.get(a));
-                        }
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ci",cekin);
+                        bundle.putString("co", cekout);
+                        bundle.putString("or", tamu);
+                        bundle.putString("id", id);
+                        Intent i = new Intent(BookingActivity.this, BookingListingActivity.class);
+                        i.putExtras(bundle);
+                        startActivity(i);
                     }else {
                         AlertDialog.Builder alertadd = new AlertDialog.Builder(BookingActivity.this, R.style.CustomDialog);
                         LayoutInflater factory = LayoutInflater.from(BookingActivity.this);
@@ -320,7 +313,7 @@ public class BookingActivity extends AppCompatActivity{
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
+                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error);
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
                 pDialog.dismiss();
@@ -329,22 +322,28 @@ public class BookingActivity extends AppCompatActivity{
         }) {
 
             @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                params.put("Authorization", SPData.getInstance(BookingActivity.this).getKeyToken() );
+                return params;
+            }
+            @Override
             protected Map<String, String> getParams() {
-                // Posting parameters to login url
                 Map<String, String> params = new HashMap<>();
                 params.put("tgl_checkin", cekin);
                 params.put("tgl_checkout",cekout);
                 params.put("jml_tamu", tamu);
                 params.put("tipe", id);
-
                 return params;
             }
 
         };
-
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
-
+        strReq.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void destroyCache() {

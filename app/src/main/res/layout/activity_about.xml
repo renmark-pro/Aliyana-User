@@ -116,33 +116,6 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/btBug"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/bug"
-                android:layout_margin="16dp">
-
-                <ImageView
-                    android:contentDescription="@string/bug"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:src="@drawable/ic_bug"/>
-
-                <TextView
-                    android:contentDescription="@string/bug"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bug"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/hitam"/>
-
-            </RelativeLayout>
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

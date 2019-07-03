@@ -1,14 +1,11 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.account;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -28,8 +25,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.snackbar.Snackbar;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -42,70 +37,65 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getPermissions;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_UPDATE;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GET_USER;
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
-public class ProfilAccountActivity extends AppCompatActivity {
+public class FotoProfilAccountActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private Bitmap decoded;
 
-    private static final String TAG = ProfilAccountActivity.class.getSimpleName();
+    private static final String TAG = FotoProfilAccountActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profil_account);
+        setContentView(R.layout.activity_foto_profil_account);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(SPData.getInstance(this).getKeyNama());
         toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        @SuppressLint("PrivateResource") final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
-        Objects.requireNonNull(upArrow).setColorFilter(ContextCompat.getColor(this, R.color.putih), PorterDuff.Mode.SRC_ATOP);
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        getPermissions(ProfilAccountActivity.this);
+        getPermissions(FotoProfilAccountActivity.this);
 
         imageView = findViewById(R.id.imageView);
 
-        if (!SPData.getInstance(this).getKeyFoto().equals("http://aliyanaresorts.com/app/user/foto/")){
-            Glide.with(this).load(SPData.getInstance(this).getKeyFoto())
-                    .transition(withCrossFade())
-                    .placeholder(R.drawable.image_slider_1)
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-//                    .skipMemoryCache(true)
-                    .fitCenter()
-                    .into(imageView);
-        }
+//        if (!SPData.getInstance(this).getKeyFoto().equals("http://aliyanaresorts.com/app/user/foto/")){
+//            Glide.with(this).load(SPData.getInstance(this).getKeyFoto())
+//                    .transition(withCrossFade())
+//                    .placeholder(R.drawable.image_slider_1)
+//                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+////                    .skipMemoryCache(true)
+//                    .fitCenter()
+//                    .into(imageView);
+//        }
 
     }
 
     private void uploadImage(final View view) {
+
         //menampilkan progress dialog
         final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, KEY_UPDATE,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, KEY_GET_USER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.e(" Foto : ", String.valueOf(decoded));
                         Log.e(TAG, "Response: " + response);
 
                         try {
                             final JSONObject jObj = new JSONObject(response);
                             int success = jObj.getInt("success");
                             if (success == 1) {
-                                SPData.getInstance(getApplicationContext())
-                                        .updateFoto(jObj.getString("foto"));
+//                                SPData.getInstance(getApplicationContext())
+//                                        .updateFoto(jObj.getString("foto"));
                                 Snackbar.make(view, R.string.bupdate, Snackbar.LENGTH_SHORT).show();
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -139,7 +129,7 @@ public class ProfilAccountActivity extends AppCompatActivity {
                         loading.dismiss();
 
                         //menampilkan toast
-                        Toast.makeText(ProfilAccountActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(FotoProfilAccountActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                         Log.e(TAG, error.getMessage());
                     }
                 }) {
@@ -149,7 +139,7 @@ public class ProfilAccountActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
                 //menambah parameter yang di kirim ke web servis
-                params.put("uid", SPData.getInstance(getBaseContext()).getKeyUid());
+//                params.put("uid", SPData.getInstance(getBaseContext()).getKeyUid());
                 params.put("foto",getStringImage(decoded));
                 return params;
             }
@@ -219,6 +209,7 @@ public class ProfilAccountActivity extends AppCompatActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
                     setToImageView(getResizedBitmap(bitmap));
+                    Log.e(" Foto : ", getStringImage(decoded));
                     uploadImage(getWindow().getDecorView().getRootView());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -250,7 +241,7 @@ public class ProfilAccountActivity extends AppCompatActivity {
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //Kosong
             } else {
-                Toast.makeText(ProfilAccountActivity.this, "Ijin Di Tolak!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FotoProfilAccountActivity.this, "Ijin Di Tolak!", Toast.LENGTH_SHORT).show();
 
             }
 

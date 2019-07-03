@@ -31,7 +31,6 @@
     <string name="vm">Vision &amp; Mission</string>
     <string name="kd">Contact &amp; Detail</string>
     <string name="pertanyaan">Enquiry</string>
-    <string name="bug">Report a Bug</string>
     <string name="lokasi">Location</string>
     <string name="email">Email</string>
     <string name="wa">Whatsapp</string>
@@ -68,7 +67,7 @@
     <string name="misi">Mission</string>
     <string name="ihp">Invalid Cellphone Number!</string>
     <string name="imail">Invalid Email Address!</string>
-    <string name="ipw">Password of at least 8 characters</string>
+    <string name="ipw">Password of at least 6 characters</string>
     <string name="simpan">Save</string>
     <string name="psalah">Password Incorrect!</string>
     <string name="bupdate">Update Successfully!</string>
@@ -98,7 +97,7 @@
         <item>Select The Type of Your ID Card</item>
         <item>KTP</item>
         <item>SIM</item>
-        <item>Passport</item>
+        <item>PASSPORT</item>
     </string-array>
 
     <string name="salamh">Warm regards</string>
@@ -143,5 +142,9 @@
     <string name="kamar1">Available Rooms</string>
 
     <string name="order">Order</string>
+    <string name="history">History</string>
+    <string name="detail">Detail</string>
+    <string name="proses">Process\t</string>
+    <string name="hapus">Remove</string>
 
 </resources>

@@ -3,11 +3,11 @@ package com.aliyanaresorts.aliyanahotelresorts.activity.info;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -37,6 +37,8 @@ public class BallroomActivity extends AppCompatActivity {
                     collapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
                     collapsingToolbarLayout.setTitle(getResources().getString(R.string.ballali));
                     collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.putih));
+                    collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.transparan));
+                    collapsingToolbarLayout.setContentScrim(new ColorDrawable(getResources().getColor(R.color.hitamtrans)));
                 } else {
                     collapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
                     collapsingToolbarLayout.setTitle("\t");

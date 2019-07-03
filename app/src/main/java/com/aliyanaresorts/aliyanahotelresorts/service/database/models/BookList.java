@@ -3,17 +3,21 @@ package com.aliyanaresorts.aliyanahotelresorts.service.database.models;
 public class BookList {
 
     private String id;
+    private String no_room;
+    private String foto;
+    private String id_tipe;
     private String tipe;
-    private String harga;
     private String kapasitas;
-    private String lokasi;
+    private String harga;
 
-    public BookList(String id, String tipe, String harga, String kapasitas, String lokasi) {
+    public BookList(String id, String no_room, String foto, String id_tipe, String tipe, String kapasitas, String harga) {
         this.id = id;
+        this.no_room = no_room;
+        this.foto = foto;
+        this.id_tipe = id_tipe;
         this.tipe = tipe;
-        this.harga = harga;
         this.kapasitas = kapasitas;
-        this.lokasi = lokasi;
+        this.harga = harga;
     }
 
     public String getId() {
@@ -24,20 +28,36 @@ public class BookList {
         this.id = id;
     }
 
+    public String getNo_room() {
+        return no_room;
+    }
+
+    public void setNo_room(String no_room) {
+        this.no_room = no_room;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getId_tipe() {
+        return id_tipe;
+    }
+
+    public void setId_tipe(String id_tipe) {
+        this.id_tipe = id_tipe;
+    }
+
     public String getTipe() {
         return tipe;
     }
 
     public void setTipe(String tipe) {
         this.tipe = tipe;
-    }
-
-    public String getHarga() {
-        return harga;
-    }
-
-    public void setHarga(String harga) {
-        this.harga = harga;
     }
 
     public String getKapasitas() {
@@ -48,11 +68,11 @@ public class BookList {
         this.kapasitas = kapasitas;
     }
 
-    public String getLokasi() {
-        return lokasi;
+    public String getHarga() {
+        return harga;
     }
 
-    public void setLokasi(String lokasi) {
-        this.lokasi = lokasi;
+    public void setHarga(String harga) {
+        this.harga = harga;
     }
 }

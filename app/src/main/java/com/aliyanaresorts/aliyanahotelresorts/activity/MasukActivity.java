@@ -38,8 +38,8 @@ import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
-import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.convertPassMd5;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_MASUK;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
 
@@ -49,9 +49,8 @@ public class MasukActivity extends AppCompatActivity {
 
     private ArrayList<HashMap<String, String>> list_dataS;
 
-    private EditText mtelepon, mpassword;
+    private EditText mEmail, mpassword;
 
-    private int success;
     private ConnectivityManager conMgr;
 
     private ProgressDialog pDialog;
@@ -65,7 +64,7 @@ public class MasukActivity extends AppCompatActivity {
         flipper = findViewById(R.id.flipper);
         Button masuk = findViewById(R.id.btnMasuk);
         Button daftar = findViewById(R.id.btnDaftar);
-        mtelepon= findViewById(R.id.telpon);
+        mEmail= findViewById(R.id.email);
         mpassword= findViewById(R.id.password);
 
         conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -86,12 +85,12 @@ public class MasukActivity extends AppCompatActivity {
             public void onClick(View v) {
                 closeKeyboard(MasukActivity.this);
 
-                String telepon = mtelepon.getText().toString();
+                String email = mEmail.getText().toString();
                 String password = mpassword.getText().toString();
 
-                if (telepon.isEmpty()) {
-                    mtelepon.requestFocus();
-                    mtelepon.setError(getResources().getString(R.string.isi));
+                if (email.isEmpty()) {
+                    mEmail.requestFocus();
+                    mEmail.setError(getResources().getString(R.string.isi));
                 } else if (password.isEmpty()) {
                     mpassword.setError(getResources().getString(R.string.isi));
                     mpassword.requestFocus();
@@ -99,7 +98,7 @@ public class MasukActivity extends AppCompatActivity {
                     if (conMgr.getActiveNetworkInfo() != null
                             && conMgr.getActiveNetworkInfo().isAvailable()
                             && conMgr.getActiveNetworkInfo().isConnected()) {
-                        checkLogin(telepon, password, v);
+                        checkLogin(email, password, v);
                     } else {
                         Toast.makeText(getApplicationContext() ,"No Internet Connection", Toast.LENGTH_LONG).show();
                     }
@@ -117,11 +116,12 @@ public class MasukActivity extends AppCompatActivity {
 
     }
 
-    private void checkLogin(final String telepon, final String password, final View view) {
+    private void checkLogin(final String email, final String password, final View view) {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
         pDialog.setMessage("Logging in ...");
         pDialog.show();
+        closeKeyboard(this);
 
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_MASUK, new Response.Listener<String>() {
 
@@ -132,22 +132,20 @@ public class MasukActivity extends AppCompatActivity {
 
                 try {
                     JSONObject jObj = new JSONObject(response);
-                    success = jObj.getInt("success");
-
+                    JSONObject child= jObj.getJSONObject("user");
+                    Log.e("Ex : ", jObj.getString("expires_at"));
+                    Log.e("Ex : ", child.getString("email"));
                     // Check for error node in json
-                    if (success == 1) {
+                    if (!jObj.getString("expires_at").isEmpty()) {
                         SPData.getInstance(getApplicationContext()).userLogin(
-                                jObj.getString("uid"),
-                                jObj.getString("nama"),
-                                jObj.getString("jenis_id"),
-                                jObj.getString("nomer_id"),
-                                jObj.getString("foto"),
-                                jObj.getString("alamat"),
-                                jObj.getString("email"),
-                                jObj.getString("kota"),
-                                jObj.getString("negara"),
-                                jObj.getString("telepon"),
-                                jObj.getString("password")
+                                child.getString("id"),
+                                child.getString("nama"),
+                                child.getString("email"),
+                                child.getString("tipe_identitas"),
+                                child.getString("no_identitas"),
+                                child.getString("no_telepon"),
+                                child.getString("alamat"),
+                                jObj.getString("access_token")
                         );
                         Snackbar.make(view, R.string.bmasuk, Snackbar.LENGTH_SHORT).show();
                         new Handler().postDelayed(new Runnable() {
@@ -178,13 +176,12 @@ public class MasukActivity extends AppCompatActivity {
 
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<>();
-                params.put("telepon", telepon);
-                params.put("password", convertPassMd5(password));
+                params.put("email", email);
+                params.put("password", password);
 
                 return params;
             }
@@ -206,17 +203,17 @@ public class MasukActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("result");
+                            JSONArray jsonArray = jsonObject.getJSONArray("slideshow");
                             for (int a = 0; a < jsonArray.length(); a++) {
                                 JSONObject json = jsonArray.getJSONObject(a);
                                 HashMap<String, String> map = new HashMap<>();
                                 map.put("id", json.getString("id"));
                                 map.put("foto", json.getString("foto"));
-                                map.put("nama", json.getString("nama"));
+                                map.put("judul", json.getString("judul"));
                                 list_dataS.add(map);
                                 FlipperView view = new FlipperView(getBaseContext());
-                                view.setImageUrl(list_dataS.get(a).get("foto"))
-                                        .setDescription(list_dataS.get(a).get("nama"))
+                                view.setImageUrl(KEY_DOMAIN+list_dataS.get(a).get("foto"))
+                                        .setDescription(list_dataS.get(a).get("judul"))
                                         .setDescriptionBackgroundColor(getResources()
                                                 .getColor(R.color.hitamtrans));
                                 flipper.setCircularIndicatorLayoutParams(0,0);
@@ -225,7 +222,7 @@ public class MasukActivity extends AppCompatActivity {
                                 view.setOnFlipperClickListener(new FlipperView.OnFlipperClickListener() {
                                     @Override
                                     public void onFlipperClick(FlipperView flipperView) {
-                                        Snackbar.make(flipper, Objects.requireNonNull(list_dataS.get(finalA).get("nama")), Snackbar.LENGTH_LONG).show();
+                                        Snackbar.make(flipper, Objects.requireNonNull(list_dataS.get(finalA).get("judul")), Snackbar.LENGTH_LONG).show();
                                     }
                                 });
                             }

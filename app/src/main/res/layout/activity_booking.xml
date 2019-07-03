@@ -42,25 +42,6 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/nama"
-                            android:hint="@string/pkamar"
-                            android:textColor="@color/goldtua"
-                            android:textColorHighlight="@color/goldtua"
-                            android:inputType="textPersonName"
-                            android:autofillHints="@string/pkamar"
-                            tools:targetApi="o" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
                     <org.angmarch.views.NiceSpinner
                         android:id="@+id/kamar"
                         android:backgroundTint="@color/putih_trans"

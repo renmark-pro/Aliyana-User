@@ -11,18 +11,15 @@ public class SPData {
         @SuppressLint("StaticFieldLeak")
         private static Context mCtx;
 
-        private static final String SHARED_PREF_NAME = "mysharedpref12";
-        private static final String KEY_UID = "uid";
+        private static final String SHARED_PREF_NAME = "aliyana";
+        private static final String KEY_ID = "id";
         private static final String KEY_NAMA = "nama";
-        private static final String KEY_JENIS_ID = "jenis_id";
-        private static final String KEY_NOMER_ID = "nomer_id";
-        private static final String KEY_FOTO = "foto";
-        private static final String KEY_ALAMAT = "alamat";
         private static final String KEY_EMAIL = "email";
-        private static final String KEY_KOTA = "kota";
-        private static final String KEY_NEGARA = "negara";
-        private static final String KEY_TELEPON = "telepon";
-        private static final String KEY_PASSWORD = "password";
+        private static final String KEY_JENIS_ID = "tipe_identitas";
+        private static final String KEY_NOMER_ID = "no_identitas";
+        private static final String KEY_TELEPON = "no_telepon";
+        private static final String KEY_ALAMAT = "alamat";
+        private static final String KEY_TOKEN = "access_token";
 
         private SPData(Context context) {
                 mCtx = context;
@@ -36,41 +33,38 @@ public class SPData {
                 return mInstance;
         }
 
-        public void userLogin(String uid, String nama, String jenis_id, String nomer_id, String foto, String alamat, String email, String kota, String negara, String telepon, String password){
+        public void userLogin(String id, String nama, String email, String jenis_id, String nomer_id, String telepon, String alamat, String token){
 
                 SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                editor.putString(KEY_UID, uid);
+                editor.putString(KEY_ID, id);
                 editor.putString(KEY_NAMA, nama);
+                editor.putString(KEY_EMAIL, email);
                 editor.putString(KEY_JENIS_ID, jenis_id);
                 editor.putString(KEY_NOMER_ID, nomer_id);
-                editor.putString(KEY_FOTO, foto);
-                editor.putString(KEY_ALAMAT, alamat);
-                editor.putString(KEY_EMAIL, email);
-                editor.putString(KEY_KOTA, kota);
-                editor.putString(KEY_NEGARA, negara);
                 editor.putString(KEY_TELEPON, telepon);
-                editor.putString(KEY_PASSWORD, password);
+                editor.putString(KEY_ALAMAT, alamat);
+                editor.putString(KEY_TOKEN, token);
 
                 editor.apply();
 
         }
 
-        public void updateFoto(String foto){
-
-                SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                editor.putString(KEY_FOTO, foto);
-
-                editor.apply();
-        }
+//        public void updateFoto(String foto){
+//
+//                SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//                editor.putString(KEY_FOTO, foto);
+//
+//                editor.apply();
+//        }
 
 
         public boolean isLoggedIn(){
                 SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-            return sharedPreferences.getString(KEY_UID, null) != null;
+            return sharedPreferences.getString(KEY_TOKEN, null) != null;
         }
 
         public void logout(){
@@ -81,9 +75,9 @@ public class SPData {
                 editor.commit();
         }
 
-        public String getKeyUid() {
+        public String getKeyToken() {
                 SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                return sharedPreferences.getString(KEY_UID, null);
+                return sharedPreferences.getString(KEY_TOKEN, null);
         }
 
         public String getKeyNama() {
@@ -101,10 +95,10 @@ public class SPData {
 //            return sharedPreferences.getString(KEY_NOMER_ID, null);
 //        }
 
-        public String getKeyFoto() {
-            SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-            return sharedPreferences.getString(KEY_FOTO, null);
-        }
+//        public String getKeyFoto() {
+//            SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//            return sharedPreferences.getString(KEY_FOTO, null);
+//        }
 
         public String getKeyAlamat() {
             SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

@@ -2,6 +2,7 @@ package com.aliyanaresorts.aliyanahotelresorts.activity.info;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -58,6 +59,8 @@ public class RestoActivity extends AppCompatActivity {
                     collapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
                     collapsingToolbarLayout.setTitle(getResources().getString(R.string.kcr));
                     collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.putih));
+                    collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.transparan));
+                    collapsingToolbarLayout.setContentScrim(new ColorDrawable(getResources().getColor(R.color.hitamtrans)));
                 } else {
                     collapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
                     collapsingToolbarLayout.setTitle("\t");
@@ -115,7 +118,7 @@ public class RestoActivity extends AppCompatActivity {
     private void showDetail(String json) {
         try {
             JSONObject jsonObject = new JSONObject(json);
-            JSONArray result = jsonObject.getJSONArray("result");
+            JSONArray result = jsonObject.getJSONArray("menu");
             for(int i =0;i<result.length(); i++) {
                 JSONObject productObject = result.getJSONObject(i);
                 arrayList.add(new RestoList(

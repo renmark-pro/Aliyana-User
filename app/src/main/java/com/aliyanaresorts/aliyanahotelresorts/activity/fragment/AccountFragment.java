@@ -1,16 +1,18 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.fragment;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import de.hdodenhof.circleimageview.CircleImageView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,25 +20,38 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.account.HelpAccountActivity;
-import com.aliyanaresorts.aliyanahotelresorts.activity.account.ProfilAccountActivity;
+import com.aliyanaresorts.aliyanahotelresorts.activity.account.ProfilDetailActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.account.PromoAccountActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.account.VoucherAccountActivity;
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setTextData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GET_USER;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AccountFragment extends Fragment {
+
+    private ProgressDialog pDialog;
+    private TextView nama, telpon;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -52,36 +67,24 @@ public class AccountFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-        TextView nama = view.findViewById(R.id.nama);
-        TextView alamat = view.findViewById(R.id.alamat);
-        TextView telpon = view.findViewById(R.id.telpon);
+        nama = view.findViewById(R.id.nama);
+        telpon = view.findViewById(R.id.telpon);
         LinearLayout promo = view.findViewById(R.id.promo);
         LinearLayout bantuan = view.findViewById(R.id.bantuan);
         LinearLayout voucher = view.findViewById(R.id.voucher);
         LinearLayout keluar = view.findViewById(R.id.keluar);
-        CircleImageView foto = view.findViewById(R.id.imgView);
+        CardView user = view.findViewById(R.id.layoutUser);
 
+        getDetail();
         getPermissions();
 
         nama.setText(SPData.getInstance(getActivity()).getKeyNama());
-        alamat.setText(SPData.getInstance(getActivity()).getKeyAlamat());
         telpon.setText(SPData.getInstance(getActivity()).getKeyTelepon());
 
-        if (!SPData.getInstance(getActivity()).getKeyFoto().equals("http://aliyanaresorts.com/app/user/foto/")){
-            Glide.with(Objects.requireNonNull(getContext())).load(SPData.getInstance(getActivity()).getKeyFoto())
-                    .thumbnail(0.5f)
-                    .placeholder(R.drawable.ic_fragment_account)
-                    .transition(withCrossFade())
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-//                    .skipMemoryCache(true)
-                    .fitCenter()
-                    .into(foto);
-        }
-
-        foto.setOnClickListener(new View.OnClickListener() {
+        user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfilAccountActivity.class);
+                Intent intent = new Intent(getActivity(), ProfilDetailActivity.class);
                 startActivity(intent);
             }
         });
@@ -141,6 +144,56 @@ public class AccountFragment extends Fragment {
 
             }
         }
+    }
+
+    private void getDetail() {
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setCancelable(false);
+        pDialog.setMessage(getResources().getString(R.string.tunggu));
+        pDialog.show();
+        Log.e("TOKEN : ", SPData.getInstance(getActivity()).getKeyToken());
+
+        StringRequest strReq = new StringRequest(Request.Method.GET, KEY_GET_USER, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e(MasukActivity.class.getSimpleName(), "Login Response: " + response);
+                pDialog.dismiss();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject result = jsonObject.getJSONObject("user");
+                    nama.setText(setTextData(result.getString("nama")));
+                    telpon.setText(setTextData(result.getString("no_telepon")));
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
+                Toast.makeText(getActivity(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+
+                pDialog.dismiss();
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", SPData.getInstance(getActivity()).getKeyToken() );
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
     }
 
 }

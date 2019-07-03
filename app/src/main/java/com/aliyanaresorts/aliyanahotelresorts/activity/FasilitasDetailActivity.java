@@ -31,6 +31,7 @@ import java.util.Objects;
 import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_FASILITAS_DETAIL;
 
@@ -61,7 +62,7 @@ public class FasilitasDetailActivity extends AppCompatActivity {
 
         list_dataS = new ArrayList<>();
 
-        StringRequest stringRequestS = new StringRequest(Request.Method.GET, KEY_FASILITAS_DETAIL+ getIntent().getStringExtra("posisi"),
+        StringRequest stringRequestS = new StringRequest(Request.Method.GET, KEY_FASILITAS_DETAIL+getIntentData(this,"posisi"),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.aliyanaresorts.aliyanahotelresorts.activity.about.BugActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.about.DetailActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.about.EnquiryActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.about.VisiActivity;
@@ -40,7 +39,6 @@ public class AboutActivity extends AppCompatActivity {
         RelativeLayout visi = findViewById(R.id.btVisi);
         RelativeLayout kontak = findViewById(R.id.btKontak);
         RelativeLayout enquir = findViewById(R.id.btEnq);
-        RelativeLayout bug = findViewById(R.id.btBug);
 
         visi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +60,6 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AboutActivity.this, EnquiryActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        bug.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AboutActivity.this, BugActivity.class);
                 startActivity(intent);
             }
         });

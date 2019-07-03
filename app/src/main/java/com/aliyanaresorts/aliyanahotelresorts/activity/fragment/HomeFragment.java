@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 
@@ -158,18 +159,18 @@ public class HomeFragment extends Fragment {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            JSONArray jsonArray = jsonObject.getJSONArray("result");
+                            JSONArray jsonArray = jsonObject.getJSONArray("slideshow");
                             for (int a = 0; a < jsonArray.length(); a++) {
                                 JSONObject json = jsonArray.getJSONObject(a);
                                 HashMap<String, String> map = new HashMap<>();
                                 map.put("id", json.getString("id"));
+                                map.put("judul", json.getString("judul"));
                                 map.put("foto", json.getString("foto"));
-                                map.put("nama", json.getString("nama"));
                                 list_dataS.add(map);
                                 @NonNull
                                 FlipperView view = new FlipperView(Objects.requireNonNull(getActivity()).getBaseContext());
-                                view.setImageUrl(list_dataS.get(a).get("foto"))
-                                        .setDescription(list_dataS.get(a).get("nama"))
+                                view.setImageUrl(KEY_DOMAIN+list_dataS.get(a).get("foto"))
+                                        .setDescription(list_dataS.get(a).get("judul"))
                                         .setDescriptionBackgroundColor(getResources()
                                                 .getColor(R.color.hitamtrans));
                                 if (!Objects.requireNonNull(list_dataS.get(a).get("foto")).isEmpty()) {

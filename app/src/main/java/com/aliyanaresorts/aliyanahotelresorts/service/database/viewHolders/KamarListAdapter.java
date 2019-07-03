@@ -15,10 +15,9 @@ import com.aliyanaresorts.aliyanahotelresorts.service.database.models.KamarList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -68,9 +67,7 @@ public class KamarListAdapter extends RecyclerView.Adapter<KamarListAdapter.Kama
                 .transition(withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(holder.fotoKamar);
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        holder.hargaKamar.setText(formatRupiah.format((double)Double.valueOf(kamarList.getHarga())));
+        holder.hargaKamar.setText(formatingRupiah(kamarList.getHarga()));
         holder.namaKamar.setText(kamarList.getTipe());
     }
 

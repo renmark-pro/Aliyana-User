@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_ENQ;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag;
 
@@ -136,9 +137,5 @@ public class EnquiryActivity extends AppCompatActivity {
 
         String tag_json_obj = "json_obj_req";
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-    }
-
-    private boolean isValidMail(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

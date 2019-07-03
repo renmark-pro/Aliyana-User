@@ -1,6 +1,5 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.fragment;
 
-
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +21,6 @@ public class StatusFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,7 +29,9 @@ public class StatusFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_status, container, false);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     }
+
 }

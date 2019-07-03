@@ -15,10 +15,10 @@ import com.aliyanaresorts.aliyanahotelresorts.service.database.models.RestoList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class RestoListAdapter extends RecyclerView.Adapter<RestoListAdapter.RestoViewHolder> {
@@ -61,16 +61,14 @@ public class RestoListAdapter extends RecyclerView.Adapter<RestoListAdapter.Rest
     public void onBindViewHolder(@NonNull RestoListAdapter.RestoViewHolder holder, int postition) {
         RestoList restoList = restoLists.get(postition);
         holder.namaMenu.setText(restoList.getNama());
-        Glide.with(context).load(restoList.getFoto())
+        Glide.with(context).load(KEY_DOMAIN+restoList.getFoto())
                 .placeholder(R.drawable.image_slider_1)
                 .thumbnail(0.5f)
                 .centerCrop()
                 .transition(withCrossFade())
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(holder.fotoMenu);
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        holder.hargaMenu.setText(formatRupiah.format((double)Double.valueOf(restoList.getHarga())));
+        holder.hargaMenu.setText(formatingRupiah(restoList.getHarga()));
     }
 
     @Override

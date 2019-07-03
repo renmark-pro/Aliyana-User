@@ -3,6 +3,7 @@ package com.aliyanaresorts.aliyanahotelresorts.activity.info;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -37,6 +38,8 @@ public class MeetingActivity extends AppCompatActivity {
                     collapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
                     collapsingToolbarLayout.setTitle(getResources().getString(R.string.meetroom));
                     collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.putih));
+                    collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.transparan));
+                    collapsingToolbarLayout.setContentScrim(new ColorDrawable(getResources().getColor(R.color.hitamtrans)));
                 } else {
                     collapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
                     collapsingToolbarLayout.setTitle("\t");

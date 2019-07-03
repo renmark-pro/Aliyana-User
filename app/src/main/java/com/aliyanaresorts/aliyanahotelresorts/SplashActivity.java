@@ -2,6 +2,7 @@ package com.aliyanaresorts.aliyanahotelresorts;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,10 @@ public class SplashActivity extends AppCompatActivity {
 
         getPermissions(SplashActivity.this);
 
+        // ATTENTION: This was auto-generated to handle app links.
+        Intent appLinkIntent = getIntent();
+        String appLinkAction = appLinkIntent.getAction();
+        Uri ali = appLinkIntent.getData();
     }
 
     private void lanjutIntent(){
@@ -35,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(masuk);
                 finish();
             }
-        }, 2);
+        }, 2000);
     }
 
     @Override

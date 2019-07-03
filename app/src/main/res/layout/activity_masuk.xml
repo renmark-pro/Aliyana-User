@@ -76,15 +76,15 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:autofillHints="@string/hp"
+                    android:autofillHints="@string/email"
                     android:layout_gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/telpon"
-                    android:hint="@string/hp"
+                    android:id="@+id/email"
+                    android:hint="@string/email"
                     android:textColor="@color/goldtua"
                     android:textColorHighlight="@color/goldtua"
-                    android:inputType="phone"
+                    android:inputType="textEmailAddress"
                     tools:targetApi="o" />
 
             </com.google.android.material.textfield.TextInputLayout>

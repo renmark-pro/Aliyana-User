@@ -37,7 +37,6 @@ public class FasilitasListAdapter extends RecyclerView.Adapter<FasilitasListAdap
         private final  ImageView fotoFasilitas;
         final TextView namaFasilitas;
 
-
         //Initializing Views
         FasilitasViewHolder(View itemView) {
 

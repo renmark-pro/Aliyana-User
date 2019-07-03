@@ -10,11 +10,11 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.aliyanaresorts.aliyanahotelresorts.SplashActivity;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
 
@@ -24,6 +24,7 @@ public class Helper {
         View view = activity.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert imm != null;
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
@@ -35,6 +36,16 @@ public class Helper {
                             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
                     MY_PERMISSIONS_REQUEST_GET_ACCESS);
         }
+    }
+
+    public static String setTextData(String data){
+        String text;
+        if (data.equals("null")){
+            text="";
+        }else {
+            text=data;
+        }
+        return text;
     }
 
     public static String convertPassMd5(String pass) {
@@ -53,6 +64,28 @@ public class Helper {
             e1.printStackTrace();
         }
         return password;
+    }
+
+    public static String formatingRupiah(String harga){
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        return formatRupiah.format((double)Double.valueOf(harga));
+    }
+
+    public static int getStatusBarHeight(Context context){
+        return (int) Math.ceil(25 * context.getResources().getDisplayMetrics().density);
+    }
+
+    public static boolean isValidMail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public static boolean isValidMobile(String phone) {
+        return android.util.Patterns.PHONE.matcher(phone).matches();
+    }
+
+    public static String getIntentData(Activity activity,String nama){
+        return activity.getIntent().getStringExtra(nama);
     }
 
 }

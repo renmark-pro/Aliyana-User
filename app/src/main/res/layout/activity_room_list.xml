@@ -22,6 +22,6 @@
         android:paddingRight="16dp"
         android:id="@+id/roomList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
