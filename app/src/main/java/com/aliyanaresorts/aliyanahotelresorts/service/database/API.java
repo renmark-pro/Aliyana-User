@@ -19,6 +19,8 @@ public class API {
     public static final String KEY_ADD_ROOM    ="http://aliyanaresorts.com/api/apps/booking/room/add";
     public static final String KEY_ADD_ROOM_COUNT="http://aliyanaresorts.com/api/apps/booking/room/temp/count";
     public static final String KEY_REMOVE_ROOM="http://aliyanaresorts.com/api/apps/booking/room/temp/hapus/";
+    public static final String KEY_BOOK_ROOM="http://aliyanaresorts.com/api/apps/booking/room/temp";
+    public static final String KEY_BOOK_PROSES="http://aliyanaresorts.com/api/apps/booking/room/proses";
     public static final String KEY_ENQ="http://aliyanaresorts.com/app/Enquiry.php";
     public static final String KEY_PROMO_LIST="http://aliyanaresorts.com/app/promoList.php";
 

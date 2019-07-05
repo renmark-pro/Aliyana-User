@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.android.volley.Request;
@@ -43,15 +44,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getPermissions;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GET_USER;
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_UPDATE_USER;
 
 public class FotoProfilAccountActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private Bitmap decoded;
-
-    private static final String TAG = FotoProfilAccountActivity.class.getSimpleName();
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,73 +80,72 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
     }
 
     private void uploadImage(final View view) {
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
+        pDialog.setMessage(getResources().getString(R.string.tunggu));
+        pDialog.show();
+        Log.e("Foto : ", getStringImage(decoded));
 
-        //menampilkan progress dialog
-        final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, KEY_GET_USER,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.e(" Foto : ", String.valueOf(decoded));
-                        Log.e(TAG, "Response: " + response);
+        StringRequest strReq = new StringRequest(Request.Method.POST, KEY_UPDATE_USER, new Response.Listener<String>() {
 
-                        try {
-                            final JSONObject jObj = new JSONObject(response);
-                            int success = jObj.getInt("success");
-                            if (success == 1) {
-//                                SPData.getInstance(getApplicationContext())
-//                                        .updateFoto(jObj.getString("foto"));
-                                Snackbar.make(view, R.string.bupdate, Snackbar.LENGTH_SHORT).show();
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        recreate();
-                                    }
-                                }, 1500);
-                            } else if (success == 2) {
-                                Snackbar.make(view, R.string.iusr, Snackbar.LENGTH_SHORT).show();
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        finish();
-                                    }
-                                }, 2000);
-                            }else{
-                                Snackbar.make(view, R.string.xupdate, Snackbar.LENGTH_SHORT).show();
+            @Override
+            public void onResponse(String response) {
+                Log.e(MasukActivity.class.getSimpleName(), "Getting Response: "+ response);
+                pDialog.dismiss();
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    if (jObj.getString("msg").equals("Profil berhasil diupdate")){
+                        Snackbar.make(view, R.string.bisa, Snackbar.LENGTH_SHORT).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                recreate();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        //menghilangkan progress dialog
-                        loading.dismiss();
+                        }, 2000L);
+                    }else {
+                        Snackbar.make(view, R.string.gagal, Snackbar.LENGTH_SHORT).show();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //menghilangkan progress dialog
-                        loading.dismiss();
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
 
-                        //menampilkan toast
-                        Toast.makeText(FotoProfilAccountActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e(TAG, error.getMessage());
-                    }
-                }) {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error);
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                pDialog.dismiss();
+
+            }
+        }) {
+
             @Override
             protected Map<String, String> getParams() {
-                //membuat parameters
                 Map<String, String> params = new HashMap<>();
+                SPData data = SPData.getInstance(FotoProfilAccountActivity.this);
+                params.put("nama", getStringImage(decoded));
+                params.put("email",data.getKeyEmail());
+                params.put("no_telepon", data.getKeyTelepon());
+                params.put("tipe_identitas", data.getKeyJenisId());
+                params.put("no_identitas", data.getKeyNomerId());
+                params.put("alamat", data.getKeyAlamat());
+//                params.put("foto", );
+                return params;
+            }
 
-                //menambah parameter yang di kirim ke web servis
-//                params.put("uid", SPData.getInstance(getBaseContext()).getKeyUid());
-                params.put("foto",getStringImage(decoded));
+            @Override
+            public Map<String, String> getHeaders(){
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                params.put("Authorization", SPData.getInstance(FotoProfilAccountActivity.this).getKeyToken() );
                 return params;
             }
         };
-
-        String tag_json_obj = "json_obj_req";
-        AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
     }
 
     private String getStringImage(Bitmap bmp) {
@@ -161,8 +160,6 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, bytes);
         decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-
-        //menampilkan gambar yang dipilih dari camera/gallery ke ImageView
         imageView.setImageBitmap(decoded);
     }
 
@@ -173,7 +170,7 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.btnUpload)
             pickImage();
         return true;
@@ -209,7 +206,6 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
                     setToImageView(getResizedBitmap(bitmap));
-                    Log.e(" Foto : ", getStringImage(decoded));
                     uploadImage(getWindow().getDecorView().getRootView());
                 } catch (IOException e) {
                     e.printStackTrace();

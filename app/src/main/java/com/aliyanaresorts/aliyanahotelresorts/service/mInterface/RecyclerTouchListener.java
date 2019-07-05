@@ -1,4 +1,4 @@
-package com.aliyanaresorts.aliyanahotelresorts.service.Interface;
+package com.aliyanaresorts.aliyanahotelresorts.service.mInterface;
 
 import android.content.Context;
 import android.view.GestureDetector;

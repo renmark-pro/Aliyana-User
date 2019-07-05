@@ -122,7 +122,7 @@ public class EnquiryActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
                         Toast.makeText(EnquiryActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e(TAG, error.getMessage());
+                        Log.e(TAG, Objects.requireNonNull(error.getMessage()));
                     }
                 }) {
             @Override

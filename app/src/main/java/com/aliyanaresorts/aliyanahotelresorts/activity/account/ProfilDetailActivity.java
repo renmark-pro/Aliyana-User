@@ -43,10 +43,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_UP
 
 public class ProfilDetailActivity extends AppCompatActivity {
 
-    LinearLayout root;
-    RelativeLayout foto;
-    ProgressDialog pDialog;
-    Button simpan;
+    private ProgressDialog pDialog;
     private NiceSpinner jenisId;
     private TextView namaUser, nomerIdUser, emailUser, telponUser, alamatUser;
 
@@ -55,7 +52,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_detail);
         setStyleStatusBarGoldTrans(this);
-        root = findViewById(R.id.layoutRoot);
+        LinearLayout root = findViewById(R.id.layoutRoot);
         root.setPadding(16, getStatusBarHeight(this)+16, 16 , 16 );
 
         jenisId=findViewById(R.id.jenisId);
@@ -64,8 +61,8 @@ public class ProfilDetailActivity extends AppCompatActivity {
         emailUser=findViewById(R.id.email);
         telponUser=findViewById(R.id.telpon);
         alamatUser=findViewById(R.id.alamat);
-        foto=findViewById(R.id.layoutFoto);
-        simpan=findViewById(R.id.btnUpdate);
+        RelativeLayout foto = findViewById(R.id.layoutFoto);
+        Button simpan = findViewById(R.id.btnUpdate);
 
         List<String> datajenis = new LinkedList<>(Arrays.asList(getResources().getStringArray(R.array.jenisid)));
         jenisId.attachDataSource(datajenis);
@@ -119,13 +116,6 @@ public class ProfilDetailActivity extends AppCompatActivity {
     }
 
     private void updateProfile(final View v, final String uNama, final String uEmail, final String uTelpon, final String uTipe, final String uNomerId, final String uAlamat) {
-        Log.e("nama", uNama);
-        Log.e("email", uEmail);
-        Log.e("telpom", uTelpon);
-        Log.e("tipe", uTipe);
-        Log.e("nomer", uNomerId);
-        Log.e("alamat", uAlamat);
-        Log.e("auth", SPData.getInstance(ProfilDetailActivity.this).getKeyToken());
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
         pDialog.setMessage(getResources().getString(R.string.tunggu));
@@ -214,6 +204,14 @@ public class ProfilDetailActivity extends AppCompatActivity {
                     nomerIdUser.setText(setTextData(result.getString("no_identitas")));
                     telponUser.setText(setTextData(result.getString("no_telepon")));
                     alamatUser.setText(setTextData(result.getString("alamat")));
+                    SPData.getInstance(getApplicationContext()).updateBio(
+                            result.getString("nama"),
+                            result.getString("email"),
+                            result.getString("tipe_identitas"),
+                            result.getString("no_identitas"),
+                            result.getString("no_telepon"),
+                            result.getString("alamat")
+                    );
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();

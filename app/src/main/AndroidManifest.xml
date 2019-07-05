@@ -23,11 +23,20 @@
         android:theme="@style/AppThemeGold"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activity.account.ProfilDetailActivity"></activity>
-        <activity android:name=".activity.OrderHistoryActivity" />
+        <activity android:name=".activity.booking.PreviewBookingActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.BookingListingActivity"
-            android:parentActivityName=".activity.BookingActivity"
+            android:name=".activity.account.ProfilDetailActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrderHistoryActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.booking.BookingListingActivity"
+            android:parentActivityName=".activity.booking.BookingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.info.BallroomDetailActivity"
@@ -114,7 +123,7 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.BookingActivity"
+            android:name=".activity.booking.BookingActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity

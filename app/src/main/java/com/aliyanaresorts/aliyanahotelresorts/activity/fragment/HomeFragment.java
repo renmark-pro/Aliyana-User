@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aliyanaresorts.aliyanahotelresorts.activity.AboutActivity;
-import com.aliyanaresorts.aliyanahotelresorts.activity.BookingActivity;
+import com.aliyanaresorts.aliyanahotelresorts.activity.booking.BookingActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.FasilitasActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.InfoHotelActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.PromoListActivity;

@@ -70,7 +70,7 @@ public class DaftarActivity extends AppCompatActivity {
         conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         {
             if (Objects.requireNonNull(conMgr).getActiveNetworkInfo() != null
-                    && conMgr.getActiveNetworkInfo().isAvailable()
+                    && Objects.requireNonNull(conMgr.getActiveNetworkInfo()).isAvailable()
                     && conMgr.getActiveNetworkInfo().isConnected()) {
             } else {
                 Toast.makeText(getApplicationContext(), "No Internet Connection",
@@ -140,6 +140,7 @@ public class DaftarActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.setMessage("Register ...");
         showDialog();
+
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_DAFTAR, new Response.Listener<String>() {
 
             @Override
@@ -164,7 +165,6 @@ public class DaftarActivity extends AppCompatActivity {
                     // JSON error
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
 

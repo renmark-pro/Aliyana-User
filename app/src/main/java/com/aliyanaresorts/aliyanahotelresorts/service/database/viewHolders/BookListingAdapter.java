@@ -51,8 +51,6 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
 
     private final List<BookList> bookListList;
 
-    int stat=0;
-
     public BookListingAdapter(List<BookList> bookLists, Context context, Activity activity){
         this.bookListList = bookLists;
         this.context = context;
@@ -112,7 +110,7 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
         holder.order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (stat==0){
+                if (holder.order.getText().toString().equals(context.getResources().getString(R.string.order))){
                     addRoom(bookList, v, holder);
                 }else {
                     removeRoom(bookList, v, holder);
@@ -130,26 +128,25 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
         StringRequest strReq = new StringRequest(Request.Method.DELETE, KEY_REMOVE_ROOM+bookList.getNo_room(),
                 new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.e(MasukActivity.class.getSimpleName(), "Getting Response: "+ response);
-                pDialog.dismiss();
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    if (jObj.getString("msg").equals("Berhasil dihapus!")){
-                        Snackbar.make(v, R.string.bisa, Snackbar.LENGTH_SHORT).show();
-                        holder.order.setText(R.string.order);
-                        holder.order.setBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
-                        stat =0;
-                    }else {
-                        Snackbar.make(v, R.string.gagal, Snackbar.LENGTH_SHORT).show();
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e(MasukActivity.class.getSimpleName(), "Getting Response: "+ response);
+                        pDialog.dismiss();
+                        try {
+                            JSONObject jObj = new JSONObject(response);
+                            if (jObj.getString("msg").equals("Berhasil dihapus!")){
+                                Snackbar.make(v, R.string.bisa, Snackbar.LENGTH_SHORT).show();
+                                holder.order.setText(R.string.order);
+                                holder.order.setBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                            }else {
+                                Snackbar.make(v, R.string.gagal, Snackbar.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            // JSON error
+                            e.printStackTrace();
+                        }
                     }
-                } catch (JSONException e) {
-                    // JSON error
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -196,7 +193,6 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
                         Snackbar.make(v, R.string.bisa, Snackbar.LENGTH_SHORT).show();
                         holder.order.setText(R.string.hapus);
                         holder.order.setBackgroundColor(context.getResources().getColor(R.color.abang));
-                        stat =1;
                     }else {
                         Snackbar.make(v, R.string.gagal, Snackbar.LENGTH_SHORT).show();
                     }
@@ -210,7 +206,7 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context,
-                        error.getMessage(), Toast.LENGTH_LONG).show();
+                        error.networkResponse.statusCode, Toast.LENGTH_LONG).show();
                 pDialog.dismiss();
 
             }

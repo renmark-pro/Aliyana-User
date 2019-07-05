@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_about"
-    tools:context=".activity.BookingListingActivity">
+    tools:context=".activity.booking.BookingListingActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -41,7 +41,7 @@
                 android:layout_gravity="end"
                 android:layout_margin="16dp"
                 android:padding="8dp"
-                android:background="@drawable/bt_book">
+                android:background="@drawable/bt_cek">
 
                 <TextView
                     android:layout_width="wrap_content"

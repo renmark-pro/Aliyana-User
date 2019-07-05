@@ -1,4 +1,4 @@
-package com.aliyanaresorts.aliyanahotelresorts.activity;
+package com.aliyanaresorts.aliyanahotelresorts.activity.booking;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.DefaultRetryPolicy;
@@ -56,14 +57,15 @@ public class BookingActivity extends AppCompatActivity {
     private DateRangeCalendarView calendar;
     private SimpleDateFormat format, upload;
     private EditText jmlOrang;
+    private Button cek;
 
-    String cek_in=null, cek_out=null, uCekIn, uCekOut, id_kamar;
-    String spin=null;
-    int pos;
+    private String cek_in=null, cek_out=null, uCekIn, uCekOut, id_kamar;
+    private String spin=null;
+    private int pos;
 
-    ProgressDialog pDialog;
-    ArrayList<String> tipe;
-    NiceSpinner kamar;
+    private ProgressDialog pDialog;
+    private ArrayList<String> tipe;
+    private NiceSpinner kamar;
 
 
     @Override
@@ -76,7 +78,7 @@ public class BookingActivity extends AppCompatActivity {
 
         kamar = findViewById(R.id.kamar);
 
-        Button cek = findViewById(R.id.btnCek);
+        cek = findViewById(R.id.btnCek);
         tanggal=findViewById(R.id.tanggal);
         malam=findViewById(R.id.malam);
         txt=findViewById(R.id.txt);
@@ -170,13 +172,14 @@ public class BookingActivity extends AppCompatActivity {
 
                     if (kamar.getSelectedIndex()==0){
                         kamar.requestFocus();
+                        kamar.setError(getResources().getString(R.string.kolom));
                         closeKeyboard(BookingActivity.this);
                         Snackbar.make(v, getResources().getString(R.string.isi), Snackbar.LENGTH_SHORT).show();
                     }else if (tMasuk.equals(getResources().getString(R.string.piltgl))){
                         calendar.requestFocus();
                         closeKeyboard(BookingActivity.this);
                         Snackbar.make(v, getResources().getString(R.string.isi), Snackbar.LENGTH_SHORT).show();
-                    }else if (jOrang.isEmpty()){
+                    }else if (jOrang.isEmpty() || Integer.parseInt(jOrang)<1){
                         jmlOrang.requestFocus();
                         jmlOrang.setError(getResources().getString(R.string.kolom));
                     }else {
@@ -344,6 +347,19 @@ public class BookingActivity extends AppCompatActivity {
         strReq.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        if (kamar.getSelectedIndex()!=0 && !tanggal.getText().toString().equals(getResources()
+                .getString(R.string.piltgl)) &&
+                !jmlOrang.getText().toString().isEmpty()  &&
+                Integer.parseInt(jmlOrang.getText().toString())>1) {
+            cek.setBackground(getResources().getDrawable(R.drawable.bt_book));
+        }else {
+            cek.setBackground(getResources().getDrawable(R.drawable.bt_cek));
+        }
     }
 
     private void destroyCache() {

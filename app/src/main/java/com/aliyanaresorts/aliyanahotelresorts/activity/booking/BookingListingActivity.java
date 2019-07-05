@@ -1,4 +1,4 @@
-package com.aliyanaresorts.aliyanahotelresorts.activity;
+package com.aliyanaresorts.aliyanahotelresorts.activity.booking;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,7 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.service.Interface.RecyclerTouchListener;
+import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
+import com.aliyanaresorts.aliyanahotelresorts.service.mInterface.RecyclerTouchListener;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.BookList;
@@ -29,6 +30,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,15 +45,15 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentDat
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_ADD_ROOM_COUNT;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_CEK_KAMAR;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GET_USER;
 
 public class BookingListingActivity extends AppCompatActivity {
 
     private ArrayList<BookList> arrayList;
     private RecyclerView.Adapter adapter;
-    ProgressDialog pDialog, aDialog;
-    LinearLayout proses;
-    TextView hitungan;
+    private ProgressDialog pDialog, aDialog;
+    private TextView hitungan;
+    private LinearLayout proses;
+    int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class BookingListingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_booking_listing);
         setTemaAplikasi(this, 1);
 
-        proses=findViewById(R.id.layoutProses);
+        proses = findViewById(R.id.layoutProses);
         hitungan=findViewById(R.id.txtCount);
         
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -70,7 +72,8 @@ public class BookingListingActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         arrayList = new ArrayList<>();
-        RecyclerView recyclerView = findViewById(R.id.roomList);
+        final RecyclerView recyclerView = findViewById(R.id.roomList);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
         getData(getIntentData(this,"ci"), getIntentData(this,"co"),
                 getIntentData(this,"or"), getIntentData(this,"id"));
@@ -82,13 +85,13 @@ public class BookingListingActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
-            public void onClick(View view, int position) {
+            public void onClick(View view, final int position) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         addCount();
                     }
-                },1000L);
+                }, 1000L);
             }
 
             @Override
@@ -100,7 +103,17 @@ public class BookingListingActivity extends AppCompatActivity {
         proses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ///
+                if(hitungan.getText().toString().isEmpty()){
+                    Snackbar.make(v, R.string.blmpesan, Snackbar.LENGTH_SHORT).show();
+                }else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ci",getIntentData(BookingListingActivity.this,"ci"));
+                    bundle.putString("co", getIntentData(BookingListingActivity.this,"co"));
+                    Intent i = new Intent(BookingListingActivity.this, PreviewBookingActivity.class);
+                    i.putExtras(bundle);
+                    startActivity(i);
+                    finish();
+                }
             }
         });
     }
@@ -110,7 +123,6 @@ public class BookingListingActivity extends AppCompatActivity {
         aDialog.setCancelable(false);
         aDialog.setMessage(this.getResources().getString(R.string.tunggu));
         aDialog.show();
-        Log.e("TOKEN : ", SPData.getInstance(this).getKeyToken());
 
         StringRequest strReq = new StringRequest(Request.Method.GET, KEY_ADD_ROOM_COUNT, new Response.Listener<String>() {
 
@@ -121,7 +133,13 @@ public class BookingListingActivity extends AppCompatActivity {
                 aDialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    hitungan.setText(" "+jsonObject.getString("jumlah")+" ");///tambahi space
+                    hitungan.setText(" "+jsonObject.getString("jumlah")+" ");
+                    counter = Integer.parseInt(jsonObject.getString("jumlah"));
+                    if (counter!=0) {
+                        proses.setBackground(getResources().getDrawable(R.drawable.bt_book));
+                    }else {
+                        proses.setBackground(getResources().getDrawable(R.drawable.bt_cek));
+                    }
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
@@ -135,9 +153,7 @@ public class BookingListingActivity extends AppCompatActivity {
                 Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
                 Toast.makeText(BookingListingActivity.this,
                         error.getMessage(), Toast.LENGTH_LONG).show();
-
                 aDialog.dismiss();
-
             }
         }) {
             @Override

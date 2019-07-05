@@ -70,7 +70,7 @@ public class MasukActivity extends AppCompatActivity {
         conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         {
             if (Objects.requireNonNull(conMgr).getActiveNetworkInfo() != null
-                    && conMgr.getActiveNetworkInfo().isAvailable()
+                    && Objects.requireNonNull(conMgr.getActiveNetworkInfo()).isAvailable()
                     && conMgr.getActiveNetworkInfo().isConnected()) {
             } else {
                 Toast.makeText(getApplicationContext(), "No Internet Connection",

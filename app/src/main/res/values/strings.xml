@@ -146,5 +146,17 @@
     <string name="detail">Detail</string>
     <string name="proses">Process\t</string>
     <string name="hapus">Remove</string>
+    <string name="suksesbook">Successful Booking</string>
+    <string name="nokamar">Room Number</string>
+    <string name="tipekamar">Room Type</string>
+    <string name="kapasitas">Capacity</string>
+    <string name="tamu">Guest</string>
+    <string name="cekin">Check In</string>
+    <string name="cekout">Check Out</string>
+    <string name="subtotal">Sub Total\t:\t</string>
+    <string name="total">Total\t:\t</string>
+    <string name="blmpesan">You haven\'t placed an order!</string>
+    <string name="kd_book">Booking Code\t:</string>
+    <string name="konfir">Confirm</string>
 
 </resources>

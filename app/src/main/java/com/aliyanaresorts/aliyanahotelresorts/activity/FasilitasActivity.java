@@ -16,7 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.service.Interface.RecyclerTouchListener;
+import com.aliyanaresorts.aliyanahotelresorts.service.mInterface.RecyclerTouchListener;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.ReqHandler;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.FasilitasList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.FasilitasListAdapter;

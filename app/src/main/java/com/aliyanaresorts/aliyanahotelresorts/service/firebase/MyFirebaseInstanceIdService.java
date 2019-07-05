@@ -2,14 +2,14 @@ package com.aliyanaresorts.aliyanahotelresorts.service.firebase;
 
 import android.util.Log;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
-public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
+public class MyFirebaseInstanceIdService extends FirebaseMessagingService {
 
     @Override
-    public void onTokenRefresh() {
-        sendNewTokenToServer(FirebaseInstanceId.getInstance().getToken());
+    public void onNewToken(String s) {
+        super.onNewToken(s);
+        Log.d("NEW_TOKEN",s);
     }
 
     private void sendNewTokenToServer(String token){
