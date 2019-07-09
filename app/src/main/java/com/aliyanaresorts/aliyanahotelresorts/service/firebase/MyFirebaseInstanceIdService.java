@@ -11,9 +11,4 @@ public class MyFirebaseInstanceIdService extends FirebaseMessagingService {
         super.onNewToken(s);
         Log.d("NEW_TOKEN",s);
     }
-
-    private void sendNewTokenToServer(String token){
-        Log.d("TOKEN",String.valueOf(token));
-    }
-
 }

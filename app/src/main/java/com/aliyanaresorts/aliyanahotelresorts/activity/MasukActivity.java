@@ -1,20 +1,21 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,7 +34,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import androidx.appcompat.app.AppCompatActivity;
 import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
@@ -46,14 +46,10 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SL
 public class MasukActivity extends AppCompatActivity {
 
     private FlipperLayout flipper;
-
     private ArrayList<HashMap<String, String>> list_dataS;
-
     private EditText mEmail, mpassword;
-
     private ConnectivityManager conMgr;
-
-    private ProgressDialog pDialog;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +62,7 @@ public class MasukActivity extends AppCompatActivity {
         Button daftar = findViewById(R.id.btnDaftar);
         mEmail= findViewById(R.id.email);
         mpassword= findViewById(R.id.password);
-
         conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        {
-            if (Objects.requireNonNull(conMgr).getActiveNetworkInfo() != null
-                    && Objects.requireNonNull(conMgr.getActiveNetworkInfo()).isAvailable()
-                    && conMgr.getActiveNetworkInfo().isConnected()) {
-            } else {
-                Toast.makeText(getApplicationContext(), "No Internet Connection",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
 
         setSlide();
 
@@ -117,25 +103,18 @@ public class MasukActivity extends AppCompatActivity {
     }
 
     private void checkLogin(final String email, final String password, final View view) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Logging in ...");
-        pDialog.show();
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
         closeKeyboard(this);
 
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_MASUK, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Response: " + response);
-                pDialog.dismiss();
-
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
                     JSONObject child= jObj.getJSONObject("user");
-                    Log.e("Ex : ", jObj.getString("expires_at"));
-                    Log.e("Ex : ", child.getString("email"));
-                    // Check for error node in json
                     if (!jObj.getString("expires_at").isEmpty()) {
                         SPData.getInstance(getApplicationContext()).userLogin(
                                 child.getString("id"),
@@ -168,12 +147,9 @@ public class MasukActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-
-                pDialog.dismiss();
-
+                loadingDialog.tutupDialog();
             }
         }) {
             @Override

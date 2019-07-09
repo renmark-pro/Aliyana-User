@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.core.content.ContextCompat;
+
 import com.aliyanaresorts.aliyanahotelresorts.R;
 
 public class Style {
@@ -29,7 +31,7 @@ public class Style {
             activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.colorPrimaryDark));
         }else {
             if (Build.VERSION.SDK_INT >= 23) {
-                activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.putih));
+                activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, R.color.putih));
             } else {
                 activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.abu));
             }

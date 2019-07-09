@@ -1,7 +1,6 @@
 package com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +19,12 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentDat
 
 public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewViewHolder> {
 
-    private final Context context;
     private final Activity activity;
 
     private final List<PreviewList> previewListList;
 
-    public PreviewAdapter(List<PreviewList> previewLists, Context context, Activity activity){
+    public PreviewAdapter(List<PreviewList> previewLists, Activity activity){
         this.previewListList = previewLists;
-        this.context = context;
         this.activity = activity;
     }
 

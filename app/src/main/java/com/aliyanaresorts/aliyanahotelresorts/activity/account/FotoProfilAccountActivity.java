@@ -1,27 +1,29 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.account;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -39,19 +41,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getPermissions;
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getPermissions;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_UPDATE_USER;
 
 public class FotoProfilAccountActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private Bitmap decoded;
-    private ProgressDialog pDialog;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,18 +78,13 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
     }
 
     private void uploadImage(final View view) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage(getResources().getString(R.string.tunggu));
-        pDialog.show();
-        Log.e("Foto : ", getStringImage(decoded));
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_UPDATE_USER, new Response.Listener<String>() {
-
             @Override
             public void onResponse(String response) {
-                Log.e(MasukActivity.class.getSimpleName(), "Getting Response: "+ response);
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getString("msg").equals("Profil berhasil diupdate")){
@@ -114,10 +107,9 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error);
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
 
             }
         }) {
@@ -233,13 +225,10 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         // If request is cancelled, the result arrays are empty.
         if (requestCode == MY_PERMISSIONS_REQUEST_GET_ACCESS) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Kosong
-            } else {
-                Toast.makeText(FotoProfilAccountActivity.this, "Ijin Di Tolak!", Toast.LENGTH_SHORT).show();
-
-            }
+            if (grantResults.length <= 0
+                    || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(FotoProfilAccountActivity.this, "Ijin Di Tolak!", Toast.LENGTH_SHORT).show();
+                    }
 
             // other 'case' lines to check for other
             // permissions this app might request

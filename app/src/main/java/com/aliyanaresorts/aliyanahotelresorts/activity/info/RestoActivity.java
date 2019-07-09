@@ -1,20 +1,23 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.info;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.ReqHandler;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.RestoList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.RestoListAdapter;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -24,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarTransparent;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_MENU_RESTO;
 
@@ -31,6 +35,7 @@ public class RestoActivity extends AppCompatActivity {
 
     private ArrayList<RestoList> arrayList;
     private RecyclerView.Adapter adapter;
+    private LoadingDialog loadingDialog;
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
@@ -88,53 +93,42 @@ public class RestoActivity extends AppCompatActivity {
     }
 
     private void getDetail() {
-        @SuppressLint("StaticFieldLeak")
-        class getDetail extends AsyncTask<Void, Void, String> {
-            private ProgressDialog loading;
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
+        closeKeyboard(this);
+
+        StringRequest strReq = new StringRequest(Request.Method.GET, KEY_MENU_RESTO, new Response.Listener<String>() {
 
             @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(RestoActivity.this, "", getResources().getString(R.string.tunggu), false, false);
+            public void onResponse(String response) {
+                loadingDialog.tutupDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray result = jsonObject.getJSONArray("menu");
+                    for(int i =0;i<result.length(); i++) {
+                        JSONObject productObject = result.getJSONObject(i);
+                        arrayList.add(new RestoList(
+                                productObject.getString("id"),
+                                productObject.getString("menu"),
+                                productObject.getString("nama"),
+                                productObject.getString("harga"),
+                                productObject.getString("catatan"),
+                                productObject.getString("foto")
+                        ));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                adapter.notifyDataSetChanged();
             }
-
+        }, new Response.ErrorListener() {
             @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                showDetail(s);
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                loadingDialog.tutupDialog();
             }
-
-            @Override
-            protected String doInBackground(Void... params) {
-                ReqHandler rh = new ReqHandler();
-                return rh.sendGetRequest(KEY_MENU_RESTO);
-            }
-        }
-        getDetail gd = new getDetail();
-        gd.execute();
-    }
-
-    private void showDetail(String json) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray result = jsonObject.getJSONArray("menu");
-            for(int i =0;i<result.length(); i++) {
-                JSONObject productObject = result.getJSONObject(i);
-                arrayList.add(new RestoList(
-                        productObject.getString("id"),
-                        productObject.getString("menu"),
-                        productObject.getString("nama"),
-                        productObject.getString("harga"),
-                        productObject.getString("catatan"),
-                        productObject.getString("foto")
-                ));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        adapter.notifyDataSetChanged();
-
+        });
+        AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
     }
 }

@@ -1,19 +1,18 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.about;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,14 +29,12 @@ import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_ENQ;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_ENQ;
 
 public class EnquiryActivity extends AppCompatActivity {
 
     private  EditText mNama, mEmail, mIsi;
-
-    private static final String TAG = EnquiryActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +85,12 @@ public class EnquiryActivity extends AppCompatActivity {
     }
 
     private void kirim(final View v, final String nama, final String email, final String isi) {
-        final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
+        final LoadingDialog loadingDialog = new LoadingDialog(EnquiryActivity.this);
+        loadingDialog.bukaDialog();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, KEY_ENQ,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e(TAG, "Response: " + response);
-
                         try {
                             JSONObject jObj = new JSONObject(response);
                             int success = jObj.getInt("success");
@@ -114,15 +110,14 @@ public class EnquiryActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        loading.dismiss();
+                        loadingDialog.tutupDialog();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        loading.dismiss();
+                        loadingDialog.tutupDialog();
                         Toast.makeText(EnquiryActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e(TAG, Objects.requireNonNull(error.getMessage()));
                     }
                 }) {
             @Override

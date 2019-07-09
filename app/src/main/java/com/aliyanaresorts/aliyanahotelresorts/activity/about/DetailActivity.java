@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,8 +40,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView textView;
 
     private ArrayList<HashMap<String, String>> list_data;
-
-    private ProgressDialog mDialog;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +66,8 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        mDialog = new ProgressDialog(DetailActivity.this);
-        mDialog.setMessage(getResources().getString(R.string.tunggu));
-        mDialog.show();
-        mDialog.setCancelable(false);
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         RequestQueue requestQueue = Volley.newRequestQueue(DetailActivity.this);
 
@@ -97,12 +94,8 @@ public class DetailActivity extends AppCompatActivity {
                         map.put("web", json.getString("web"));
                         list_data.add(map);
                     }
-
-                    mDialog.dismiss();
-
+                    loadingDialog.tutupDialog();
                     textView.setText(new SpannableString(list_data.get(0).get("tentang")));
-
-
                     lokasi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -111,7 +104,6 @@ public class DetailActivity extends AppCompatActivity {
                             startActivity(mapIntent);
                         }
                     });
-
                     fb.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -120,7 +112,6 @@ public class DetailActivity extends AppCompatActivity {
                             startActivity(kefb);
                         }
                     });
-
                     fax.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -129,7 +120,6 @@ public class DetailActivity extends AppCompatActivity {
                             startActivity(faxIntent);
                         }
                     });
-
                     ig.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -138,7 +128,6 @@ public class DetailActivity extends AppCompatActivity {
                             startActivity(keig);
                         }
                     });
-
                     email.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -150,7 +139,6 @@ public class DetailActivity extends AppCompatActivity {
                             startActivity(emailIntent);
                         }
                     });
-
                     phone.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -159,7 +147,6 @@ public class DetailActivity extends AppCompatActivity {
                             startActivity(faxIntent);
                         }
                     });
-
                     wa.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -170,7 +157,6 @@ public class DetailActivity extends AppCompatActivity {
                             startActivity(waIntent);
                         }
                     });
-
                     web.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

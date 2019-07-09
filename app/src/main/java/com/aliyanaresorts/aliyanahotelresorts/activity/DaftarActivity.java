@@ -1,10 +1,5 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import technolifestyle.com.imageslider.FlipperLayout;
-import technolifestyle.com.imageslider.FlipperView;
-
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -15,7 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -35,6 +33,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import technolifestyle.com.imageslider.FlipperLayout;
+import technolifestyle.com.imageslider.FlipperView;
+
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMobile;
@@ -49,7 +50,7 @@ public class DaftarActivity extends AppCompatActivity {
     private EditText mnama, memail, mtelepon,mpassword, mcpassword;
     private ConnectivityManager conMgr;
     private ArrayList<HashMap<String, String>> list_dataS;
-    private ProgressDialog pDialog;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,27 +65,15 @@ public class DaftarActivity extends AppCompatActivity {
         Button masuk = findViewById(R.id.btnMasuk);
         Button daftar = findViewById(R.id.btnDaftar);
         flipper = findViewById(R.id.flipper);
+        conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         setSlide();
-
-        conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        {
-            if (Objects.requireNonNull(conMgr).getActiveNetworkInfo() != null
-                    && Objects.requireNonNull(conMgr.getActiveNetworkInfo()).isAvailable()
-                    && conMgr.getActiveNetworkInfo().isConnected()) {
-            } else {
-                Toast.makeText(getApplicationContext(), "No Internet Connection",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-
         masuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,18 +125,14 @@ public class DaftarActivity extends AppCompatActivity {
     }
 
     private void checkRegister( final String nama, final String email, final String telepon, final String password, final String cpassword, final View view) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Register ...");
-        showDialog();
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_DAFTAR, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.e(DaftarActivity.class.getSimpleName(), "Register Response: " + response);
-                hideDialog();
-
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getString("msg").equals("Registrasi berhasil!")) {
@@ -170,10 +155,9 @@ public class DaftarActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(DaftarActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
+                loadingDialog.tutupDialog();
             }
         }) {
 
@@ -243,15 +227,5 @@ public class DaftarActivity extends AppCompatActivity {
                 .setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-    }
-
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
     }
 }

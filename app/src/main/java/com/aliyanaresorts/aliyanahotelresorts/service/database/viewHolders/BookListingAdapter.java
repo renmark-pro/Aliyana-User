@@ -2,10 +2,8 @@ package com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.RoomDetailActivity;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.BookList;
@@ -47,7 +45,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.BookViewHolder>   {
 
     private final Context context;
-    private Activity activity;
+    private final Activity activity;
 
     private final List<BookList> bookListList;
 
@@ -120,18 +118,15 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
     }
 
     private void removeRoom(BookList bookList, final View v, final BookViewHolder holder) {
-        final ProgressDialog pDialog = new ProgressDialog(context);
-        pDialog.setCancelable(false);
-        pDialog.setMessage(context.getResources().getString(R.string.tunggu));
-        pDialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog(activity);
+        loadingDialog.bukaDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.DELETE, KEY_REMOVE_ROOM+bookList.getNo_room(),
                 new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
-                        Log.e(MasukActivity.class.getSimpleName(), "Getting Response: "+ response);
-                        pDialog.dismiss();
+                        loadingDialog.tutupDialog();
                         try {
                             JSONObject jObj = new JSONObject(response);
                             if (jObj.getString("msg").equals("Berhasil dihapus!")){
@@ -152,8 +147,7 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context,
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
-
+                loadingDialog.tutupDialog();
             }
         }) {
 
@@ -170,23 +164,14 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
     }
 
     private void addRoom(final BookList bookList, final View v, final BookListingAdapter.BookViewHolder holder) {
-        Log.e("ci ", getIntentData(activity,"ci"));
-        Log.e("co ", getIntentData(activity,"co"));
-        Log.e("no_room ", bookList.getNo_room());
-        Log.e("harga ", bookList.getHarga());
-        Log.e("jml_tamu ", getIntentData(activity,"or"));
-        Log.e("auth", SPData.getInstance(activity).getKeyToken());
-        final ProgressDialog pDialog = new ProgressDialog(context);
-        pDialog.setCancelable(false);
-        pDialog.setMessage(context.getResources().getString(R.string.tunggu));
-        pDialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog(activity);
+        loadingDialog.bukaDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_ADD_ROOM, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.e(MasukActivity.class.getSimpleName(), "Getting Response: "+ response);
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getString("msg").equals("Berhasil disimpan")){
@@ -207,8 +192,7 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context,
                         error.networkResponse.statusCode, Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
-
+                loadingDialog.tutupDialog();
             }
         }) {
 

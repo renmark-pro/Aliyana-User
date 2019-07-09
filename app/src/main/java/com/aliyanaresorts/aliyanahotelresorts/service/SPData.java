@@ -110,10 +110,10 @@ public class SPData {
             return sharedPreferences.getString(KEY_NOMER_ID, null);
         }
 
-        public String getKeyFoto() {
-            SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-            return sharedPreferences.getString(KEY_FOTO, null);
-        }
+//        public String getKeyFoto() {
+//            SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//            return sharedPreferences.getString(KEY_FOTO, null);
+//        }
 
         public String getKeyAlamat() {
             SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

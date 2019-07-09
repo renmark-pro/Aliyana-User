@@ -1,9 +1,7 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.booking;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,8 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.activity.DaftarActivity;
-import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.PreviewList;
@@ -46,7 +43,7 @@ public class PreviewBookingActivity extends AppCompatActivity {
 
     private ArrayList<PreviewList> arrayList;
     private RecyclerView.Adapter adapter;
-    private ProgressDialog pDialog;
+    private LoadingDialog loadingDialog;
     private TextView kode, total;
     private String kdb, harga;
 
@@ -65,7 +62,7 @@ public class PreviewBookingActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         getData();
         LinearLayoutManager layoutManager= new LinearLayoutManager(this);
-        adapter = new PreviewAdapter(arrayList, this, PreviewBookingActivity.this);
+        adapter = new PreviewAdapter(arrayList, PreviewBookingActivity.this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -79,10 +76,8 @@ public class PreviewBookingActivity extends AppCompatActivity {
     }
 
     private void konfirmBooking(final View view) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage(getResources().getString(R.string.tunggu));
-        pDialog.show();
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         RequestQueue requestQueue = Volley.newRequestQueue(PreviewBookingActivity.this);
 
@@ -90,7 +85,7 @@ public class PreviewBookingActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getString("msg").equals("Berhasil")) {
@@ -112,10 +107,9 @@ public class PreviewBookingActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(DaftarActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
             }
         }) {
 
@@ -149,16 +143,14 @@ public class PreviewBookingActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage(getResources().getString(R.string.tunggu));
-        pDialog.show();
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.GET, KEY_BOOK_ROOM, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray child = jsonObject.getJSONArray("temp");
@@ -184,10 +176,9 @@ public class PreviewBookingActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
             }
         }) {
 

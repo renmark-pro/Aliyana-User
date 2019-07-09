@@ -3,7 +3,6 @@ package com.aliyanaresorts.aliyanahotelresorts.activity.about;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -34,7 +34,7 @@ public class VisiActivity extends AppCompatActivity {
 
     private TextView visi, misi;
     private ArrayList<HashMap<String, String>> list_data;
-    private ProgressDialog mDialog;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +53,8 @@ public class VisiActivity extends AppCompatActivity {
         visi = findViewById(R.id.txtVisi);
         misi = findViewById(R.id.txtMisi);
 
-        mDialog = new ProgressDialog(VisiActivity.this);
-        mDialog.setMessage(getResources().getString(R.string.tunggu));
-        mDialog.show();
-        mDialog.setCancelable(false);
+        loadingDialog = new LoadingDialog(VisiActivity.this);
+        loadingDialog.bukaDialog();
 
         RequestQueue requestQueue = Volley.newRequestQueue(VisiActivity.this);
 
@@ -75,7 +73,7 @@ public class VisiActivity extends AppCompatActivity {
                         map.put("misi", json.getString("misi"));
                         list_data.add(map);
                     }
-                    mDialog.dismiss();
+                    loadingDialog.tutupDialog();
                     visi.setText(list_data.get(0).get("visi"));
                     misi.setText(list_data.get(0).get("misi"));
                 } catch (JSONException e) {

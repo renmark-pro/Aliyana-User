@@ -1,18 +1,9 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.fragment;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +11,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
+import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.account.HelpAccountActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.account.ProfilDetailActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.account.PromoAccountActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.account.VoucherAccountActivity;
-import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.Request;
@@ -40,9 +38,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setTextData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
-import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GET_USER;
 
 /**
@@ -50,7 +48,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GE
  */
 public class AccountFragment extends Fragment {
 
-    private ProgressDialog pDialog;
+    private LoadingDialog loadingDialog;
     private TextView nama, telpon;
 
     public AccountFragment() {
@@ -136,29 +134,23 @@ public class AccountFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         // If request is cancelled, the result arrays are empty.
         if (requestCode == MY_PERMISSIONS_REQUEST_GET_ACCESS) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Kosong
-            } else {
-                Toast.makeText(getActivity(), "Ijin Di Tolak!", Toast.LENGTH_SHORT).show();
+            if (grantResults.length <= 0
+                    || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getActivity(), "Ijin Di Tolak!", Toast.LENGTH_SHORT).show();
 
-            }
+                    }
         }
     }
 
     private void getDetail() {
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setCancelable(false);
-        pDialog.setMessage(getResources().getString(R.string.tunggu));
-        pDialog.show();
-        Log.e("TOKEN : ", SPData.getInstance(getActivity()).getKeyToken());
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.bukaDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.GET, KEY_GET_USER, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Response: " + response);
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject result = jsonObject.getJSONObject("user");
@@ -174,12 +166,9 @@ public class AccountFragment extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
                 Toast.makeText(getActivity(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-
-                pDialog.dismiss();
-
+                loadingDialog.tutupDialog();
             }
         }) {
             @Override

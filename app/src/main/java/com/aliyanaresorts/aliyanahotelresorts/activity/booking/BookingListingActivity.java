@@ -1,31 +1,29 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.booking;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
-import com.aliyanaresorts.aliyanahotelresorts.service.mInterface.RecyclerTouchListener;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.BookList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.BookListingAdapter;
+import com.aliyanaresorts.aliyanahotelresorts.service.mInterface.RecyclerTouchListener;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -50,10 +48,10 @@ public class BookingListingActivity extends AppCompatActivity {
 
     private ArrayList<BookList> arrayList;
     private RecyclerView.Adapter adapter;
-    private ProgressDialog pDialog, aDialog;
+    private LoadingDialog loadingDialog, dialog;
     private TextView hitungan;
     private LinearLayout proses;
-    int counter;
+    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,18 +117,15 @@ public class BookingListingActivity extends AppCompatActivity {
     }
 
     private void addCount() {
-        aDialog = new ProgressDialog(this);
-        aDialog.setCancelable(false);
-        aDialog.setMessage(this.getResources().getString(R.string.tunggu));
-        aDialog.show();
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.GET, KEY_ADD_ROOM_COUNT, new Response.Listener<String>() {
 
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(String response) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Response: " + response);
-                aDialog.dismiss();
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     hitungan.setText(" "+jsonObject.getString("jumlah")+" ");
@@ -150,10 +145,9 @@ public class BookingListingActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
                 Toast.makeText(BookingListingActivity.this,
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                aDialog.dismiss();
+                loadingDialog.tutupDialog();
             }
         }) {
             @Override
@@ -169,16 +163,14 @@ public class BookingListingActivity extends AppCompatActivity {
     }
 
     private void getData(final String cekin, final String cekout, final String tamu, final String id){
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage(getResources().getString(R.string.tunggu));
-        pDialog.show();
+        dialog = new LoadingDialog(this);
+        dialog.bukaDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_CEK_KAMAR, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                pDialog.dismiss();
+                dialog.tutupDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray result = jsonObject.getJSONArray("kamar");
@@ -202,10 +194,9 @@ public class BookingListingActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
+                dialog.tutupDialog();
             }
         }) {
 

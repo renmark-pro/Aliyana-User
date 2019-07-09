@@ -1,12 +1,10 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.booking;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.DefaultRetryPolicy;
@@ -63,7 +62,7 @@ public class BookingActivity extends AppCompatActivity {
     private String spin=null;
     private int pos;
 
-    private ProgressDialog pDialog;
+    private LoadingDialog loadingDialog;
     private ArrayList<String> tipe;
     private NiceSpinner kamar;
 
@@ -216,11 +215,8 @@ public class BookingActivity extends AppCompatActivity {
     }
 
     private void getTypes() {
-
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage(getResources().getString(R.string.tunggu));
-        pDialog.show();
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         RequestQueue requestQueueS = Volley.newRequestQueue(BookingActivity.this);
 
@@ -251,7 +247,7 @@ public class BookingActivity extends AppCompatActivity {
                             }else{
                                 kamar.setSelectedIndex(pos);
                             }
-                            pDialog.dismiss();
+                            loadingDialog.tutupDialog();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -271,27 +267,17 @@ public class BookingActivity extends AppCompatActivity {
     }
 
     private void cekTersedia(final String cekin, final String cekout, final String tamu, final String id){
-        Log.e("cekin", cekin);
-        Log.e("cekout", cekout);
-        Log.e("tamu", tamu);
-        Log.e("id", id);
-        Log.e("auth", SPData.getInstance(BookingActivity.this).getKeyToken());
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage(getResources().getString(R.string.tunggu));
-        pDialog.show();
-
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_CEK_KAMAR, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.e(MasukActivity.class.getSimpleName(), "Getting Response: "+ id + response);
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
                     JSONArray jsonArray = jObj.getJSONArray("kamar");
                     if (jsonArray.length()>0) {
-                        Log.e("hasil : ", String.valueOf(jsonArray.length()));
                         Bundle bundle = new Bundle();
                         bundle.putString("ci",cekin);
                         bundle.putString("co", cekout);
@@ -316,11 +302,9 @@ public class BookingActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error);
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
-
+                loadingDialog.tutupDialog();
             }
         }) {
 

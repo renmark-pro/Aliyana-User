@@ -1,13 +1,7 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,8 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.booking.BookingActivity;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,9 +38,9 @@ import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_KAMAR_DETAIL;
-import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class RoomDetailActivity extends AppCompatActivity {
@@ -52,7 +51,7 @@ public class RoomDetailActivity extends AppCompatActivity {
 
     private ArrayList<HashMap<String, String>> list_data;
 
-    private ProgressDialog mDialog;
+    private LoadingDialog loadingDialog;
     private Toolbar toolbar;
 
     @Override
@@ -74,10 +73,8 @@ public class RoomDetailActivity extends AppCompatActivity {
         Objects.requireNonNull(upArrow).setColorFilter(ContextCompat.getColor(this, R.color.putih), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        mDialog = new ProgressDialog(RoomDetailActivity.this);
-        mDialog.setMessage(getResources().getString(R.string.tunggu));
-        mDialog.show();
-        mDialog.setCancelable(false);
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +107,7 @@ public class RoomDetailActivity extends AppCompatActivity {
                         map.put("harga", json.getString("harga"));
                         list_data.add(map);
                     }
-                    mDialog.dismiss();
+                    loadingDialog.tutupDialog();
                     Glide.with(RoomDetailActivity.this).load(KEY_DOMAIN+list_data.get(0).get("foto"))
                             .placeholder(R.drawable.image_slider_1)
                             .thumbnail(0.5f)

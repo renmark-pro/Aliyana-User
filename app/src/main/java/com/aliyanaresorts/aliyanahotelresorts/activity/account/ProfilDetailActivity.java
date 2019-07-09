@@ -1,8 +1,5 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.account;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,8 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.Request;
@@ -43,7 +42,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_UP
 
 public class ProfilDetailActivity extends AppCompatActivity {
 
-    private ProgressDialog pDialog;
+    private LoadingDialog loadingDialog;
     private NiceSpinner jenisId;
     private TextView namaUser, nomerIdUser, emailUser, telponUser, alamatUser;
 
@@ -116,17 +115,14 @@ public class ProfilDetailActivity extends AppCompatActivity {
     }
 
     private void updateProfile(final View v, final String uNama, final String uEmail, final String uTelpon, final String uTipe, final String uNomerId, final String uAlamat) {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-        pDialog.setMessage(getResources().getString(R.string.tunggu));
-        pDialog.show();
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_UPDATE_USER, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.e(MasukActivity.class.getSimpleName(), "Getting Response: "+ response);
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getString("msg").equals("Profil berhasil diupdate")){
@@ -149,11 +145,9 @@ public class ProfilDetailActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error);
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
-
+                loadingDialog.tutupDialog();
             }
         }) {
 
@@ -182,10 +176,8 @@ public class ProfilDetailActivity extends AppCompatActivity {
     }
 
     private void getDetail() {
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(true);
-        pDialog.setMessage(getResources().getString(R.string.tunggu));
-        pDialog.show();
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
         closeKeyboard(this);
         Log.e("TOKEN : ", SPData.getInstance(this).getKeyToken());
 
@@ -193,8 +185,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Response: " + response);
-                pDialog.dismiss();
+                loadingDialog.tutupDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject result = jsonObject.getJSONObject("user");
@@ -222,12 +213,9 @@ public class ProfilDetailActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(MasukActivity.class.getSimpleName(), "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
-
-                pDialog.dismiss();
-
+                loadingDialog.tutupDialog();
             }
         }) {
             @Override

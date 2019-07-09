@@ -10,9 +10,6 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -48,23 +45,23 @@ public class Helper {
         return text;
     }
 
-    public static String convertPassMd5(String pass) {
-        String password = null;
-        MessageDigest mdEnc;
-        try {
-            mdEnc = MessageDigest.getInstance("MD5");
-            mdEnc.update(pass.getBytes(), 0, pass.length());
-            StringBuilder passBuilder = new StringBuilder(new BigInteger(1, mdEnc.digest()).toString(16));
-            while (passBuilder.length() < 32) {
-                passBuilder.insert(0, "0");
-            }
-            pass = passBuilder.toString();
-            password = pass;
-        } catch (NoSuchAlgorithmException e1) {
-            e1.printStackTrace();
-        }
-        return password;
-    }
+//    public static String convertPassMd5(String pass) {
+//        String password = null;
+//        MessageDigest mdEnc;
+//        try {
+//            mdEnc = MessageDigest.getInstance("MD5");
+//            mdEnc.update(pass.getBytes(), 0, pass.length());
+//            StringBuilder passBuilder = new StringBuilder(new BigInteger(1, mdEnc.digest()).toString(16));
+//            while (passBuilder.length() < 32) {
+//                passBuilder.insert(0, "0");
+//            }
+//            pass = passBuilder.toString();
+//            password = pass;
+//        } catch (NoSuchAlgorithmException e1) {
+//            e1.printStackTrace();
+//        }
+//        return password;
+//    }
 
     public static String formatingRupiah(String harga){
         Locale localeID = new Locale("in", "ID");

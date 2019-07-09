@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,13 +12,20 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.mInterface.RecyclerTouchListener;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.ReqHandler;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.KamarList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.KamarListAdapter;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,13 +34,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_KAMAR_LIST;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_KAMAR_LIST;
 
 public class RoomListActivity extends AppCompatActivity   {
 
     private ArrayList<KamarList> arrayList;
     private RecyclerView.Adapter adapter;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,51 +85,41 @@ public class RoomListActivity extends AppCompatActivity   {
     }
 
     private void getDetail() {
-        @SuppressLint("StaticFieldLeak")
-        class getDetail extends AsyncTask<Void, Void, String> {
-            private ProgressDialog loading;
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
+        closeKeyboard(this);
+
+        StringRequest strReq = new StringRequest(Request.Method.GET, KEY_KAMAR_LIST, new Response.Listener<String>() {
 
             @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(RoomListActivity.this, "", getResources().getString(R.string.tunggu), false, false);
+            public void onResponse(String response) {
+                loadingDialog.tutupDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray result = jsonObject.getJSONArray("kamar");
+                    for(int i =0;i<result.length(); i++) {
+                        JSONObject productObject = result.getJSONObject(i);
+                        arrayList.add(new KamarList(
+                                productObject.getString("id"),
+                                productObject.getString("tipe"),
+                                productObject.getString("harga"),
+                                productObject.getString("kapasitas"),
+                                productObject.getString("lokasi")
+                        ));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                adapter.notifyDataSetChanged();
             }
-
+        }, new Response.ErrorListener() {
             @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                showDetail(s);
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                loadingDialog.tutupDialog();
             }
-
-            @Override
-            protected String doInBackground(Void... params) {
-                ReqHandler rh = new ReqHandler();
-                return rh.sendGetRequest(KEY_KAMAR_LIST);
-            }
-        }
-        getDetail gd = new getDetail();
-        gd.execute();
+        });
+        AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
     }
-
-    private void showDetail(String json) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray result = jsonObject.getJSONArray("kamar");
-            for(int i =0;i<result.length(); i++) {
-                JSONObject productObject = result.getJSONObject(i);
-                arrayList.add(new KamarList(
-                        productObject.getString("id"),
-                        productObject.getString("tipe"),
-                        productObject.getString("harga"),
-                        productObject.getString("kapasitas"),
-                        productObject.getString("lokasi")
-                ));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        adapter.notifyDataSetChanged();
-    }
-
 }
