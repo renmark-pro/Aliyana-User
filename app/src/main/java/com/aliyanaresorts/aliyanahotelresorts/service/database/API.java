@@ -21,6 +21,9 @@ public class API {
     public static final String KEY_REMOVE_ROOM="http://aliyanaresorts.com/api/apps/booking/room/temp/hapus/";
     public static final String KEY_BOOK_ROOM="http://aliyanaresorts.com/api/apps/booking/room/temp";
     public static final String KEY_BOOK_PROSES="http://aliyanaresorts.com/api/apps/booking/room/proses";
+    public static final String KEY_PROSES_LIST="http://aliyanaresorts.com/api/apps/user/mybooking";
+    public static final String KEY_PROSES_LIST_DETAIL="http://aliyanaresorts.com/api/apps/user/mybooking/";
+    public static final String KEY_HISTORY_LIST="http://aliyanaresorts.com/api/apps/user/mybooking/completed";
     public static final String KEY_ENQ="http://aliyanaresorts.com/app/Enquiry.php";
     public static final String KEY_PROMO_LIST="http://aliyanaresorts.com/app/promoList.php";
 

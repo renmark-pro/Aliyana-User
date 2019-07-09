@@ -157,6 +157,12 @@
     <string name="total">Total\t:\t</string>
     <string name="blmpesan">You haven\'t placed an order!</string>
     <string name="kd_book">Booking Code\t:</string>
+    <string name="kd_bookt">Booking Code</string>
     <string name="konfir">Confirm</string>
+    <string name="prosestok">Process</string>
+    <string name="riwayat">History</string>
+    <string name="jKamar">Number of Rooms</string>
+    <string name="totalt">Total</string>
+    <string name="inhouse">Inhouse</string>
 
 </resources>

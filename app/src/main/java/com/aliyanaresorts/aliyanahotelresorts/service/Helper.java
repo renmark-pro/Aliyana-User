@@ -6,9 +6,14 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
+
+import com.aliyanaresorts.aliyanahotelresorts.R;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -16,6 +21,16 @@ import java.util.Locale;
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
 
 public class Helper {
+
+    public static void setViewStatus(int size, NestedScrollView nestedLayout, RelativeLayout kosongLayout) {
+        if (size>0){
+            nestedLayout.setVisibility(View.VISIBLE);
+            kosongLayout.setVisibility(View.GONE);
+        }else {
+            nestedLayout.setVisibility(View.GONE);
+            kosongLayout.setVisibility(View.VISIBLE);
+        }
+    }
 
     public static void closeKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
@@ -74,15 +89,24 @@ public class Helper {
     }
 
     public static boolean isValidMail(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     public static boolean isValidMobile(String phone) {
-        return android.util.Patterns.PHONE.matcher(phone).matches();
+        return !android.util.Patterns.PHONE.matcher(phone).matches();
     }
 
     public static String getIntentData(Activity activity,String nama){
         return activity.getIntent().getStringExtra(nama);
+    }
+
+    public static void setWarnaStatus(Activity activity, TextView status){
+        String newString = status.toString();
+        if (newString.equals("Accepted Payment")||newString.equals("Completed")){
+            status.setTextColor(activity.getResources().getColor(R.color.colorPrimaryDark));
+        }else {
+            status.setTextColor(activity.getResources().getColor(R.color.abang));
+        }
     }
 
 }

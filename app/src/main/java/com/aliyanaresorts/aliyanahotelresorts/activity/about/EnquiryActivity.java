@@ -70,7 +70,7 @@ public class EnquiryActivity extends AppCompatActivity {
                 }else if (email.isEmpty()){
                     mEmail.requestFocus();
                     mEmail.setError(getResources().getString(R.string.kolom));
-                }else if (!isValidMail(email)){
+                }else if (isValidMail(email)){
                     mEmail.requestFocus();
                     mEmail.setError(getResources().getString(R.string.imail));
                 }else if (isi.isEmpty()){

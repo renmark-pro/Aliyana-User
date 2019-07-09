@@ -36,6 +36,7 @@ import java.util.Map;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_BOOK_PROSES;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_BOOK_ROOM;
 
@@ -51,6 +52,7 @@ public class PreviewBookingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview_booking);
+        setTemaAplikasi(this, 1);
 
         Button konfirm = findViewById(R.id.btKonfirmasi);
         kode = findViewById(R.id.kodeBook);

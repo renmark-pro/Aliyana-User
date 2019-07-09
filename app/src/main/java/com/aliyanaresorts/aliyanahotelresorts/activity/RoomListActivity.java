@@ -1,27 +1,25 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
-import com.aliyanaresorts.aliyanahotelresorts.service.mInterface.RecyclerTouchListener;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.KamarList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.KamarListAdapter;
+import com.aliyanaresorts.aliyanahotelresorts.service.mInterface.RecyclerTouchListener;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;

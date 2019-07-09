@@ -158,6 +158,12 @@
     <string name="total">Total\t:\t</string>
     <string name="blmpesan">Anda belum melakukan pemesanan!</string>
     <string name="kd_book">Kode Booking\t:</string>
+    <string name="kd_bookt">Kode Booking</string>
     <string name="konfir">Konfirmasi</string>
+    <string name="prosestok">Proses</string>
+    <string name="riwayat">Riwayat</string>
+    <string name="jKamar">Jumlah Kamar</string>
+    <string name="totalt">Total</string>
+    <string name="inhouse">Inhouse</string>
 
 </resources>

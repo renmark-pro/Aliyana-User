@@ -8,12 +8,14 @@ import android.widget.ImageView;
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.bumptech.glide.Glide;
 
+import java.util.Objects;
+
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class LoadingDialog {
 
-    Activity activity;
-    Dialog dialog;
+    private final Activity activity;
+    private Dialog dialog;
 
     public LoadingDialog(Activity activity){
         this.activity = activity;
@@ -22,6 +24,7 @@ public class LoadingDialog {
     public void bukaDialog(){
         dialog  = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.color.transparan);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_loading);
 

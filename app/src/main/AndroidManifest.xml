@@ -23,9 +23,13 @@
         android:theme="@style/AppThemeGold"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activity.booking.PreviewBookingActivity"
+        <activity android:name=".activity.status.ProsesDetailActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.booking.PreviewBookingActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.account.ProfilDetailActivity"
             android:parentActivityName=".MainActivity"
@@ -139,7 +143,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"
+            tools:targetApi="n"
+            android:supportsPictureInPicture="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
