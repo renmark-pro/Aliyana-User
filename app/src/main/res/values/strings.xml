@@ -65,7 +65,7 @@
     <string name="keluar">Log Out</string>
     <string name="visi">Vision</string>
     <string name="misi">Mission</string>
-    <string name="ihp">Invalid Cellphone Number!</string>
+    <string name="ihp">Invalid Phone Number!</string>
     <string name="imail">Invalid Email Address!</string>
     <string name="ipw">Password of at least 6 characters</string>
     <string name="simpan">Save</string>
@@ -164,5 +164,6 @@
     <string name="jKamar">Number of Rooms</string>
     <string name="totalt">Total</string>
     <string name="inhouse">Inhouse</string>
+    <string name="emailada">The email has already been taken.</string>
 
 </resources>

@@ -121,6 +121,8 @@ public class BookingActivity extends AppCompatActivity {
 
             @Override
             public void onDateRangeSelected(Calendar startDate, Calendar endDate) {
+                cek_in = format.format(startDate.getTime());
+                uCekIn = upload.format(startDate.getTime());
                 cek_out = format.format(endDate.getTime());
                 uCekOut = upload.format(endDate.getTime());
                 long startDateMillis = startDate.getTimeInMillis();
@@ -311,6 +313,7 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json; charset=UTF-8");
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 params.put("Authorization", SPData.getInstance(BookingActivity.this).getKeyToken() );
                 return params;

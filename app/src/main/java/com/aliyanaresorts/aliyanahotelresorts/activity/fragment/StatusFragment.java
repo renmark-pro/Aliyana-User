@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplika
  */
 public class StatusFragment extends Fragment {
 
+    public static int posisi =0;
+
     public StatusFragment() {
         // Required empty public constructor
     }
@@ -41,7 +44,7 @@ public class StatusFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ViewPager viewPager = view.findViewById(R.id.viewPager);
+        final ViewPager viewPager = view.findViewById(R.id.viewPager);
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
 
         TabAdapter tabAdapter = new TabAdapter(getFragmentManager());
@@ -53,6 +56,20 @@ public class StatusFragment extends Fragment {
 
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                posisi = tab.getPosition();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
     }
 
 }

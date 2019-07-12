@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutRoot"
+    android:background="@drawable/bg_about"
     android:orientation="vertical"
-    tools:context=".activity.account.ProfilDetailActivity"
-    android:background="@drawable/bg_about">
+    tools:context=".activity.account.ProfilDetailActivity">
 
     <RelativeLayout
         android:id="@+id/layoutFoto"
@@ -16,143 +16,143 @@
         android:layout_gravity="center_horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fotoUser"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:src="@drawable/ic_person"
-            android:id="@+id/fotoUser"
-            app:civ_border_color="@color/goldtua"
-            app:civ_circle_background_color="@color/putih"
             android:contentDescription="@string/foto"
-            app:civ_border_width="2dp"/>
+            android:src="@drawable/ic_person"
+            app:civ_border_color="@color/goldtua"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/putih" />
 
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_add_photo"
-            android:contentDescription="@string/foto"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@string/foto"
+            android:src="@drawable/ic_add_photo" />
 
     </RelativeLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="32dp"
-        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="32dp">
 
         <EditText
-            android:layout_gravity="center_vertical"
+            android:id="@+id/nama"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/nama"
+            android:layout_gravity="center_vertical"
+            android:autofillHints="@string/nama"
             android:hint="@string/nama"
+            android:inputType="textPersonName"
             android:textColor="@color/goldtua"
             android:textColorHighlight="@color/goldtua"
-            android:inputType="textPersonName"
-            android:autofillHints="@string/nama"
             tools:targetApi="o" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <org.angmarch.views.NiceSpinner
-        android:layout_marginTop="5dp"
         android:id="@+id/jenisId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:backgroundTint="@color/putih_trans"
         app:arrowTint="@color/colorPrimaryDark"
-        app:textTint="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        app:textTint="@color/colorPrimaryDark" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp">
 
         <EditText
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:id="@+id/nomerId"
-            android:hint="@string/nomor_id"
-            android:textColor="@color/goldtua"
-            android:textColorHighlight="@color/goldtua"
-            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:autofillHints="@string/nomor_id"
-            tools:targetApi="o" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/email"
-            android:hint="@string/email"
-            android:textColor="@color/goldtua"
-            android:textColorHighlight="@color/goldtua"
-            android:inputType="textEmailAddress"
-            android:autofillHints="@string/email"
-            tools:targetApi="o" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/telpon"
-            android:hint="@string/hp"
-            android:textColor="@color/goldtua"
-            android:textColorHighlight="@color/goldtua"
-            android:inputType="phone"
-            android:autofillHints="@string/hp"
-            tools:targetApi="o" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/alamat"
-            android:hint="@string/alamat"
-            android:textColor="@color/goldtua"
-            android:textColorHighlight="@color/goldtua"
+            android:hint="@string/nomor_id"
             android:inputType="text"
+            android:textColor="@color/goldtua"
+            android:textColorHighlight="@color/goldtua"
+            tools:targetApi="o" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:autofillHints="@string/email"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/goldtua"
+            android:textColorHighlight="@color/goldtua"
+            tools:targetApi="o" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:id="@+id/telpon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:autofillHints="@string/hp"
+            android:hint="@string/hp"
+            android:inputType="phone"
+            android:textColor="@color/goldtua"
+            android:textColorHighlight="@color/goldtua"
+            tools:targetApi="o" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:id="@+id/alamat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:autofillHints="@string/alamat"
+            android:hint="@string/alamat"
+            android:inputType="text"
+            android:textColor="@color/goldtua"
+            android:textColorHighlight="@color/goldtua"
             tools:targetApi="o" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        style="?android:attr/buttonBarButtonStyle"
         android:id="@+id/btnUpdate"
-        android:text="@string/simpan"
-        android:textColor="@color/putih"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bt_book"
         android:layout_gravity="end"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bt_book"
+        android:text="@string/simpan"
+        android:textColor="@color/putih" />
 
 </LinearLayout>

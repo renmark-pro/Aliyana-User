@@ -165,5 +165,6 @@
     <string name="jKamar">Jumlah Kamar</string>
     <string name="totalt">Total</string>
     <string name="inhouse">Inhouse</string>
+    <string name="emailada">Email sudah terdaftar.</string>
 
 </resources>

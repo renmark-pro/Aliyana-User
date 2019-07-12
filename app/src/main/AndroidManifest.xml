@@ -23,7 +23,7 @@
         android:theme="@style/AppThemeGold"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activity.status.ProsesDetailActivity"
+        <activity android:name=".activity.status.MyBookingDetailActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -32,10 +32,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.account.ProfilDetailActivity"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.OrderHistoryActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity

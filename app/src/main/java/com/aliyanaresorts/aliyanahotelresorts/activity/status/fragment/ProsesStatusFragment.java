@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.activity.status.ProsesDetailActivity;
+import com.aliyanaresorts.aliyanahotelresorts.activity.status.MyBookingDetailActivity;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
@@ -69,7 +69,7 @@ public class ProsesStatusFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         getDetail();
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext());
-        adapter = new ProsesStatusListAdapter(arrayList, getContext(), getActivity());
+        adapter = new ProsesStatusListAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -78,7 +78,7 @@ public class ProsesStatusFragment extends Fragment {
             public void onClick(View view, int position) {
                 final ProsesStatusList produk = arrayList.get(position);
                 String id = produk.getKode_booking();
-                Intent i = new Intent(getContext(), ProsesDetailActivity.class);
+                Intent i = new Intent(getContext(), MyBookingDetailActivity.class);
                 i.putExtra("kode",id);
                 startActivity(i);
             }
@@ -116,7 +116,7 @@ public class ProsesStatusFragment extends Fragment {
                             ));
                         }
                     }
-                    setViewStatus(response.length(), nestedLayout, kosongLayout);
+                    setViewStatus(result.length(), nestedLayout, kosongLayout);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

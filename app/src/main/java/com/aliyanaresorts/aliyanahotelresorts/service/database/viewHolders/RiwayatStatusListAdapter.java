@@ -10,20 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.models.ProsesStatusList;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.models.RiwayatStatusList;
 
 import java.util.List;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setWarnaStatus;
 
-public class ProsesStatusListAdapter extends RecyclerView.Adapter<ProsesStatusListAdapter.BookViewHolder> {
+public class RiwayatStatusListAdapter extends RecyclerView.Adapter<RiwayatStatusListAdapter.BookViewHolder> {
 
     private final Activity activity;
+    private final List<RiwayatStatusList> bookListList;
 
-    private final List<ProsesStatusList> bookListList;
-
-    public ProsesStatusListAdapter(List<ProsesStatusList> bookLists, Activity activity){
+    public RiwayatStatusListAdapter(List<RiwayatStatusList> bookLists, Activity activity){
         this.bookListList = bookLists;
         this.activity = activity;
     }
@@ -50,14 +49,14 @@ public class ProsesStatusListAdapter extends RecyclerView.Adapter<ProsesStatusLi
 
     @NonNull
     @Override
-    public ProsesStatusListAdapter.BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_proses_status,parent,false);
-        return new ProsesStatusListAdapter.BookViewHolder(v);
+    public RiwayatStatusListAdapter.BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_riwayat_status,parent,false);
+        return new RiwayatStatusListAdapter.BookViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ProsesStatusListAdapter.BookViewHolder holder, final int postition) {
-        final ProsesStatusList bookList = bookListList.get(postition);
+    public void onBindViewHolder(@NonNull final RiwayatStatusListAdapter.BookViewHolder holder, final int postition) {
+        final RiwayatStatusList bookList = bookListList.get(postition);
         holder.kodeBooking.setText(bookList.getKode_booking());
         holder.jmlKamar.setText(bookList.getJml_kamar());
         holder.totalHarga.setText(formatingRupiah(bookList.getTotal()));

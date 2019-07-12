@@ -35,6 +35,8 @@ import java.util.Map;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getStatusBarHeight;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMobile;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setTextData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GET_USER;
@@ -81,12 +83,18 @@ public class ProfilDetailActivity extends AppCompatActivity {
                 if (uNama.isEmpty()){
                     namaUser.requestFocus();
                     namaUser.setError(getResources().getString(R.string.isi));
-                }else if (uEmail.isEmpty()){
+                }else if (uEmail.isEmpty()) {
                     emailUser.requestFocus();
                     emailUser.setError(getResources().getString(R.string.isi));
-                }else if (uTelpon.isEmpty()){
+                }else if (!isValidMail(uEmail)){
+                    emailUser.requestFocus();
+                    emailUser.setError(getResources().getString(R.string.imail));
+                }else if (uTelpon.isEmpty()) {
                     telponUser.requestFocus();
                     telponUser.setError(getResources().getString(R.string.isi));
+                }else if (!isValidMobile(uTelpon)){
+                    telponUser.requestFocus();
+                    telponUser.setError(getResources().getString(R.string.ihp));
                 }else if (jenisId.getSelectedIndex()==0){
                     jenisId.requestFocus();
                     jenisId.setError(getResources().getString(R.string.isi));
@@ -166,6 +174,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders(){
                 Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json; charset=UTF-8");
                 params.put("Content-Type","application/x-www-form-urlencoded");
                 params.put("Authorization", SPData.getInstance(ProfilDetailActivity.this).getKeyToken() );
                 return params;

@@ -89,11 +89,11 @@ public class Helper {
     }
 
     public static boolean isValidMail(String email) {
-        return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     public static boolean isValidMobile(String phone) {
-        return !android.util.Patterns.PHONE.matcher(phone).matches();
+        return android.util.Patterns.PHONE.matcher(phone).matches();
     }
 
     public static String getIntentData(Activity activity,String nama){
@@ -102,7 +102,7 @@ public class Helper {
 
     public static void setWarnaStatus(Activity activity, TextView status){
         String newString = status.toString();
-        if (newString.equals("Accepted Payment")||newString.equals("Completed")){
+        if (newString.equals("Payment Accepted")||newString.equals("Completed")){
             status.setTextColor(activity.getResources().getColor(R.color.colorPrimaryDark));
         }else {
             status.setTextColor(activity.getResources().getColor(R.color.abang));

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -89,13 +90,13 @@ public class DaftarActivity extends AppCompatActivity {
                 }else if(memail.getText().toString().isEmpty()){
                     memail.requestFocus();
                     memail.setError(getResources().getString(R.string.isi));
-                }else if(isValidMail(memail.getText().toString())){
+                }else if(!isValidMail(memail.getText().toString())){
                     memail.requestFocus();
                     memail.setError(getResources().getString(R.string.imail));
                 }else if(mtelepon.getText().toString().isEmpty()){
                     mtelepon.requestFocus();
                     mtelepon.setError(getResources().getString(R.string.isi));
-                }else if(isValidMobile(mtelepon.getText().toString())){
+                }else if(!isValidMobile(mtelepon.getText().toString())){
                     mtelepon.requestFocus();
                     mtelepon.setError(getResources().getString(R.string.ihp));
                 }else if(mpassword.getText().toString().isEmpty()){
@@ -142,8 +143,12 @@ public class DaftarActivity extends AppCompatActivity {
                                 finish();
                             }
                         }, 2000);
-                    }else{
-                        Snackbar.make(view, R.string.xdaftar, Snackbar.LENGTH_SHORT).show();
+                    }else {
+                        if (jObj.getString("msg").equals("Email atau No Telepon telah terdaftar")) {
+                            Snackbar.make(view, R.string.emailada, Snackbar.LENGTH_SHORT).show();
+                        } else{
+                            Snackbar.make(view, R.string.xdaftar, Snackbar.LENGTH_SHORT).show();
+                        }
                     }
                 } catch (JSONException e) {
                     // JSON error
@@ -159,6 +164,14 @@ public class DaftarActivity extends AppCompatActivity {
                 loadingDialog.tutupDialog();
             }
         }) {
+
+            @Override
+            public Map<String, String> getHeaders(){
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json; charset=UTF-8");
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
 
             @Override
             protected Map<String, String> getParams() {

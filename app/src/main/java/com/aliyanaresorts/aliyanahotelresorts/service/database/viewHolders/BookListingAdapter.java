@@ -210,6 +210,7 @@ public class BookListingAdapter extends RecyclerView.Adapter<BookListingAdapter.
             @Override
             public Map<String, String> getHeaders(){
                 Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json; charset=UTF-8");
                 params.put("Content-Type","application/x-www-form-urlencoded");
                 params.put("Authorization", SPData.getInstance(activity).getKeyToken() );
                 return params;

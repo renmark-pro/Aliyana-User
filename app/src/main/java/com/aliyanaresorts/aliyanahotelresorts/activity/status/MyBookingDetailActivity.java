@@ -29,9 +29,9 @@ import java.util.Map;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_PROSES_LIST_DETAIL;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_BOOKING_DETAIL;
 
-public class ProsesDetailActivity extends AppCompatActivity {
+public class MyBookingDetailActivity extends AppCompatActivity {
 
     private ArrayList<ProsesDetailList> arrayList;
     private RecyclerView.Adapter adapter;
@@ -50,7 +50,7 @@ public class ProsesDetailActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         getDetail();
         LinearLayoutManager layoutManager= new LinearLayoutManager(getBaseContext());
-        adapter = new ProsesDetailListAdapter(arrayList, getBaseContext(), this);
+        adapter = new ProsesDetailListAdapter(arrayList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
     }
@@ -59,7 +59,7 @@ public class ProsesDetailActivity extends AppCompatActivity {
         loadingDialog = new LoadingDialog(this);
         loadingDialog.bukaDialog();
 
-        StringRequest strReq = new StringRequest(Request.Method.GET, KEY_PROSES_LIST_DETAIL +
+        StringRequest strReq = new StringRequest(Request.Method.GET, KEY_BOOKING_DETAIL +
                 getIntentData(this, "kode"), new Response.Listener<String>() {
 
             @Override
@@ -97,7 +97,7 @@ public class ProsesDetailActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/x-www-form-urlencoded");
-                params.put("Authorization", SPData.getInstance(ProsesDetailActivity.this).getKeyToken() );
+                params.put("Authorization", SPData.getInstance(MyBookingDetailActivity.this).getKeyToken() );
                 return params;
             }
         };

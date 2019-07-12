@@ -120,6 +120,16 @@ public class EnquiryActivity extends AppCompatActivity {
                         Toast.makeText(EnquiryActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
+
+
+            @Override
+            public Map<String, String> getHeaders(){
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json; charset=UTF-8");
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();

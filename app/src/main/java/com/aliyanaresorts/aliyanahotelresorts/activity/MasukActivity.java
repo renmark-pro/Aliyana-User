@@ -38,6 +38,7 @@ import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_MASUK;
@@ -77,6 +78,9 @@ public class MasukActivity extends AppCompatActivity {
                 if (email.isEmpty()) {
                     mEmail.requestFocus();
                     mEmail.setError(getResources().getString(R.string.isi));
+                } else if (!isValidMail(email)){
+                    mEmail.requestFocus();
+                    mEmail.setError(getResources().getString(R.string.imail));
                 } else if (password.isEmpty()) {
                     mpassword.setError(getResources().getString(R.string.isi));
                     mpassword.requestFocus();
@@ -114,8 +118,8 @@ public class MasukActivity extends AppCompatActivity {
                 loadingDialog.tutupDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
-                    JSONObject child= jObj.getJSONObject("user");
-                    if (!jObj.getString("expires_at").isEmpty()) {
+                    if (jObj.getString("msg").equals("1")) {
+                        JSONObject child= jObj.getJSONObject("user");
                         SPData.getInstance(getApplicationContext()).userLogin(
                                 child.getString("id"),
                                 child.getString("nama"),
@@ -152,6 +156,15 @@ public class MasukActivity extends AppCompatActivity {
                 loadingDialog.tutupDialog();
             }
         }) {
+
+            @Override
+            public Map<String, String> getHeaders(){
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json; charset=UTF-8");
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url

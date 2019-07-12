@@ -1,7 +1,5 @@
 package com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders;
 
-import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +16,9 @@ import java.util.List;
 public class ProsesDetailListAdapter extends RecyclerView.Adapter<ProsesDetailListAdapter.BookViewHolder> {
 
     private final List<ProsesDetailList> bookListList;
-    private Activity activity;
-    private Context context;
 
-    public ProsesDetailListAdapter(List<ProsesDetailList> bookLists, Context context, Activity activity){
+    public ProsesDetailListAdapter(List<ProsesDetailList> bookLists){
         this.bookListList = bookLists;
-        this.activity = activity;
-        this.context = context;
     }
 
 

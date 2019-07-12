@@ -124,19 +124,19 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
                 params.put("tipe_identitas", data.getKeyJenisId());
                 params.put("no_identitas", data.getKeyNomerId());
                 params.put("alamat", data.getKeyAlamat());
-//                params.put("foto", );
+                params.put("foto", getStringImage(decoded));
                 return params;
             }
 
             @Override
             public Map<String, String> getHeaders(){
                 Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json; charset=UTF-8");
                 params.put("Content-Type","application/x-www-form-urlencoded");
                 params.put("Authorization", SPData.getInstance(FotoProfilAccountActivity.this).getKeyToken() );
                 return params;
             }
         };
-        // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
     }
 

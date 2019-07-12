@@ -118,6 +118,7 @@ public class PreviewBookingActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json; charset=UTF-8");
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 params.put("Authorization", SPData.getInstance(PreviewBookingActivity.this).getKeyToken() );
                 return params;
