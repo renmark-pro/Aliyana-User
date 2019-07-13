@@ -1,8 +1,6 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -14,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.DefaultRetryPolicy;
@@ -38,6 +37,7 @@ import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
@@ -49,7 +49,6 @@ public class MasukActivity extends AppCompatActivity {
     private FlipperLayout flipper;
     private ArrayList<HashMap<String, String>> list_dataS;
     private EditText mEmail, mpassword;
-    private ConnectivityManager conMgr;
     private LoadingDialog loadingDialog;
 
     @Override
@@ -63,7 +62,7 @@ public class MasukActivity extends AppCompatActivity {
         Button daftar = findViewById(R.id.btnDaftar);
         mEmail= findViewById(R.id.email);
         mpassword= findViewById(R.id.password);
-        conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        final NoInetDialog noInetDialog = new NoInetDialog(this);
 
         setSlide();
 
@@ -84,14 +83,10 @@ public class MasukActivity extends AppCompatActivity {
                 } else if (password.isEmpty()) {
                     mpassword.setError(getResources().getString(R.string.isi));
                     mpassword.requestFocus();
-                }else  {
-                    if (conMgr.getActiveNetworkInfo() != null
-                            && conMgr.getActiveNetworkInfo().isAvailable()
-                            && conMgr.getActiveNetworkInfo().isConnected()) {
-                        checkLogin(email, password, v);
-                    } else {
-                        Toast.makeText(getApplicationContext() ,"No Internet Connection", Toast.LENGTH_LONG).show();
-                    }
+                }else if(!isNetworkAvailable(getBaseContext())){
+                    noInetDialog.bukaDialog();
+                }else {
+                    checkLogin(email, password, v);
                 }
             }
         });

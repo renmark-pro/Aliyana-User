@@ -166,5 +166,6 @@
     <string name="totalt">Total</string>
     <string name="inhouse">Inhouse</string>
     <string name="emailada">Email sudah terdaftar.</string>
+    <string name="noinet">Ups, \nTidak ada koneksi Internet</string>
 
 </resources>

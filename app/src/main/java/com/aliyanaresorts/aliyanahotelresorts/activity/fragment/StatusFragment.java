@@ -1,15 +1,14 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.status.fragment.CekinStatusFragment;
@@ -26,8 +25,6 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplika
  * A simple {@link Fragment} subclass.
  */
 public class StatusFragment extends Fragment {
-
-    public static int posisi =0;
 
     public StatusFragment() {
         // Required empty public constructor
@@ -56,20 +53,6 @@ public class StatusFragment extends Fragment {
 
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                posisi = tab.getPosition();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
     }
 
 }

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.Request;
@@ -35,6 +36,7 @@ import java.util.Map;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getStatusBarHeight;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMobile;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setTextData;
@@ -64,6 +66,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
         alamatUser=findViewById(R.id.alamat);
         RelativeLayout foto = findViewById(R.id.layoutFoto);
         Button simpan = findViewById(R.id.btnUpdate);
+        final NoInetDialog noInetDialog = new NoInetDialog(this);
 
         List<String> datajenis = new LinkedList<>(Arrays.asList(getResources().getStringArray(R.array.jenisid)));
         jenisId.attachDataSource(datajenis);
@@ -106,7 +109,9 @@ public class ProfilDetailActivity extends AppCompatActivity {
                 }else if (uAlamat.isEmpty()){
                     alamatUser.requestFocus();
                     alamatUser.setError(getResources().getString(R.string.isi));
-                }else {
+                }else  if(!isNetworkAvailable(getBaseContext())){
+                    noInetDialog.bukaDialog();
+                }else{
                     closeKeyboard(ProfilDetailActivity.this);
                     updateProfile(v, uNama, uEmail, uTelpon, uTipe, uNomerId, uAlamat);
                 }

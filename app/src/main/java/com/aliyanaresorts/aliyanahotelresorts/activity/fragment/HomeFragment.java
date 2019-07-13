@@ -26,6 +26,7 @@ import com.aliyanaresorts.aliyanahotelresorts.activity.PromoListActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.RoomDetailActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.RoomListActivity;
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,6 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
@@ -81,7 +83,7 @@ public class HomeFragment extends Fragment {
         flipper = view.findViewById(R.id.flipper);
         selamat = view.findViewById(R.id.textWelcome);
         flipper.setCircularIndicatorLayoutParams(0, 0);
-//        TextView nama = view.findViewById(R.id.textNama);
+        final NoInetDialog noInetDialog = new NoInetDialog(getActivity());
 
         Typeface face = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(),
                 "JosefinSans-Regular.ttf");
@@ -102,16 +104,24 @@ public class HomeFragment extends Fragment {
         rooms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RoomListActivity.class);
-                startActivity(intent);
+                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                    noInetDialog.bukaDialog();
+                }else {
+                    Intent intent = new Intent(getActivity(), RoomListActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
         book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), BookingActivity.class);
-                startActivity(intent);
+                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                    noInetDialog.bukaDialog();
+                }else {
+                    Intent intent = new Intent(getActivity(), BookingActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -126,24 +136,36 @@ public class HomeFragment extends Fragment {
         promo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PromoListActivity.class);
-                startActivity(intent);
+                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                    noInetDialog.bukaDialog();
+                }else {
+                    Intent intent = new Intent(getActivity(), PromoListActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
         galeri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), InfoHotelActivity.class);
-                startActivity(intent);
+                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                    noInetDialog.bukaDialog();
+                }else {
+                    Intent intent = new Intent(getActivity(), InfoHotelActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
         fasilitas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FasilitasActivity.class);
-                startActivity(intent);
+                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                    noInetDialog.bukaDialog();
+                }else {
+                    Intent intent = new Intent(getActivity(), FasilitasActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }

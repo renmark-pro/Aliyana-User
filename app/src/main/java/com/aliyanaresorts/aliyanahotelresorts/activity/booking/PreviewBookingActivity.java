@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.PreviewList;
@@ -36,6 +37,7 @@ import java.util.Map;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_BOOK_PROSES;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_BOOK_ROOM;
@@ -57,6 +59,7 @@ public class PreviewBookingActivity extends AppCompatActivity {
         Button konfirm = findViewById(R.id.btKonfirmasi);
         kode = findViewById(R.id.kodeBook);
         total = findViewById(R.id.total);
+        final NoInetDialog noInetDialog = new NoInetDialog(this);
 
         arrayList = new ArrayList<>();
         RecyclerView recyclerView = findViewById(R.id.previewList);
@@ -71,7 +74,11 @@ public class PreviewBookingActivity extends AppCompatActivity {
         konfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                konfirmBooking(view);
+                if(!isNetworkAvailable(getBaseContext())){
+                    noInetDialog.bukaDialog();
+                }else {
+                    konfirmBooking(view);
+                }
             }
         });
 

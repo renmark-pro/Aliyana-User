@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.status.MyBookingDetailActivity;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.CekinStatusList;
@@ -35,7 +36,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setViewStatus;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_CEKIN_LIST;
 
@@ -73,15 +76,20 @@ public class    CekinStatusFragment extends Fragment {
         adapter = new CekinStatusListAdapter(arrayList, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
+        final NoInetDialog noInetDialog = new NoInetDialog(getActivity());
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                final CekinStatusList produk = arrayList.get(position);
-                String id = produk.getKode_booking();
-                Intent i = new Intent(getContext(), MyBookingDetailActivity.class);
-                i.putExtra("kode",id);
-                startActivity(i);
+                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                    noInetDialog.bukaDialog();
+                }else {
+                    final CekinStatusList produk = arrayList.get(position);
+                    String id = produk.getKode_booking();
+                    Intent i = new Intent(getContext(), MyBookingDetailActivity.class);
+                    i.putExtra("kode", id);
+                    startActivity(i);
+                }
             }
 
             @Override

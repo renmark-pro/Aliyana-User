@@ -1,10 +1,7 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -37,6 +35,7 @@ import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMobile;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
@@ -48,7 +47,6 @@ public class DaftarActivity extends AppCompatActivity {
 
     private FlipperLayout flipper;
     private EditText mnama, memail, mtelepon,mpassword, mcpassword;
-    private ConnectivityManager conMgr;
     private ArrayList<HashMap<String, String>> list_dataS;
     private LoadingDialog loadingDialog;
 
@@ -65,7 +63,7 @@ public class DaftarActivity extends AppCompatActivity {
         Button masuk = findViewById(R.id.btnMasuk);
         Button daftar = findViewById(R.id.btnDaftar);
         flipper = findViewById(R.id.flipper);
-        conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        final NoInetDialog noInetDialog = new NoInetDialog(this);
 
         setSlide();
         masuk.setOnClickListener(new View.OnClickListener() {
@@ -110,15 +108,11 @@ public class DaftarActivity extends AppCompatActivity {
                     mcpassword.setError(getResources().getString(R.string.isi));
                 }else if (!cpassword.equals(password)){
                     Snackbar.make(v, R.string.passalah, Snackbar.LENGTH_SHORT).show();
+                }else if(!isNetworkAvailable(getBaseContext())){
+                    noInetDialog.bukaDialog();
                 }else {
-                    if (conMgr.getActiveNetworkInfo() != null
-                            && conMgr.getActiveNetworkInfo().isAvailable()
-                            && conMgr.getActiveNetworkInfo().isConnected()) {
-                        closeKeyboard(DaftarActivity.this);
-                        checkRegister(nama, email, telepon, password, cpassword, v);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
-                    }
+                    closeKeyboard(DaftarActivity.this);
+                    checkRegister(nama, email, telepon, password, cpassword, v);
                 }
             }
         });

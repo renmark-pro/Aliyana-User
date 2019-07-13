@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.DefaultRetryPolicy;
@@ -46,6 +47,7 @@ import java.util.Map;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_CEK_KAMAR;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_TIPE_KAMAR;
@@ -85,6 +87,7 @@ public class BookingActivity extends AppCompatActivity {
         jmlOrang = findViewById(R.id.jml_org);
         format = new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT);
         upload = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
+        final NoInetDialog noInetDialog = new NoInetDialog(this);
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "JosefinSans-Regular.ttf");
         calendar.setFonts(typeface);
@@ -183,7 +186,9 @@ public class BookingActivity extends AppCompatActivity {
                     }else if (jOrang.isEmpty() || Integer.parseInt(jOrang)<1){
                         jmlOrang.requestFocus();
                         jmlOrang.setError(getResources().getString(R.string.kolom));
-                    }else {
+                    }else if(!isNetworkAvailable(getBaseContext())){
+                        noInetDialog.bukaDialog();
+                    } else  {
                         if (tipe.get(kamar.getSelectedIndex()).equals(getResources().getString(R.string.semua))){
                             id_kamar="0";
                         }else {

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.FasilitasList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.FasilitasListAdapter;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_FASILITAS_LIST;
 
@@ -47,6 +49,7 @@ public class FasilitasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fasilitas);
         setTemaAplikasi(FasilitasActivity.this, 1);
+        final NoInetDialog noInetDialog = new NoInetDialog(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,11 +70,15 @@ public class FasilitasActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                final FasilitasList produk = arrayList.get(position);
-                String id = produk.getId();
-                Intent i = new Intent(getApplicationContext(), FasilitasDetailActivity.class);
-                i.putExtra("posisi",id);
-                startActivity(i);
+                if(!isNetworkAvailable(getBaseContext())){
+                    noInetDialog.bukaDialog();
+                }else {
+                    final FasilitasList produk = arrayList.get(position);
+                    String id = produk.getId();
+                    Intent i = new Intent(getApplicationContext(), FasilitasDetailActivity.class);
+                    i.putExtra("posisi", id);
+                    startActivity(i);
+                }
             }
 
             @Override

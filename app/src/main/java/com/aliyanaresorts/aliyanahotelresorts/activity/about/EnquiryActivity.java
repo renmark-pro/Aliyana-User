@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -28,6 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_ENQ;
@@ -54,6 +56,7 @@ public class EnquiryActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.email);
         mIsi = findViewById(R.id.isi);
         Button submit = findViewById(R.id.btnKirim);
+        final NoInetDialog noInetDialog = new NoInetDialog(this);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,8 @@ public class EnquiryActivity extends AppCompatActivity {
                 }else if (isi.isEmpty()){
                     mIsi.requestFocus();
                     mIsi.setError(getResources().getString(R.string.kolom));
+                }else if(!isNetworkAvailable(getBaseContext())){
+                    noInetDialog.bukaDialog();
                 }else {
                     kirim(v, nama, email, isi);
                 }

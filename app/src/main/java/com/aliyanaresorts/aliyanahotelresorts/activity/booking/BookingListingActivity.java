@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.BookList;
@@ -40,6 +41,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_ADD_ROOM_COUNT;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_CEK_KAMAR;
@@ -61,6 +63,7 @@ public class BookingListingActivity extends AppCompatActivity {
 
         proses = findViewById(R.id.layoutProses);
         hitungan=findViewById(R.id.txtCount);
+        final NoInetDialog noInetDialog = new NoInetDialog(this);
         
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,12 +87,16 @@ public class BookingListingActivity extends AppCompatActivity {
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        addCount();
-                    }
-                }, 1000L);
+                if(!isNetworkAvailable(getBaseContext())){
+                    noInetDialog.bukaDialog();
+                }else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            addCount();
+                        }
+                    }, 1000L);
+                }
             }
 
             @Override

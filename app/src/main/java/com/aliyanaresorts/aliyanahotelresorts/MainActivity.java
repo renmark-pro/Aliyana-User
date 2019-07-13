@@ -1,21 +1,23 @@
 package com.aliyanaresorts.aliyanahotelresorts;
 
 import android.content.DialogInterface;
-import androidx.annotation.NonNull;
-
-import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
-import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.AccountFragment;
 import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.HomeFragment;
 import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.StatusFragment;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        NoInetDialog noInetDialog = new NoInetDialog(this);
 
         switch (menuItem.getItemId()){
             case R.id.navigation_account:
@@ -61,9 +64,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().detach(homeFragment).attach(homeFragment).setCustomAnimations(R.anim.fade_in,R.anim.fade_out).replace(R.id.container, homeFragment).commit();
                 return true;
             case R.id.navigation_status:
-                HOME=1;
-                getSupportFragmentManager().beginTransaction().detach(statusFragment).attach(statusFragment).setCustomAnimations(R.anim.fade_in,R.anim.fade_out).replace(R.id.container, statusFragment).commit();
-                return true;
+                if (!isNetworkAvailable(getBaseContext())){
+                    noInetDialog.bukaDialog();
+                }else {
+                    HOME = 1;
+                    getSupportFragmentManager().beginTransaction().detach(statusFragment).attach(statusFragment).setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, statusFragment).commit();
+                    return true;
+                }
         }
 
         return false;
