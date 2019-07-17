@@ -3,9 +3,9 @@ package com.aliyanaresorts.aliyanahotelresorts.activity.account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,6 +39,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getStatusBar
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMobile;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setFotoUser;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setTextData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GET_USER;
@@ -49,6 +50,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
     private LoadingDialog loadingDialog;
     private NiceSpinner jenisId;
     private TextView namaUser, nomerIdUser, emailUser, telponUser, alamatUser;
+    private ImageView fotoUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +67,12 @@ public class ProfilDetailActivity extends AppCompatActivity {
         telponUser=findViewById(R.id.telpon);
         alamatUser=findViewById(R.id.alamat);
         RelativeLayout foto = findViewById(R.id.layoutFoto);
+        fotoUser = findViewById(R.id.fotoUser);
         Button simpan = findViewById(R.id.btnUpdate);
         final NoInetDialog noInetDialog = new NoInetDialog(this);
 
         List<String> datajenis = new LinkedList<>(Arrays.asList(getResources().getStringArray(R.array.jenisid)));
         jenisId.attachDataSource(datajenis);
-
-        getDetail();
 
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,13 +194,14 @@ public class ProfilDetailActivity extends AppCompatActivity {
         loadingDialog = new LoadingDialog(this);
         loadingDialog.bukaDialog();
         closeKeyboard(this);
-        Log.e("TOKEN : ", SPData.getInstance(this).getKeyToken());
 
         StringRequest strReq = new StringRequest(Request.Method.GET, KEY_GET_USER, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                loadingDialog.tutupDialog();
+                if (fotoUser.getDrawable()!=getResources().getDrawable(R.drawable.image_slider_1)){
+                    loadingDialog.tutupDialog();
+                }
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject result = jsonObject.getJSONObject("user");
@@ -209,6 +211,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
                     nomerIdUser.setText(setTextData(result.getString("no_identitas")));
                     telponUser.setText(setTextData(result.getString("no_telepon")));
                     alamatUser.setText(setTextData(result.getString("alamat")));
+                    setFotoUser(result.getString("foto"), getBaseContext(), fotoUser);
                     SPData.getInstance(getApplicationContext()).updateBio(
                             result.getString("nama"),
                             result.getString("email"),
@@ -261,5 +264,11 @@ public class ProfilDetailActivity extends AppCompatActivity {
                 break;
         }
         return index;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDetail();
     }
 }

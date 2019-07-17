@@ -34,7 +34,7 @@ public class SPData {
                 return mInstance;
         }
 
-        public void userLogin(String id, String nama, String email, String jenis_id, String nomer_id, String telepon, String alamat, String token){
+        public void userLogin(String id, String nama, String email, String jenis_id, String nomer_id, String telepon, String alamat, String foto, String token){
 
                 SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -46,6 +46,7 @@ public class SPData {
                 editor.putString(KEY_NOMER_ID, nomer_id);
                 editor.putString(KEY_TELEPON, telepon);
                 editor.putString(KEY_ALAMAT, alamat);
+                editor.putString(KEY_FOTO, foto);
                 editor.putString(KEY_TOKEN, token);
 
                 editor.apply();
@@ -66,15 +67,15 @@ public class SPData {
                 editor.apply();
         }
 
-//        public void updateFoto(String foto){
-//
-//                SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//                editor.putString(KEY_FOTO, foto);
-//
-//                editor.apply();
-//        }
+        public void updateFoto(String foto){
+
+                SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putString(KEY_FOTO, foto);
+
+                editor.apply();
+        }
 
 
         public boolean isLoggedIn(){
@@ -110,10 +111,10 @@ public class SPData {
             return sharedPreferences.getString(KEY_NOMER_ID, null);
         }
 
-//        public String getKeyFoto() {
-//            SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-//            return sharedPreferences.getString(KEY_FOTO, null);
-//        }
+        public String getKeyFoto() {
+            SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+            return sharedPreferences.getString(KEY_FOTO, null);
+        }
 
         public String getKeyAlamat() {
             SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

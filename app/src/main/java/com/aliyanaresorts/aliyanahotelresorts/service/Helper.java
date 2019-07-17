@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,11 +16,15 @@ import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class Helper {
 
@@ -59,6 +64,18 @@ public class Helper {
             text=data;
         }
         return text;
+    }
+
+    public static void setFotoUser(String foto, Context context, ImageView imageView){
+        if (!foto.equals("null")){
+            Glide.with(context).load(KEY_DOMAIN+foto)
+                    .placeholder(R.drawable.image_slider_1)
+                    .thumbnail(0.5f)
+                    .centerCrop()
+                    .transition(withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .into(imageView);
+        }
     }
 
 //    public static String convertPassMd5(String pass) {

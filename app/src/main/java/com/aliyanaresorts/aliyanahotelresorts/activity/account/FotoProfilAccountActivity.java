@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.snackbar.Snackbar;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -42,8 +45,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getPermissions;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GET_USER;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_UPDATE_USER;
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class FotoProfilAccountActivity extends AppCompatActivity {
 
@@ -65,16 +72,59 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView);
 
-//        if (!SPData.getInstance(this).getKeyFoto().equals("http://aliyanaresorts.com/app/user/foto/")){
-//            Glide.with(this).load(SPData.getInstance(this).getKeyFoto())
-//                    .transition(withCrossFade())
-//                    .placeholder(R.drawable.image_slider_1)
-//                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-////                    .skipMemoryCache(true)
-//                    .fitCenter()
-//                    .into(imageView);
-//        }
+        if (!SPData.getInstance(this).getKeyFoto().equals("http://aliyanaresorts.com/img/users/")){
+            Glide.with(this).load(KEY_DOMAIN+SPData.getInstance(this).getKeyFoto())
+                    .transition(withCrossFade())
+                    .placeholder(R.drawable.image_slider_1)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .fitCenter()
+                    .into(imageView);
+        }
 
+    }
+
+    private void getFoto() {
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
+        closeKeyboard(this);
+        Log.e("TOKEN : ", SPData.getInstance(this).getKeyToken());
+
+        StringRequest strReq = new StringRequest(Request.Method.GET, KEY_GET_USER, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                loadingDialog.tutupDialog();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject result = jsonObject.getJSONObject("user");
+                    SPData.getInstance(getApplicationContext()).updateFoto(
+                            result.getString("foto")
+                    );
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                loadingDialog.tutupDialog();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", SPData.getInstance(FotoProfilAccountActivity.this).getKeyToken() );
+                return params;
+            }
+
+        };
+        AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
     }
 
     private void uploadImage(final View view) {
@@ -89,6 +139,7 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(response);
                     if (jObj.getString("msg").equals("Profil berhasil diupdate")){
                         Snackbar.make(view, R.string.bisa, Snackbar.LENGTH_SHORT).show();
+                        getFoto();
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -118,7 +169,7 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 SPData data = SPData.getInstance(FotoProfilAccountActivity.this);
-                params.put("nama", getStringImage(decoded));
+                params.put("nama", data.getKeyNama());
                 params.put("email",data.getKeyEmail());
                 params.put("no_telepon", data.getKeyTelepon());
                 params.put("tipe_identitas", data.getKeyJenisId());

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setFotoUser;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setTextData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_GET_USER;
@@ -50,6 +52,7 @@ public class AccountFragment extends Fragment {
 
     private LoadingDialog loadingDialog;
     private TextView nama, telpon;
+    private ImageView fotoUser;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -65,16 +68,15 @@ public class AccountFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        getPermissions();
         nama = view.findViewById(R.id.nama);
         telpon = view.findViewById(R.id.telpon);
+        fotoUser = view.findViewById(R.id.imgView);
         LinearLayout promo = view.findViewById(R.id.promo);
         LinearLayout bantuan = view.findViewById(R.id.bantuan);
         LinearLayout voucher = view.findViewById(R.id.voucher);
         LinearLayout keluar = view.findViewById(R.id.keluar);
         CardView user = view.findViewById(R.id.layoutUser);
-
-        getDetail();
-        getPermissions();
 
         nama.setText(SPData.getInstance(getActivity()).getKeyNama());
         telpon.setText(SPData.getInstance(getActivity()).getKeyTelepon());
@@ -150,12 +152,15 @@ public class AccountFragment extends Fragment {
 
             @Override
             public void onResponse(String response) {
-                loadingDialog.tutupDialog();
+                if (fotoUser.getDrawable()!=getResources().getDrawable(R.drawable.image_slider_1)){
+                    loadingDialog.tutupDialog();
+                }
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject result = jsonObject.getJSONObject("user");
                     nama.setText(setTextData(result.getString("nama")));
                     telpon.setText(setTextData(result.getString("no_telepon")));
+                    setFotoUser(result.getString("foto"), getContext(), fotoUser);
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
@@ -183,6 +188,12 @@ public class AccountFragment extends Fragment {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getDetail();
     }
 
 }

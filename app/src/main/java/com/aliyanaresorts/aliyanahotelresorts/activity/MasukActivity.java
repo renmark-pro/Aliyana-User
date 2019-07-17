@@ -123,6 +123,7 @@ public class MasukActivity extends AppCompatActivity {
                                 child.getString("no_identitas"),
                                 child.getString("no_telepon"),
                                 child.getString("alamat"),
+                                child.getString("foto"),
                                 jObj.getString("access_token")
                         );
                         Snackbar.make(view, R.string.bmasuk, Snackbar.LENGTH_SHORT).show();

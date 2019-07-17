@@ -2,7 +2,7 @@ package com.aliyanaresorts.aliyanahotelresorts.service.database;
 
 public class API {
 
-    public static final String KEY_DOMAIN = "http://sistem.aliyanaresorts.com";
+    public static final String KEY_DOMAIN = "http://aliyanaresorts.com";
     public static final String KEY_KAMAR_LIST="http://aliyanaresorts.com/public/api/apps/kamar";
     public static final String KEY_KAMAR_DETAIL="http://aliyanaresorts.com/public/api/apps/kamar/";
     public static final String KEY_FASILITAS_LIST="http://aliyanaresorts.com/api/apps/fasilitas";
