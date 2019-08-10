@@ -1,52 +1,90 @@
 {
   "project_info": {
-    "project_number": "304644135514",
-    "firebase_url": "https://aliyanahotelresorts.firebaseio.com",
-    "project_id": "aliyanahotelresorts",
-    "storage_bucket": "aliyanahotelresorts.appspot.com"
+    "project_number": "263105607276",
+    "firebase_url": "https://aliyana-hotel-resorts-f01d7.firebaseio.com",
+    "project_id": "aliyana-hotel-resorts-f01d7",
+    "storage_bucket": "aliyana-hotel-resorts-f01d7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:304644135514:android:5fc4e4191fa1a4c8",
+        "mobilesdk_app_id": "1:263105607276:android:bc3d6a52d08d0488",
+        "android_client_info": {
+          "package_name": "com.aliyanaresorts.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263105607276-8rttuanhm606lj0k5vvp1vkq3dmjiqg3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aliyanaresorts.admin",
+            "certificate_hash": "4ba22a95602ee032d56d3cf928500c8a1602300b"
+          }
+        },
+        {
+          "client_id": "263105607276-r9p4d2kqo8lgpp09kqs2p3ibkeh3n98n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU5aRm-hhM948tmiaAkhzfAjZeIkKzmv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263105607276-1obsu5ciqc41m04pdmga3ep9en7tph14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263105607276:android:5fc4e4191fa1a4c8",
         "android_client_info": {
           "package_name": "com.aliyanaresorts.aliyanahotelresorts"
         }
       },
       "oauth_client": [
         {
-          "client_id": "304644135514-96o0fnq2ptd64s4giovqq3af4ae6httn.apps.googleusercontent.com",
+          "client_id": "263105607276-rcq2bm5kr4b4929b3llj9auhhgrupgmm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.aliyanaresorts.aliyanahotelresorts",
-            "certificate_hash": "4ba22a95602ee032d56d3cf928500c8a1602300b"
+            "certificate_hash": "c6e98a7966ecac22a591165e3704bf7d7f443ce1"
           }
         },
         {
-          "client_id": "304644135514-900a3gts4kk9lt372723m9svhbq4l2kl.apps.googleusercontent.com",
+          "client_id": "263105607276-8c7lj9ppi24qrc00pksjmfl2jsbj60t2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aliyanaresorts.aliyanahotelresorts",
+            "certificate_hash": "1a8f55c6c7a93282d9070c7669240d353b623581"
+          }
+        },
+        {
+          "client_id": "263105607276-r9p4d2kqo8lgpp09kqs2p3ibkeh3n98n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDvqhlmcdz9M3aDvr4Mp0wZnwr7qle_FkU"
+          "current_key": "AIzaSyBU5aRm-hhM948tmiaAkhzfAjZeIkKzmv4"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "304644135514-900a3gts4kk9lt372723m9svhbq4l2kl.apps.googleusercontent.com",
+              "client_id": "263105607276-1obsu5ciqc41m04pdmga3ep9en7tph14.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

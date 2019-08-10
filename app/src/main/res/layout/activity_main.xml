@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:scrollbars="none"
-    android:background="@color/putih"
+    style="@style/BgPutih"
     android:id="@+id/actovity_main"
     tools:context=".MainActivity">
 

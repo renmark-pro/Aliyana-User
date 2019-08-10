@@ -18,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class FasilitasListAdapter extends RecyclerView.Adapter<FasilitasListAdapter.FasilitasViewHolder>   {
@@ -57,7 +58,7 @@ public class FasilitasListAdapter extends RecyclerView.Adapter<FasilitasListAdap
     @Override
     public void onBindViewHolder(@NonNull FasilitasListAdapter.FasilitasViewHolder holder, int postition) {
         FasilitasList fasilitasList = fasilitasLists.get(postition);
-        Glide.with(context).load(KEY_DOMAIN+fasilitasList.getLokasi())
+        Glide.with(context).load(KEY_DOMAIN_SISTEM+fasilitasList.getLokasi())
                 .placeholder(R.drawable.image_slider_1)
                 .thumbnail(0.5f)
                 .centerCrop()

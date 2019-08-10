@@ -48,6 +48,7 @@ public class MyBookingDetailActivity extends AppCompatActivity {
         arrayList = new ArrayList<>();
         RecyclerView recyclerView = findViewById(R.id.prosesList);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
         getDetail();
         LinearLayoutManager layoutManager= new LinearLayoutManager(getBaseContext());
         adapter = new ProsesDetailListAdapter(arrayList);

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    android:background="@drawable/bg_about"
+    style="@style/BgAbout"
     tools:context=".activity.fragment.StatusFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -36,8 +36,7 @@
             app:tabSelectedTextColor="@color/colorPrimaryDark"
             app:tabIndicatorColor="@color/colorPrimaryDark"
             app:tabIndicatorHeight="4dp"
-            app:tabBackground="@color/putih"
-            app:tabMode="scrollable"/>
+            app:tabBackground="@color/putih"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

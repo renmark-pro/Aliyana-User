@@ -1,37 +1,48 @@
 package com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.activity.status.MyBookingDetailActivity;
+import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.ProsesStatusList;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setWarnaButtonProses;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setWarnaStatus;
 
 public class ProsesStatusListAdapter extends RecyclerView.Adapter<ProsesStatusListAdapter.BookViewHolder> {
 
     private final Activity activity;
+    private final Context context;
 
     private final List<ProsesStatusList> bookListList;
 
-    public ProsesStatusListAdapter(List<ProsesStatusList> bookLists, Activity activity){
+    public ProsesStatusListAdapter(List<ProsesStatusList> bookLists, Activity activity, Context context){
         this.bookListList = bookLists;
         this.activity = activity;
+        this.context = context;
     }
 
 
     class BookViewHolder extends RecyclerView.ViewHolder {
         //Views
-        final TextView kodeBooking, jmlKamar, totalHarga, cekIn, cekOut, statusBayar;
+        final TextView kodeBooking, jmlKamar, totalHarga, cekIn, cekOut, statusBayar, btnProses;
+        final LinearLayout layoutDetail;
 
 
         //Initializing Views
@@ -44,6 +55,8 @@ public class ProsesStatusListAdapter extends RecyclerView.Adapter<ProsesStatusLi
             cekIn = itemView.findViewById(R.id.cekIn);
             cekOut = itemView.findViewById(R.id.cekOut);
             statusBayar = itemView.findViewById(R.id.statusBayar);
+            btnProses = itemView.findViewById(R.id.btnProses);
+            layoutDetail = itemView.findViewById(R.id.layoutDetail);
 
         }
     }
@@ -57,6 +70,7 @@ public class ProsesStatusListAdapter extends RecyclerView.Adapter<ProsesStatusLi
 
     @Override
     public void onBindViewHolder(@NonNull final ProsesStatusListAdapter.BookViewHolder holder, final int postition) {
+        final NoInetDialog noInetDialog = new NoInetDialog(activity);
         final ProsesStatusList bookList = bookListList.get(postition);
         holder.kodeBooking.setText(bookList.getKode_booking());
         holder.jmlKamar.setText(bookList.getJml_kamar());
@@ -65,6 +79,25 @@ public class ProsesStatusListAdapter extends RecyclerView.Adapter<ProsesStatusLi
         holder.cekOut.setText(bookList.getTgl_checkout());
         holder.statusBayar.setText(bookList.getStatus());
         setWarnaStatus(activity, holder.statusBayar);
+        setWarnaButtonProses(activity, bookList.getStatus(), holder.btnProses);
+        holder.btnProses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Oke", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        holder.layoutDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isNetworkAvailable(context)){
+                    noInetDialog.bukaDialog();
+                }else {
+                    Intent i = new Intent(context, MyBookingDetailActivity.class);
+                    i.putExtra("kode", bookList.getKode_booking());
+                    context.startActivity(i);
+                }
+            }
+        });
     }
 
     @Override

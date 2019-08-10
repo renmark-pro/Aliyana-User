@@ -1,17 +1,16 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.about;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
@@ -31,8 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_TENTANG_HOTEL;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.remTagHtml;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_TENTANG_HOTEL;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -95,7 +95,7 @@ public class DetailActivity extends AppCompatActivity {
                         list_data.add(map);
                     }
                     loadingDialog.tutupDialog();
-                    textView.setText(new SpannableString(list_data.get(0).get("tentang")));
+                    textView.setText(remTagHtml(list_data.get(0).get("tentang")));
                     lokasi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -135,7 +135,7 @@ public class DetailActivity extends AppCompatActivity {
                             emailIntent.setType("text/plain");
                             emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{list_data.get(0)
                                     .get("mail1") + ";" + list_data.get(0).get("mail2")}); // recipients
-                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "About Aliyana Hotel & Resorts");
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.txtMail));
                             startActivity(emailIntent);
                         }
                     });
@@ -152,7 +152,7 @@ public class DetailActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             Uri wa = Uri.parse("https://api.whatsapp.com/send?phone="
                                     + list_data.get(0).get("whatsapp")
-                                    + "&text=About Aliyana Hotel & Resorts");
+                                    + "&text="+getResources().getString(R.string.txtMail));
                             Intent waIntent = new Intent(Intent.ACTION_VIEW, wa);
                             startActivity(waIntent);
                         }

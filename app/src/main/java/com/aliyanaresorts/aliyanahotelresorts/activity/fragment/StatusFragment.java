@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.activity.status.fragment.CekinStatusFragment;
-import com.aliyanaresorts.aliyanahotelresorts.activity.status.fragment.CekoutStatusFragment;
 import com.aliyanaresorts.aliyanahotelresorts.activity.status.fragment.InhouseStatusFragment;
 import com.aliyanaresorts.aliyanahotelresorts.activity.status.fragment.ProsesStatusFragment;
 import com.aliyanaresorts.aliyanahotelresorts.activity.status.fragment.RiwayatStatusFragment;
@@ -46,9 +44,7 @@ public class StatusFragment extends Fragment {
 
         TabAdapter tabAdapter = new TabAdapter(getFragmentManager());
         tabAdapter.addFragment(new ProsesStatusFragment(), getResources().getString(R.string.prosestok));
-        tabAdapter.addFragment(new CekinStatusFragment(), getResources().getString(R.string.cekin));
         tabAdapter.addFragment(new InhouseStatusFragment(), getResources().getString(R.string.inhouse));
-        tabAdapter.addFragment(new CekoutStatusFragment(), getResources().getString(R.string.cekout));
         tabAdapter.addFragment(new RiwayatStatusFragment(), getResources().getString(R.string.riwayat));
 
         viewPager.setAdapter(tabAdapter);

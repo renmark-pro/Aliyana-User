@@ -13,6 +13,7 @@
     <string name="nama_kamar">Nama Kamar</string>
     <string name="harga_kamar">Rp 123.456</string>
     <string name="harga">Harga : \t</string>
+    <string name="hargaa">Harga</string>
     <string name="fasilitas">Fasilitas : \t</string>
     <string name="fasilitas1">Fasilitas</string>
     <string name="deskripsi">Deskripsi : \t</string>
@@ -167,5 +168,7 @@
     <string name="inhouse">Inhouse</string>
     <string name="emailada">Email sudah terdaftar.</string>
     <string name="noinet">Ups, \nTidak ada koneksi Internet</string>
+    <string name="txtMail">Hai! Saya ingin bertanya seputar Aliyana Hotel &amp; Resorts</string>
+    <string name="prspembayaran">Proses Pembayaran</string>
 
 </resources>

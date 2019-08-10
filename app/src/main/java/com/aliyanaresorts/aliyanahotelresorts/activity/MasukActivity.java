@@ -40,7 +40,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboar
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_MASUK;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
 
@@ -197,7 +197,7 @@ public class MasukActivity extends AppCompatActivity {
                                 map.put("judul", json.getString("judul"));
                                 list_dataS.add(map);
                                 FlipperView view = new FlipperView(getBaseContext());
-                                view.setImageUrl(KEY_DOMAIN+list_dataS.get(a).get("foto"))
+                                view.setImageUrl(KEY_DOMAIN_SISTEM+list_dataS.get(a).get("foto"))
                                         .setDescription(list_dataS.get(a).get("judul"))
                                         .setDescriptionBackgroundColor(getResources()
                                                 .getColor(R.color.hitamtrans));

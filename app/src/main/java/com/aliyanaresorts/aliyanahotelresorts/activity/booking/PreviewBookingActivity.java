@@ -139,8 +139,8 @@ public class PreviewBookingActivity extends AppCompatActivity {
                 params.put("tgl_checkout", getIntentData(PreviewBookingActivity.this,"co"));
                 params.put("total", harga);
                 for (int i=0;i< arrayList.size();i++){
-                    params.put("no_rooms["+i+"]", arrayList.get(i).getNo_room());
-                    params.put("jml_tamu["+i+"]", arrayList.get(i).getJml_tamu());
+                    params.put("id_tipe["+i+"]", arrayList.get(i).getId_tipe());
+                    params.put("jml_kamar["+i+"]", arrayList.get(i).getJml_kamar());
                 }
                 return params;
             }
@@ -171,11 +171,13 @@ public class PreviewBookingActivity extends AppCompatActivity {
                     for (int i =0; i<child.length();i++){
                         JSONObject childObj = child.getJSONObject(i);
                         arrayList.add(new PreviewList(
-                                childObj.getString("no_room"),
-                                childObj.getString("tipe"),
+                                childObj.getString("id"),
+                                childObj.getString("id_tipe"),
+                                childObj.getString("subtotal"),
                                 childObj.getString("kapasitas"),
                                 childObj.getString("harga"),
-                                childObj.getString("jml_tamu")
+                                childObj.getString("tipe"),
+                                childObj.getString("jml_kamar")
                         ));
                     }
                 } catch (JSONException e) {

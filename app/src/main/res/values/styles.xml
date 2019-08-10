@@ -46,5 +46,24 @@
         <item name="android:windowBackground">@color/transparan</item>
     </style>
 
+    <style name="BgAbout">
+        <item name="android:background">@drawable/bg_about</item>
+    </style>
+
+    <style name="BgLog">
+        <item name="android:background">@drawable/bg_log</item>
+    </style>
+
+    <style name="BgHitam" >
+        <item name="android:background">@color/hitam</item>
+    </style>
+
+    <style name="BgPutih" >
+        <item name="android:background">@color/putih</item>
+    </style>
+
+    <style name="BgTransparan" >
+        <item name="android:background">@color/transparan</item>
+    </style>
 
 </resources>

@@ -41,6 +41,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMobil
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DAFTAR;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
 
 public class DaftarActivity extends AppCompatActivity {
@@ -203,7 +204,7 @@ public class DaftarActivity extends AppCompatActivity {
                                 map.put("judul", json.getString("judul"));
                                 list_dataS.add(map);
                                 FlipperView view = new FlipperView(getBaseContext());
-                                view.setImageUrl(KEY_DOMAIN+list_dataS.get(a).get("foto"))
+                                view.setImageUrl(KEY_DOMAIN_SISTEM+list_dataS.get(a).get("foto"))
                                         .setDescription(list_dataS.get(a).get("judul"))
                                         .setDescriptionBackgroundColor(getResources()
                                                 .getColor(R.color.hitamtrans));

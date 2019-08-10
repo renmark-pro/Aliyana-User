@@ -2,46 +2,20 @@ package com.aliyanaresorts.aliyanahotelresorts.service.database.models;
 
 public class BookList {
 
-    private String id;
-    private String no_room;
-    private String foto;
     private String id_tipe;
     private String tipe;
+    private String foto;
     private String kapasitas;
     private String harga;
+    private String jml_kamar;
 
-    public BookList(String id, String no_room, String foto, String id_tipe, String tipe, String kapasitas, String harga) {
-        this.id = id;
-        this.no_room = no_room;
-        this.foto = foto;
+    public BookList(String id_tipe, String tipe, String foto, String kapasitas, String harga, String jml_kamar) {
         this.id_tipe = id_tipe;
         this.tipe = tipe;
+        this.foto = foto;
         this.kapasitas = kapasitas;
         this.harga = harga;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNo_room() {
-        return no_room;
-    }
-
-    public void setNo_room(String no_room) {
-        this.no_room = no_room;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
+        this.jml_kamar = jml_kamar;
     }
 
     public String getId_tipe() {
@@ -60,6 +34,14 @@ public class BookList {
         this.tipe = tipe;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
     public String getKapasitas() {
         return kapasitas;
     }
@@ -74,5 +56,13 @@ public class BookList {
 
     public void setHarga(String harga) {
         this.harga = harga;
+    }
+
+    public String getJml_kamar() {
+        return jml_kamar;
+    }
+
+    public void setJml_kamar(String jml_kamar) {
+        this.jml_kamar = jml_kamar;
     }
 }

@@ -7,7 +7,7 @@
     tools:context=".activity.MasukActivity"
     android:orientation="vertical"
     android:scrollbars="none"
-    android:background="@drawable/bg_log">
+    style="@style/BgLog">
 
     <LinearLayout
         android:layout_width="match_parent"

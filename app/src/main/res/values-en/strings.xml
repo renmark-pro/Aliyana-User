@@ -13,6 +13,7 @@
     <string name="nama_kamar">Room Name</string>
     <string name="harga_kamar">Rp 123.456</string>
     <string name="harga">Price : \t</string>
+    <string name="hargaa">Price</string>
     <string name="fasilitas">Facilities : \t</string>
     <string name="fasilitas1">Facilities</string>
     <string name="deskripsi">Descriptions : \t</string>
@@ -161,10 +162,12 @@
     <string name="konfir">Confirm</string>
     <string name="prosestok">Process</string>
     <string name="riwayat">History</string>
-    <string name="jKamar">Number of Rooms</string>
+    <string name="jKamar">Amount of Rooms</string>
     <string name="totalt">Total</string>
     <string name="inhouse">Inhouse</string>
     <string name="emailada">The email has already been taken.</string>
     <string name="noinet">Oops,\nNo Internet Connection</string>
+    <string name="txtMail">Hi! I want to ask about Aliyana Hotel &amp; Resorts</string>
+    <string name="prspembayaran">Process Payment</string>
 
 </resources>

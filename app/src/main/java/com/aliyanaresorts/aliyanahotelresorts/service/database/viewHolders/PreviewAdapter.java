@@ -31,17 +31,18 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewV
 
     class PreviewViewHolder extends RecyclerView.ViewHolder {
         //Views
-        final TextView noKamar,tipeKamar, kapasitasKamar, tamuKamar, cekIn, cekOut, subTotal;
+        final TextView tipeKamar, hargaKamar, kapasitasKamar, tamuKamar, jumlahKamar, cekIn, cekOut, subTotal;
 
 
         //Initializing Views
         PreviewViewHolder(View itemView) {
 
             super(itemView);
-            noKamar = itemView.findViewById(R.id.noKamar);
             tipeKamar = itemView.findViewById(R.id.tipeKamar);
+            hargaKamar = itemView.findViewById(R.id.hargaKamar);
             kapasitasKamar = itemView.findViewById(R.id.kapasitasKamar);
             tamuKamar = itemView.findViewById(R.id.tamuKamar);
+            jumlahKamar = itemView.findViewById(R.id.jmlKamar);
             cekIn = itemView.findViewById(R.id.cekIn);
             cekOut = itemView.findViewById(R.id.cekOut);
             subTotal = itemView.findViewById(R.id.subTotal);
@@ -59,13 +60,14 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewV
     @Override
     public void onBindViewHolder(@NonNull PreviewViewHolder holder, int postition) {
         PreviewList previewList = previewListList.get(postition);
-        holder.noKamar.setText(previewList.getNo_room());
         holder.tipeKamar.setText(previewList.getTipe());
+        holder.hargaKamar.setText(formatingRupiah(previewList.getHarga()));
         holder.kapasitasKamar.setText(previewList.getKapasitas());
-        holder.tamuKamar.setText(previewList.getJml_tamu());
+        holder.tamuKamar.setText(getIntentData(activity,"or"));
+        holder.jumlahKamar.setText(previewList.getJml_kamar());
         holder.cekIn.setText(getIntentData(activity,"ci"));
         holder.cekOut.setText(getIntentData(activity,"co"));
-        holder.subTotal.setText(formatingRupiah(previewList.getHarga()));
+        holder.subTotal.setText(formatingRupiah(previewList.getSubtotal()));
     }
 
     @Override

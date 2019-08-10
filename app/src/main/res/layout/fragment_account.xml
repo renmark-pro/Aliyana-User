@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_about"
+    style="@style/BgAbout"
     tools:context=".activity.fragment.AccountFragment">
 
     <androidx.appcompat.widget.Toolbar

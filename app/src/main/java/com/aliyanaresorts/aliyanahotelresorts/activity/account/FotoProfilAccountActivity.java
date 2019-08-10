@@ -193,7 +193,7 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
 
     private String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        bmp.compress(Bitmap.CompressFormat.PNG, 75, baos);
         byte[] imageBytes = baos.toByteArray();
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
@@ -201,7 +201,7 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
     private void setToImageView(Bitmap bmp) {
         //compress image
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+        bmp.compress(Bitmap.CompressFormat.PNG, 75, bytes);
         decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
         imageView.setImageBitmap(decoded);
     }
@@ -263,10 +263,10 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
 
         float bitmapRatio = (float) width / (float) height;
         if (bitmapRatio > 1) {
-            width = 1024;
+            width = 768;
             height = (int) (width / bitmapRatio);
         } else {
-            height = 1024;
+            height = 768;
             width = (int) (height * bitmapRatio);
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
@@ -280,9 +280,6 @@ public class FotoProfilAccountActivity extends AppCompatActivity {
                     || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(FotoProfilAccountActivity.this, "Ijin Di Tolak!", Toast.LENGTH_SHORT).show();
                     }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 

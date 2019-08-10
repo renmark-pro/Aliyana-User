@@ -74,6 +74,14 @@ public class ProfilDetailActivity extends AppCompatActivity {
         List<String> datajenis = new LinkedList<>(Arrays.asList(getResources().getStringArray(R.array.jenisid)));
         jenisId.attachDataSource(datajenis);
 
+        SPData spData = SPData.getInstance(getBaseContext());
+        jenisId.setText(spData.getKeyJenisId());
+        namaUser.setText(spData.getKeyNama());
+        nomerIdUser.setText(spData.getKeyNomerId());
+        emailUser.setText(spData.getKeyEmail());
+        telponUser.setText(spData.getKeyTelepon());
+        alamatUser.setText(spData.getKeyAlamat());
+
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

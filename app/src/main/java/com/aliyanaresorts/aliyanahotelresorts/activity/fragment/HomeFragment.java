@@ -45,6 +45,7 @@ import java.util.Objects;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 
@@ -58,6 +59,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<HashMap<String, String>> list_dataS;
 
     private TextView selamat;
+    private NoInetDialog noInetDialog;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -83,15 +85,13 @@ public class HomeFragment extends Fragment {
         flipper = view.findViewById(R.id.flipper);
         selamat = view.findViewById(R.id.textWelcome);
         flipper.setCircularIndicatorLayoutParams(0, 0);
-        final NoInetDialog noInetDialog = new NoInetDialog(getActivity());
+        noInetDialog = new NoInetDialog(getActivity());
 
         Typeface face = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(),
                 "JosefinSans-Regular.ttf");
         selamat.setTypeface(face);
 
         final Animation animation1 =  AnimationUtils.loadAnimation(getActivity(),R.anim.coba);
-
-        setSlide();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -191,23 +191,23 @@ public class HomeFragment extends Fragment {
                                 list_dataS.add(map);
                                 @NonNull
                                 FlipperView view = new FlipperView(Objects.requireNonNull(getActivity()).getBaseContext());
-                                view.setImageUrl(KEY_DOMAIN+list_dataS.get(a).get("foto"))
+                                view.setImageUrl(KEY_DOMAIN_SISTEM+list_dataS.get(a).get("foto"))
                                         .setDescription(list_dataS.get(a).get("judul"))
                                         .setDescriptionBackgroundColor(getResources()
                                                 .getColor(R.color.hitamtrans));
                                 if (!Objects.requireNonNull(list_dataS.get(a).get("foto")).isEmpty()) {
                                     flipper.addFlipperView(view);
-                                    final int finalA = a;
-                                    view.setOnFlipperClickListener(new FlipperView.OnFlipperClickListener() {
-                                        @Override
-                                        public void onFlipperClick(FlipperView flipperView) {
-                                            Bundle bundle = new Bundle();
-                                            bundle.putString("posisi", list_dataS.get(finalA).get("id"));
-                                            Intent intent = new Intent(getActivity(), RoomDetailActivity.class);
-                                            intent.putExtras(bundle);
-                                            startActivity(intent);
-                                        }
-                                    });
+//                                    final int finalA = a;
+//                                    view.setOnFlipperClickListener(new FlipperView.OnFlipperClickListener() {
+//                                        @Override
+//                                        public void onFlipperClick(FlipperView flipperView) {
+//                                            Bundle bundle = new Bundle();
+//                                            bundle.putString("posisi", list_dataS.get(finalA).get("id"));
+//                                            Intent intent = new Intent(getActivity(), RoomDetailActivity.class);
+//                                            intent.putExtras(bundle);
+//                                            startActivity(intent);
+//                                        }
+//                                    });
                                 }
                             }
                         } catch (JSONException e) {
@@ -227,4 +227,18 @@ public class HomeFragment extends Fragment {
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+            noInetDialog.bukaDialog();
+            FlipperView a = new FlipperView(Objects.requireNonNull(getActivity()).getBaseContext());
+            a.setImageDrawable(R.drawable.image_slider_1)
+                    .setDescription(getResources().getString(R.string.noinet))
+                    .setDescriptionBackgroundColor(getResources()
+                            .getColor(R.color.hitamtrans));
+        }else {
+            setSlide();
+        }
+    }
 }

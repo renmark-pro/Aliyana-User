@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.remTagHtml;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_TENTANG_HOTEL;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setWindowFlag;
 
@@ -74,8 +75,8 @@ public class VisiActivity extends AppCompatActivity {
                         list_data.add(map);
                     }
                     loadingDialog.tutupDialog();
-                    visi.setText(list_data.get(0).get("visi"));
-                    misi.setText(list_data.get(0).get("misi"));
+                    visi.setText(remTagHtml(list_data.get(0).get("visi")));
+                    misi.setText(remTagHtml(list_data.get(0).get("misi")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

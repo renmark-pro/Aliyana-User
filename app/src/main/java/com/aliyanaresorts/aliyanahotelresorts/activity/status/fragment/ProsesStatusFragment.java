@@ -1,6 +1,5 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.status.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.activity.status.MyBookingDetailActivity;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
-import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.models.ProsesStatusList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.ProsesStatusListAdapter;
-import com.aliyanaresorts.aliyanahotelresorts.service.mInterface.RecyclerTouchListener;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -36,9 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setViewStatus;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_PROSES_LIST;
 
@@ -72,30 +66,9 @@ public class ProsesStatusFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         getDetail();
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext());
-        adapter = new ProsesStatusListAdapter(arrayList, getActivity());
+        adapter = new ProsesStatusListAdapter(arrayList, getActivity(), getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
-        final NoInetDialog noInetDialog = new NoInetDialog(getActivity());
-
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
-                    noInetDialog.bukaDialog();
-                }else {
-                    final ProsesStatusList produk = arrayList.get(position);
-                    String id = produk.getKode_booking();
-                    Intent i = new Intent(getContext(), MyBookingDetailActivity.class);
-                    i.putExtra("kode", id);
-                    startActivity(i);
-                }
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
     }
 
     private void getDetail() {

@@ -40,6 +40,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRup
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_KAMAR_DETAIL;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -108,7 +109,7 @@ public class RoomDetailActivity extends AppCompatActivity {
                         list_data.add(map);
                     }
                     loadingDialog.tutupDialog();
-                    Glide.with(RoomDetailActivity.this).load(KEY_DOMAIN+list_data.get(0).get("foto"))
+                    Glide.with(RoomDetailActivity.this).load(KEY_DOMAIN_SISTEM+list_data.get(0).get("foto"))
                             .placeholder(R.drawable.image_slider_1)
                             .thumbnail(0.5f)
                             .transition(withCrossFade())

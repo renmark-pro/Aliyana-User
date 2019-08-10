@@ -19,6 +19,7 @@ import java.util.List;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class KamarListAdapter extends RecyclerView.Adapter<KamarListAdapter.KamarViewHolder> {
@@ -60,7 +61,7 @@ public class KamarListAdapter extends RecyclerView.Adapter<KamarListAdapter.Kama
     @Override
     public void onBindViewHolder(@NonNull KamarViewHolder holder, int postition) {
         KamarList kamarList = kamarListList.get(postition);
-        Glide.with(context).load(KEY_DOMAIN+kamarList.getLokasi())
+        Glide.with(context).load(KEY_DOMAIN_SISTEM+kamarList.getLokasi())
                 .placeholder(R.drawable.image_slider_1)
                 .thumbnail(0.5f)
                 .centerCrop()

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.text.Html;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -13,13 +14,16 @@ import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.models.BookingTmpRooms;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static com.aliyanaresorts.aliyanahotelresorts.SplashActivity.MY_PERMISSIONS_REQUEST_GET_ACCESS;
@@ -131,6 +135,43 @@ public class Helper {
         }else {
             status.setTextColor(activity.getResources().getColor(R.color.abang));
         }
+    }
+
+    public static void setWarnaButtonProses(Activity activity, String status, TextView button){
+        if (status.equals("Payment Accepted")||status.equals("Completed")){
+            button.setBackgroundColor(activity.getResources().getColor(R.color.colorPrimaryDark));
+        }else {
+            button.setBackgroundColor(activity.getResources().getColor(R.color.abang));
+        }
+    }
+
+    public static String remTagHtml(String html) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString();
+        } else {
+            return Html.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY).toString();
+        }
+    }
+
+    public static int cekJmlKamar(int jml){
+        if (jml%2==0){
+            jml/=2;
+        }else {
+            jml-=1;
+            jml/=2;
+            jml+=1;
+        }
+        return jml;
+    }
+
+    public static int cekIdxTmp(ArrayList<BookingTmpRooms> arrayList, int posisi){
+        int idx = -1;
+        for(int i=0; i<arrayList.size(); i++){
+            if(arrayList.get(i).getPosisi()==posisi){
+                idx=i;
+            }
+        }
+        return idx;
     }
 
 }

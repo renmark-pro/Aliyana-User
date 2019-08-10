@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:fitsSystemWindows="true"
-    android:background="@drawable/bg_about"
+    style="@style/BgAbout"
     android:paddingTop="?attr/actionBarSize"
     tools:context=".activity.status.fragment.InhouseStatusFragment">
 

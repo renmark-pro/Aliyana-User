@@ -19,6 +19,7 @@ import java.util.List;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class RestoListAdapter extends RecyclerView.Adapter<RestoListAdapter.RestoViewHolder> {
@@ -61,7 +62,7 @@ public class RestoListAdapter extends RecyclerView.Adapter<RestoListAdapter.Rest
     public void onBindViewHolder(@NonNull RestoListAdapter.RestoViewHolder holder, int postition) {
         RestoList restoList = restoLists.get(postition);
         holder.namaMenu.setText(restoList.getNama());
-        Glide.with(context).load(KEY_DOMAIN+restoList.getFoto())
+        Glide.with(context).load(KEY_DOMAIN_SISTEM+restoList.getFoto())
                 .placeholder(R.drawable.image_slider_1)
                 .thumbnail(0.5f)
                 .centerCrop()

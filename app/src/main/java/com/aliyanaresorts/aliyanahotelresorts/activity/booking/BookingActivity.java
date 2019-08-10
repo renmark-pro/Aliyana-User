@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.cekJmlKamar;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
@@ -78,7 +79,6 @@ public class BookingActivity extends AppCompatActivity {
         getTypes();
 
         kamar = findViewById(R.id.kamar);
-
         cek = findViewById(R.id.btnCek);
         tanggal=findViewById(R.id.tanggal);
         malam=findViewById(R.id.malam);

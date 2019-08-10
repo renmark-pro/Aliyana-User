@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAva
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_ADD_ROOM_COUNT;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_CEK_KAMAR;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DROP_TMP;
 
 public class BookingListingActivity extends AppCompatActivity {
 
@@ -71,6 +73,13 @@ public class BookingListingActivity extends AppCompatActivity {
         @SuppressLint("PrivateResource") final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
         Objects.requireNonNull(upArrow).setColorFilter(ContextCompat.getColor(this, R.color.goldtua), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                remData();
+                finish();
+            }
+        });
 
         arrayList = new ArrayList<>();
         final RecyclerView recyclerView = findViewById(R.id.roomList);
@@ -95,7 +104,7 @@ public class BookingListingActivity extends AppCompatActivity {
                         public void run() {
                             addCount();
                         }
-                    }, 1000L);
+                    }, 500L);
                 }
             }
 
@@ -108,12 +117,13 @@ public class BookingListingActivity extends AppCompatActivity {
         proses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hitungan.getText().toString().isEmpty()){
+                if(hitungan.getText().toString().isEmpty()||counter<1){
                     Snackbar.make(v, R.string.blmpesan, Snackbar.LENGTH_SHORT).show();
                 }else {
                     Bundle bundle = new Bundle();
                     bundle.putString("ci",getIntentData(BookingListingActivity.this,"ci"));
                     bundle.putString("co", getIntentData(BookingListingActivity.this,"co"));
+                    bundle.putString("or", getIntentData(BookingListingActivity.this,"or"));
                     Intent i = new Intent(BookingListingActivity.this, PreviewBookingActivity.class);
                     i.putExtras(bundle);
                     startActivity(i);
@@ -172,6 +182,7 @@ public class BookingListingActivity extends AppCompatActivity {
     private void getData(final String cekin, final String cekout, final String tamu, final String id){
         dialog = new LoadingDialog(this);
         dialog.bukaDialog();
+        Log.e("TOKET : ", SPData.getInstance(BookingListingActivity.this).getKeyToken() );
 
         StringRequest strReq = new StringRequest(Request.Method.POST, KEY_CEK_KAMAR, new Response.Listener<String>() {
 
@@ -184,13 +195,12 @@ public class BookingListingActivity extends AppCompatActivity {
                     for(int i =0;i<result.length(); i++) {
                         JSONObject productObject = result.getJSONObject(i);
                         arrayList.add(new BookList(
-                                productObject.getString("id"),
-                                productObject.getString("no_room"),
-                                productObject.getString("foto"),
                                 productObject.getString("id_tipe"),
                                 productObject.getString("tipe"),
+                                productObject.getString("foto"),
                                 productObject.getString("kapasitas"),
-                                productObject.getString("harga")
+                                productObject.getString("harga"),
+                                productObject.getString("jml_kamar")
                         ));
                     }
                 } catch (JSONException e) {
@@ -226,6 +236,42 @@ public class BookingListingActivity extends AppCompatActivity {
                 return params;
             }
         };
+        AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        remData();
+    }
+
+    private void remData() {
+        final LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.DELETE, KEY_DROP_TMP,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        loadingDialog.tutupDialog();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingDialog.tutupDialog();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders(){
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                params.put("Authorization", SPData.getInstance(getBaseContext()).getKeyToken() );
+                return params;
+            }
+        };
+        // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, "json_obj_req");
     }
 }
