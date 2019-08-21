@@ -17,6 +17,7 @@ public class SPData {
         private static final String KEY_EMAIL = "email";
         private static final String KEY_JENIS_ID = "tipe_identitas";
         private static final String KEY_NOMER_ID = "no_identitas";
+        private static final String KEY_KD_TELEPON = "kd_telepon";
         private static final String KEY_TELEPON = "no_telepon";
         private static final String KEY_ALAMAT = "alamat";
         private static final String KEY_FOTO = "foto";
@@ -34,7 +35,7 @@ public class SPData {
                 return mInstance;
         }
 
-        public void userLogin(String id, String nama, String email, String jenis_id, String nomer_id, String telepon, String alamat, String foto, String token){
+        public void userLogin(String id, String nama, String email, String jenis_id, String nomer_id, String kd_telpon, String telepon, String alamat, String foto, String token){
 
                 SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -44,6 +45,7 @@ public class SPData {
                 editor.putString(KEY_EMAIL, email);
                 editor.putString(KEY_JENIS_ID, jenis_id);
                 editor.putString(KEY_NOMER_ID, nomer_id);
+                editor.putString(KEY_KD_TELEPON, kd_telpon);
                 editor.putString(KEY_TELEPON, telepon);
                 editor.putString(KEY_ALAMAT, alamat);
                 editor.putString(KEY_FOTO, foto);
@@ -53,7 +55,7 @@ public class SPData {
 
         }
 
-        public void updateBio(String nama, String email, String tipe, String id, String telpon, String alamat){
+        public void updateBio(String nama, String email, String tipe, String id, String kd_telpon, String telpon, String alamat){
                 SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -61,6 +63,7 @@ public class SPData {
                 editor.putString(KEY_EMAIL, email);
                 editor.putString(KEY_JENIS_ID, tipe);
                 editor.putString(KEY_NOMER_ID, id);
+                editor.putString(KEY_KD_TELEPON, kd_telpon);
                 editor.putString(KEY_TELEPON, telpon);
                 editor.putString(KEY_ALAMAT, alamat);
 
@@ -124,6 +127,11 @@ public class SPData {
         public String getKeyEmail() {
             SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
             return sharedPreferences.getString(KEY_EMAIL, null);
+        }
+
+        public String getKeyKdTelepon() {
+                SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                return sharedPreferences.getString(KEY_KD_TELEPON, null);
         }
 
         public String getKeyTelepon() {

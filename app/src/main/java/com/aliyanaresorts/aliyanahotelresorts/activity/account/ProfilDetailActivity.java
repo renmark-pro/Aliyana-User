@@ -3,12 +3,14 @@ package com.aliyanaresorts.aliyanahotelresorts.activity.account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.snackbar.Snackbar;
+import com.hbb20.CountryCodePicker;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONException;
@@ -49,8 +52,11 @@ public class ProfilDetailActivity extends AppCompatActivity {
 
     private LoadingDialog loadingDialog;
     private NiceSpinner jenisId;
-    private TextView namaUser, nomerIdUser, emailUser, telponUser, alamatUser;
+    private EditText namaUser, nomerIdUser, emailUser, telponUser, alamatUser;
     private ImageView fotoUser;
+    private CountryCodePicker codePicker;
+    private Button ubah;
+    private LinearLayout layEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +72,13 @@ public class ProfilDetailActivity extends AppCompatActivity {
         emailUser=findViewById(R.id.email);
         telponUser=findViewById(R.id.telpon);
         alamatUser=findViewById(R.id.alamat);
+        codePicker = findViewById(R.id.ccp);
         RelativeLayout foto = findViewById(R.id.layoutFoto);
         fotoUser = findViewById(R.id.fotoUser);
         Button simpan = findViewById(R.id.btnUpdate);
+        Button batal = findViewById(R.id.btnBatal);
+        ubah = findViewById(R.id.btnEdit);
+        layEdit = findViewById(R.id.layEdit);
         final NoInetDialog noInetDialog = new NoInetDialog(this);
 
         List<String> datajenis = new LinkedList<>(Arrays.asList(getResources().getStringArray(R.array.jenisid)));
@@ -81,6 +91,40 @@ public class ProfilDetailActivity extends AppCompatActivity {
         emailUser.setText(spData.getKeyEmail());
         telponUser.setText(spData.getKeyTelepon());
         alamatUser.setText(spData.getKeyAlamat());
+        codePicker.setCountryForPhoneCode(1);
+
+        telponUser.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() == 1 && s.toString().startsWith("0")) {
+                    s.clear();
+                }
+            }
+        });
+
+        ubah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setBuka();
+            }
+        });
+
+        batal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTutup();
+            }
+        });
 
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,6 +214,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
                 loadingDialog.tutupDialog();
+                setTutup();
             }
         }) {
 
@@ -178,6 +223,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("nama", uNama);
                 params.put("email",uEmail);
+                params.put("kd_negara", codePicker.getSelectedCountryCode());
                 params.put("no_telepon", uTelpon);
                 params.put("tipe_identitas", uTipe);
                 params.put("no_identitas", uNomerId);
@@ -217,6 +263,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
                     emailUser.setText(setTextData(result.getString("email")));
                     jenisId.setSelectedIndex(setSpinnerId(result.getString("tipe_identitas")));
                     nomerIdUser.setText(setTextData(result.getString("no_identitas")));
+                    codePicker.setCountryForPhoneCode(Integer.parseInt(result.getString("kd_negara")));
                     telponUser.setText(setTextData(result.getString("no_telepon")));
                     alamatUser.setText(setTextData(result.getString("alamat")));
                     setFotoUser(result.getString("foto"), getBaseContext(), fotoUser);
@@ -225,6 +272,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
                             result.getString("email"),
                             result.getString("tipe_identitas"),
                             result.getString("no_identitas"),
+                            result.getString("kd_negara"),
                             result.getString("no_telepon"),
                             result.getString("alamat")
                     );
@@ -278,5 +326,45 @@ public class ProfilDetailActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getDetail();
+        setTutup();
     }
+
+    private void setTutup(){
+        layEdit.setVisibility(View.GONE);
+        ubah.setVisibility(View.VISIBLE);
+        namaUser.setEnabled(false);
+        nomerIdUser.setEnabled(false);
+        emailUser.setEnabled(false);
+        telponUser.setEnabled(false);
+        alamatUser.setEnabled(false);
+        jenisId.setEnabled(false);
+        codePicker.setCcpClickable(false);
+        namaUser.setTextColor(getResources().getColor(android.R.color.tab_indicator_text));
+        nomerIdUser.setTextColor(getResources().getColor(android.R.color.tab_indicator_text));
+        emailUser.setTextColor(getResources().getColor(android.R.color.tab_indicator_text));
+        telponUser.setTextColor(getResources().getColor(android.R.color.tab_indicator_text));
+        alamatUser.setTextColor(getResources().getColor(android.R.color.tab_indicator_text));
+        jenisId.setTextColor(getResources().getColor(android.R.color.tab_indicator_text));
+        codePicker.setContentColor(getResources().getColor(android.R.color.tab_indicator_text));
+    }
+
+    private void setBuka(){
+        layEdit.setVisibility(View.VISIBLE);
+        ubah.setVisibility(View.GONE);
+        namaUser.setEnabled(true);
+        nomerIdUser.setEnabled(true);
+        emailUser.setEnabled(true);
+        telponUser.setEnabled(true);
+        alamatUser.setEnabled(true);
+        jenisId.setEnabled(true);
+        codePicker.setCcpClickable(true);
+        namaUser.setTextColor(getResources().getColor(R.color.goldtua));
+        nomerIdUser.setTextColor(getResources().getColor(R.color.goldtua));
+        emailUser.setTextColor(getResources().getColor(R.color.goldtua));
+        telponUser.setTextColor(getResources().getColor(R.color.goldtua));
+        alamatUser.setTextColor(getResources().getColor(R.color.goldtua));
+        jenisId.setTextColor(getResources().getColor(R.color.goldtua));
+        codePicker.setContentColor(getResources().getColor(R.color.goldtua));
+    }
+
 }

@@ -169,5 +169,6 @@
     <string name="noinet">Oops,\nNo Internet Connection</string>
     <string name="txtMail">Hi! I want to ask about Aliyana Hotel &amp; Resorts</string>
     <string name="prspembayaran">Process Payment</string>
+    <string name="batal">Cancel</string>
 
 </resources>

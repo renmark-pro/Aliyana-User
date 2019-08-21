@@ -2,6 +2,9 @@ package com.aliyanaresorts.aliyanahotelresorts.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
+import com.hbb20.CountryCodePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +44,6 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMobile;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setStyleStatusBarGoldTrans;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DAFTAR;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
 
@@ -50,6 +53,7 @@ public class DaftarActivity extends AppCompatActivity {
     private EditText mnama, memail, mtelepon,mpassword, mcpassword;
     private ArrayList<HashMap<String, String>> list_dataS;
     private LoadingDialog loadingDialog;
+    private CountryCodePicker codePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class DaftarActivity extends AppCompatActivity {
         setStyleStatusBarGoldTrans(this);
         mnama = findViewById(R.id.nama);
         memail = findViewById(R.id.email);
+        codePicker = findViewById(R.id.ccp);
         mtelepon = findViewById(R.id.telpon);
         mpassword = findViewById(R.id.password);
         mcpassword = findViewById(R.id.kpassword);
@@ -65,6 +70,25 @@ public class DaftarActivity extends AppCompatActivity {
         Button daftar = findViewById(R.id.btnDaftar);
         flipper = findViewById(R.id.flipper);
         final NoInetDialog noInetDialog = new NoInetDialog(this);
+
+        mtelepon.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() == 1 && s.toString().startsWith("0")) {
+                    s.clear();
+                }
+            }
+        });
 
         setSlide();
         masuk.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +127,7 @@ public class DaftarActivity extends AppCompatActivity {
                     mpassword.setError(getResources().getString(R.string.isi));
                 }else if(mpassword.getText().toString().length()<6){
                     mpassword.requestFocus();
-                    mpassword.setError(getResources().getString(R.string.ipw));
+                    mpassword.setError( getResources().getString(R.string.ipw));
                 }else if(mcpassword.getText().toString().isEmpty()){
                     mcpassword.requestFocus();
                     mcpassword.setError(getResources().getString(R.string.isi));
@@ -173,6 +197,7 @@ public class DaftarActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("nama", nama);
                 params.put("email", email);
+                params.put("kd_negara", codePicker.getSelectedCountryCode());
                 params.put("no_telepon", telepon);
                 params.put("password", password);
                 params.put("password_confirmation", cpassword);

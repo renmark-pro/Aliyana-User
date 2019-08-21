@@ -45,7 +45,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.cekJmlKamar;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;

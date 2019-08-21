@@ -121,6 +121,7 @@ public class MasukActivity extends AppCompatActivity {
                                 child.getString("email"),
                                 child.getString("tipe_identitas"),
                                 child.getString("no_identitas"),
+                                child.getString("kd_negara"),
                                 child.getString("no_telepon"),
                                 child.getString("alamat"),
                                 child.getString("foto"),

@@ -5,8 +5,8 @@
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/BgAbout"
     android:orientation="vertical"
+    style="@style/BgAbout"
     tools:context=".activity.account.ProfilDetailActivity">
 
     <RelativeLayout
@@ -104,25 +104,47 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <RelativeLayout
+        android:id="@+id/layPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/telpon"
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            app:ccp_defaultNameCode="ID"
+            app:ccp_showNameCode="false"
+            app:ccp_contentColor="@color/goldtua"
+            app:ccp_flagBorderColor="@color/goldtua"
+            app:ccp_autoDetectLanguage="true"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_toEndOf="@id/ccp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:autofillHints="@string/hp"
-            android:hint="@string/hp"
-            android:inputType="phone"
-            android:textColor="@color/goldtua"
-            android:textColorHighlight="@color/goldtua"
-            tools:targetApi="o" />
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            >
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/telpon"
+                android:hint="@string/hp"
+                android:textColor="@color/goldtua"
+                android:textColorHighlight="@color/goldtua"
+                android:inputType="phone"
+                android:autofillHints="@string/hp"
+                tools:targetApi="o" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </RelativeLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -137,7 +159,7 @@
             android:layout_gravity="center_vertical"
             android:autofillHints="@string/alamat"
             android:hint="@string/alamat"
-            android:inputType="text"
+            android:inputType="textPostalAddress"
             android:textColor="@color/goldtua"
             android:textColorHighlight="@color/goldtua"
             tools:targetApi="o" />
@@ -145,14 +167,48 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnUpdate"
-        style="?android:attr/buttonBarButtonStyle"
+        android:id="@+id/btnEdit"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginTop="16dp"
         android:background="@drawable/bt_book"
-        android:text="@string/simpan"
-        android:textColor="@color/putih" />
+        android:text="@string/edit"
+        android:textColor="@color/putih"
+        style="?android:attr/buttonBarButtonStyle"/>
+
+    <LinearLayout
+        android:id="@+id/layEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnBatal"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bt_cek"
+            android:text="@string/batal"
+            android:textColor="@color/putih"
+            android:layout_marginEnd="16dp"
+            style="?android:attr/buttonBarButtonStyle"
+            />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bt_book"
+            android:text="@string/simpan"
+            android:textColor="@color/putih"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+    </LinearLayout>
 
 </LinearLayout>

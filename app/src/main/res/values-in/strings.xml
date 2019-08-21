@@ -170,5 +170,6 @@
     <string name="noinet">Ups, \nTidak ada koneksi Internet</string>
     <string name="txtMail">Hai! Saya ingin bertanya seputar Aliyana Hotel &amp; Resorts</string>
     <string name="prspembayaran">Proses Pembayaran</string>
+    <string name="batal">Batal</string>
 
 </resources>

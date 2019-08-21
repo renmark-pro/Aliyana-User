@@ -94,25 +94,46 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center_vertical"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical">
 
-            <EditText
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/telpon"
-                android:hint="@string/hp"
-                android:textColor="@color/goldtua"
-                android:textColorHighlight="@color/goldtua"
-                android:inputType="phone"
-                android:autofillHints="@string/hp"
-                tools:targetApi="o" />
+                android:layout_centerVertical="true"
+                app:ccp_defaultNameCode="ID"
+                app:ccp_showNameCode="false"
+                app:ccp_contentColor="@color/goldtua"
+                app:ccp_flagBorderColor="@color/goldtua"
+                app:ccp_autoDetectLanguage="true"
+                />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_toEndOf="@id/ccp"
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/telpon"
+                    android:hint="@string/hp"
+                    android:textColor="@color/goldtua"
+                    android:textColorHighlight="@color/goldtua"
+                    android:inputType="phone"
+                    android:autofillHints="@string/hp"
+                    tools:targetApi="o" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </RelativeLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout

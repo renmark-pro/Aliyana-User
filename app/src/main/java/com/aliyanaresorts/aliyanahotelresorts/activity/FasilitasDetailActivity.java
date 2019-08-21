@@ -33,6 +33,7 @@ import technolifestyle.com.imageslider.FlipperView;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_FASILITAS_DETAIL;
 
 public class FasilitasDetailActivity extends AppCompatActivity {
@@ -78,7 +79,7 @@ public class FasilitasDetailActivity extends AppCompatActivity {
                                 toolbar.setTitle(list_dataS.get(0).get("nama"));
                                 toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
                                 FlipperView view = new FlipperView(getBaseContext());
-                                view.setImageUrl(KEY_DOMAIN+list_dataS.get(a).get("lokasi"))
+                                view.setImageUrl(KEY_DOMAIN_SISTEM+list_dataS.get(a).get("lokasi"))
                                 .setDescription((a+1)+"/"+jsonArray.length())
                                 .setDescriptionBackgroundColor(getResources().getColor(R.color.goldtrans))
                                 .setImageScaleType(ImageView.ScaleType.FIT_CENTER);

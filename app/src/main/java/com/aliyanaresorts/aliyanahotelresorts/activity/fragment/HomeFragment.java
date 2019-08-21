@@ -3,12 +3,6 @@ package com.aliyanaresorts.aliyanahotelresorts.activity.fragment;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import technolifestyle.com.imageslider.FlipperLayout;
-import technolifestyle.com.imageslider.FlipperView;
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +12,16 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.AboutActivity;
-import com.aliyanaresorts.aliyanahotelresorts.activity.booking.BookingActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.FasilitasActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.InfoHotelActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.PromoListActivity;
-import com.aliyanaresorts.aliyanahotelresorts.activity.RoomDetailActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.RoomListActivity;
-import com.aliyanaresorts.aliyanahotelresorts.R;
+import com.aliyanaresorts.aliyanahotelresorts.activity.booking.BookingActivity;
 import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -43,11 +39,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+import technolifestyle.com.imageslider.FlipperLayout;
+import technolifestyle.com.imageslider.FlipperView;
+
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_SLIDE_HOME;
-import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
 
 /**
  * A simple {@link Fragment} subclass.

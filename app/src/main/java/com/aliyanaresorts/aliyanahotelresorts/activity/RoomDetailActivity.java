@@ -39,7 +39,6 @@ import java.util.Objects;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.formatingRupiah;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Style.setTemaAplikasi;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_KAMAR_DETAIL;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;

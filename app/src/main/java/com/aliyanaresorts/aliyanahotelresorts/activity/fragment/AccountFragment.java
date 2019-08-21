@@ -78,8 +78,10 @@ public class AccountFragment extends Fragment {
         LinearLayout keluar = view.findViewById(R.id.keluar);
         CardView user = view.findViewById(R.id.layoutUser);
 
-        nama.setText(SPData.getInstance(getActivity()).getKeyNama());
-        telpon.setText(SPData.getInstance(getActivity()).getKeyTelepon());
+        SPData data = SPData.getInstance(getActivity());
+        String tlpn = "+"+data.getKeyKdTelepon()+data.getKeyTelepon();
+        nama.setText(data.getKeyNama());
+        telpon.setText(tlpn);
 
         user.setOnClickListener(new View.OnClickListener() {
             @Override
