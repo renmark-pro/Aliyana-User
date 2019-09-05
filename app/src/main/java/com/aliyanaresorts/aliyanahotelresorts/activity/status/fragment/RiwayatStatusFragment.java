@@ -21,7 +21,7 @@ import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.models.RiwayatStatusList;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.models.MyBookingList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.RiwayatStatusListAdapter;
 import com.aliyanaresorts.aliyanahotelresorts.service.mInterface.RecyclerTouchListener;
 import com.android.volley.Request;
@@ -44,7 +44,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_HI
 
 public class RiwayatStatusFragment extends Fragment {
 
-    private ArrayList<RiwayatStatusList> arrayList;
+    private ArrayList<MyBookingList> arrayList;
     private RecyclerView.Adapter adapter;
     private LoadingDialog loadingDialog;
     private NestedScrollView nestedLayout;
@@ -80,10 +80,10 @@ public class RiwayatStatusFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                if(isNetworkAvailable(Objects.requireNonNull(getContext()))){
                     noInetDialog.bukaDialog();
                 }else {
-                    final RiwayatStatusList produk = arrayList.get(position);
+                    final MyBookingList produk = arrayList.get(position);
                     String id = produk.getKode_booking();
                     Intent i = new Intent(getContext(), MyBookingDetailActivity.class);
                     i.putExtra("kode", id);
@@ -113,13 +113,16 @@ public class RiwayatStatusFragment extends Fragment {
                     if (result.length()>0){
                         for(int i =0;i<result.length(); i++) {
                             JSONObject productObject = result.getJSONObject(i);
-                            arrayList.add(new RiwayatStatusList(
+                            arrayList.add(new MyBookingList(
                                     productObject.getString("id"),
                                     productObject.getString("kode_booking"),
+                                    productObject.getString("tipe"),
                                     productObject.getString("jml_kamar"),
-                                    productObject.getString("total"),
                                     productObject.getString("tgl_checkin"),
                                     productObject.getString("tgl_checkout"),
+                                    productObject.getString("total_tagihan"),
+                                    productObject.getString("terbayarkan"),
+                                    productObject.getString("kekurangan"),
                                     productObject.getString("status")
                             ));
                         }

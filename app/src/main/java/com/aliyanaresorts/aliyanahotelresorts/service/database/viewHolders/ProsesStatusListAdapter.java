@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.status.MyBookingDetailActivity;
 import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.models.ProsesStatusList;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.models.MyBookingList;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -30,9 +30,9 @@ public class ProsesStatusListAdapter extends RecyclerView.Adapter<ProsesStatusLi
     private final Activity activity;
     private final Context context;
 
-    private final List<ProsesStatusList> bookListList;
+    private final List<MyBookingList> bookListList;
 
-    public ProsesStatusListAdapter(List<ProsesStatusList> bookLists, Activity activity, Context context){
+    public ProsesStatusListAdapter(List<MyBookingList> bookLists, Activity activity, Context context){
         this.bookListList = bookLists;
         this.activity = activity;
         this.context = context;
@@ -71,10 +71,10 @@ public class ProsesStatusListAdapter extends RecyclerView.Adapter<ProsesStatusLi
     @Override
     public void onBindViewHolder(@NonNull final ProsesStatusListAdapter.BookViewHolder holder, final int postition) {
         final NoInetDialog noInetDialog = new NoInetDialog(activity);
-        final ProsesStatusList bookList = bookListList.get(postition);
+        final MyBookingList bookList = bookListList.get(postition);
         holder.kodeBooking.setText(bookList.getKode_booking());
         holder.jmlKamar.setText(bookList.getJml_kamar());
-        holder.totalHarga.setText(formatingRupiah(bookList.getTotal()));
+        holder.totalHarga.setText(formatingRupiah(bookList.getTotal_tagihan()));
         holder.cekIn.setText(bookList.getTgl_checkin());
         holder.cekOut.setText(bookList.getTgl_checkout());
         holder.statusBayar.setText(bookList.getStatus());
@@ -89,7 +89,7 @@ public class ProsesStatusListAdapter extends RecyclerView.Adapter<ProsesStatusLi
         holder.layoutDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isNetworkAvailable(context)){
+                if(isNetworkAvailable(context)){
                     noInetDialog.bukaDialog();
                 }else {
                     Intent i = new Intent(context, MyBookingDetailActivity.class);

@@ -9,15 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.models.ProsesDetailList;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.models.MyBookingDetail;
 
 import java.util.List;
 
 public class ProsesDetailListAdapter extends RecyclerView.Adapter<ProsesDetailListAdapter.BookViewHolder> {
 
-    private final List<ProsesDetailList> bookListList;
+    private final List<MyBookingDetail> bookListList;
 
-    public ProsesDetailListAdapter(List<ProsesDetailList> bookLists){
+    public ProsesDetailListAdapter(List<MyBookingDetail> bookLists){
         this.bookListList = bookLists;
     }
 
@@ -49,11 +49,11 @@ public class ProsesDetailListAdapter extends RecyclerView.Adapter<ProsesDetailLi
 
     @Override
     public void onBindViewHolder(@NonNull final ProsesDetailListAdapter.BookViewHolder holder, final int postition) {
-        final ProsesDetailList bookList = bookListList.get(postition);
-        holder.noKamar.setText(bookList.getNo_room());
+        final MyBookingDetail bookList = bookListList.get(postition);
+//        holder.noKamar.setText(bookList.getNo_room());
         holder.cekIn.setText(bookList.getTgl_checkin());
         holder.cekOut.setText(bookList.getTgl_checkout());
-        holder.tamuKamar.setText(bookList.getJml_tamu());
+//        holder.tamuKamar.setText(bookList.getJml_tamu());
         holder.tipeKamar.setText(bookList.getTipe());
     }
 

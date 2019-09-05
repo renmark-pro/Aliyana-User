@@ -7,6 +7,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
@@ -19,11 +21,10 @@ import java.util.Objects;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        if (remoteMessage.getData()!=null){
-            sendNotification(remoteMessage);
-        }
+        remoteMessage.getData();
+        sendNotification(remoteMessage);
     }
 
     private void sendNotification(RemoteMessage remoteMessage){

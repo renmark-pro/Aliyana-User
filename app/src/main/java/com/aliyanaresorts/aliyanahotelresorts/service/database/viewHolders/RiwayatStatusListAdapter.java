@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.models.RiwayatStatusList;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.models.MyBookingList;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.setWarnaStat
 public class RiwayatStatusListAdapter extends RecyclerView.Adapter<RiwayatStatusListAdapter.BookViewHolder> {
 
     private final Activity activity;
-    private final List<RiwayatStatusList> bookListList;
+    private final List<MyBookingList> bookListList;
 
-    public RiwayatStatusListAdapter(List<RiwayatStatusList> bookLists, Activity activity){
+    public RiwayatStatusListAdapter(List<MyBookingList> bookLists, Activity activity){
         this.bookListList = bookLists;
         this.activity = activity;
     }
@@ -56,10 +56,10 @@ public class RiwayatStatusListAdapter extends RecyclerView.Adapter<RiwayatStatus
 
     @Override
     public void onBindViewHolder(@NonNull final RiwayatStatusListAdapter.BookViewHolder holder, final int postition) {
-        final RiwayatStatusList bookList = bookListList.get(postition);
+        final MyBookingList bookList = bookListList.get(postition);
         holder.kodeBooking.setText(bookList.getKode_booking());
         holder.jmlKamar.setText(bookList.getJml_kamar());
-        holder.totalHarga.setText(formatingRupiah(bookList.getTotal()));
+        holder.totalHarga.setText(formatingRupiah(bookList.getTotal_tagihan()));
         holder.cekIn.setText(bookList.getTgl_checkin());
         holder.cekOut.setText(bookList.getTgl_checkout());
         holder.statusBayar.setText(bookList.getStatus());

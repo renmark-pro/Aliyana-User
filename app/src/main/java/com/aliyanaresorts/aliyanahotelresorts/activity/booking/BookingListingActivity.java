@@ -2,6 +2,7 @@ package com.aliyanaresorts.aliyanahotelresorts.activity.booking;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
@@ -56,6 +58,8 @@ public class BookingListingActivity extends AppCompatActivity {
     private TextView hitungan;
     private LinearLayout proses;
     private int counter;
+    private String ci, co, or, id;
+    private SwipeRefreshLayout swipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,7 @@ public class BookingListingActivity extends AppCompatActivity {
 
         proses = findViewById(R.id.layoutProses);
         hitungan=findViewById(R.id.txtCount);
+        swipe = findViewById(R.id.swipeLayout);
         final NoInetDialog noInetDialog = new NoInetDialog(this);
         
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -81,12 +86,27 @@ public class BookingListingActivity extends AppCompatActivity {
             }
         });
 
+        ci = getIntentData(this,"ci");
+        co = getIntentData(this,"co");
+        or = getIntentData(this,"or");
+        id = getIntentData(this,"id");
+
+        Resources res = getResources();
+        swipe.setColorSchemeColors(res.getColor(R.color.colorPrimaryDark), res.getColor(R.color.colorPrimary));
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                arrayList.clear();
+                getData(ci, co, or, id);
+                swipe.setRefreshing(false);
+            }
+        });
+
         arrayList = new ArrayList<>();
         final RecyclerView recyclerView = findViewById(R.id.roomList);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
-        getData(getIntentData(this,"ci"), getIntentData(this,"co"),
-                getIntentData(this,"or"), getIntentData(this,"id"));
+        getData(ci, co, or, id);
         LinearLayoutManager layoutManager= new LinearLayoutManager(this);
         adapter = new BookListingAdapter(arrayList, this, BookingListingActivity.this);
         recyclerView.setAdapter(adapter);
@@ -96,7 +116,7 @@ public class BookingListingActivity extends AppCompatActivity {
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
-                if(!isNetworkAvailable(getBaseContext())){
+                if(isNetworkAvailable(getBaseContext())){
                     noInetDialog.bukaDialog();
                 }else {
                     new Handler().postDelayed(new Runnable() {

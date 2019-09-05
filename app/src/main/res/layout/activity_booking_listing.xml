@@ -17,56 +17,63 @@
         app:title="@string/kamar1"
         app:titleTextColor="@color/colorPrimaryDark" />
 
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:scrollbars="none"
-                android:id="@+id/roomList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:scrollbars="none">
 
             <LinearLayout
-                android:id="@+id/layoutProses"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="end"
-                android:layout_margin="16dp"
-                android:padding="8dp"
-                android:background="@drawable/bt_cek">
+                android:orientation="vertical">
 
-                <TextView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:scrollbars="none"
+                    android:id="@+id/roomList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:id="@+id/layoutProses"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/proses"
-                    android:textSize="20sp"
-                    android:textColor="@color/putih"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"/>
+                    android:orientation="horizontal"
+                    android:layout_gravity="end"
+                    android:layout_margin="16dp"
+                    android:padding="8dp"
+                    android:background="@drawable/bt_cek">
 
-                <TextView
-                    android:id="@+id/txtCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/hitamtrans"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:textColor="@color/putih"
-                    android:textSize="20sp"
-                    />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/proses"
+                        android:textSize="20sp"
+                        android:textColor="@color/putih"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/txtCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/hitamtrans"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:textColor="@color/putih"
+                        android:textSize="20sp"
+                        />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
 
-    </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

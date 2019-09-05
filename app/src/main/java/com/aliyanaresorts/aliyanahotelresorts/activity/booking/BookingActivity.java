@@ -185,7 +185,7 @@ public class BookingActivity extends AppCompatActivity {
                     }else if (jOrang.isEmpty() || Integer.parseInt(jOrang)<1){
                         jmlOrang.requestFocus();
                         jmlOrang.setError(getResources().getString(R.string.kolom));
-                    }else if(!isNetworkAvailable(getBaseContext())){
+                    }else if(isNetworkAvailable(getBaseContext())){
                         noInetDialog.bukaDialog();
                     } else  {
                         if (tipe.get(kamar.getSelectedIndex()).equals(getResources().getString(R.string.semua))){

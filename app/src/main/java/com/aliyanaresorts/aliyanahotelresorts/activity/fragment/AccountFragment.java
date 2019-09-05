@@ -160,8 +160,9 @@ public class AccountFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject result = jsonObject.getJSONObject("user");
+                    String tlpn = "+"+result.getString("kd_negara")+result.getString("no_telepon");
                     nama.setText(setTextData(result.getString("nama")));
-                    telpon.setText(setTextData(result.getString("no_telepon")));
+                    telpon.setText(setTextData(tlpn));
                     setFotoUser(result.getString("foto"), getContext(), fotoUser);
                 } catch (JSONException e) {
                     // JSON error

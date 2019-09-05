@@ -2,6 +2,7 @@ package com.aliyanaresorts.aliyanahotelresorts.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.activity.booking.BookingActivity;
@@ -53,6 +55,7 @@ public class RoomDetailActivity extends AppCompatActivity {
 
     private LoadingDialog loadingDialog;
     private Toolbar toolbar;
+    private SwipeRefreshLayout swipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         deskripsiKamar = findViewById(R.id.deskripsiKamar);
         fasilitasKamar = findViewById(R.id.fasilitasKamar);
         button = findViewById(R.id.bt_book);
+        swipe = findViewById(R.id.swipeLayout);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,8 +77,17 @@ public class RoomDetailActivity extends AppCompatActivity {
         Objects.requireNonNull(upArrow).setColorFilter(ContextCompat.getColor(this, R.color.putih), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        loadingDialog = new LoadingDialog(this);
-        loadingDialog.bukaDialog();
+        getData();
+        Resources res = getResources();
+        swipe.setColorSchemeColors(res.getColor(R.color.colorPrimaryDark), res.getColor(R.color.colorPrimary));
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                list_data.clear();
+                getData();
+                swipe.setRefreshing(false);
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +97,11 @@ public class RoomDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void getData() {
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.bukaDialog();
 
         RequestQueue requestQueue = Volley.newRequestQueue(RoomDetailActivity.this);
 

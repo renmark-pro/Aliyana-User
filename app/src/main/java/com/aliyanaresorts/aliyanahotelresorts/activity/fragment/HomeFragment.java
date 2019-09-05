@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
         rooms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                if(isNetworkAvailable(Objects.requireNonNull(getContext()))){
                     noInetDialog.bukaDialog();
                 }else {
                     Intent intent = new Intent(getActivity(), RoomListActivity.class);
@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment {
         book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                if(isNetworkAvailable(Objects.requireNonNull(getContext()))){
                     noInetDialog.bukaDialog();
                 }else {
                     Intent intent = new Intent(getActivity(), BookingActivity.class);
@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment {
         promo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                if(isNetworkAvailable(Objects.requireNonNull(getContext()))){
                     noInetDialog.bukaDialog();
                 }else {
                     Intent intent = new Intent(getActivity(), PromoListActivity.class);
@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment {
         galeri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                if(isNetworkAvailable(Objects.requireNonNull(getContext()))){
                     noInetDialog.bukaDialog();
                 }else {
                     Intent intent = new Intent(getActivity(), InfoHotelActivity.class);
@@ -158,7 +158,7 @@ public class HomeFragment extends Fragment {
         fasilitas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+                if(isNetworkAvailable(Objects.requireNonNull(getContext()))){
                     noInetDialog.bukaDialog();
                 }else {
                     Intent intent = new Intent(getActivity(), FasilitasActivity.class);
@@ -228,7 +228,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (!isNetworkAvailable(Objects.requireNonNull(getContext()))){
+        if (isNetworkAvailable(Objects.requireNonNull(getContext()))){
             noInetDialog.bukaDialog();
             FlipperView a = new FlipperView(Objects.requireNonNull(getActivity()).getBaseContext());
             a.setImageDrawable(R.drawable.image_slider_1)

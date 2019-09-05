@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -119,7 +118,7 @@ public class DaftarActivity extends AppCompatActivity {
                 }else if(mtelepon.getText().toString().isEmpty()){
                     mtelepon.requestFocus();
                     mtelepon.setError(getResources().getString(R.string.isi));
-                }else if(!isValidMobile(mtelepon.getText().toString())){
+                }else if(isValidMobile(mtelepon.getText().toString())){
                     mtelepon.requestFocus();
                     mtelepon.setError(getResources().getString(R.string.ihp));
                 }else if(mpassword.getText().toString().isEmpty()){
@@ -133,7 +132,7 @@ public class DaftarActivity extends AppCompatActivity {
                     mcpassword.setError(getResources().getString(R.string.isi));
                 }else if (!cpassword.equals(password)){
                     Snackbar.make(v, R.string.passalah, Snackbar.LENGTH_SHORT).show();
-                }else if(!isNetworkAvailable(getBaseContext())){
+                }else if(isNetworkAvailable(getBaseContext())){
                     noInetDialog.bukaDialog();
                 }else {
                     closeKeyboard(DaftarActivity.this);

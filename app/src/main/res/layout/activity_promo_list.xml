@@ -17,12 +17,19 @@
         app:title="@string/promo"
         app:titleTextColor="@color/colorPrimaryDark" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:scrollbars="none"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:id="@+id/promoList"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:scrollbars="none"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:id="@+id/promoList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

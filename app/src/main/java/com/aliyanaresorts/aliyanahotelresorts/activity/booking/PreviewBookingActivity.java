@@ -74,7 +74,7 @@ public class PreviewBookingActivity extends AppCompatActivity {
         konfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isNetworkAvailable(getBaseContext())){
+                if(isNetworkAvailable(getBaseContext())){
                     noInetDialog.bukaDialog();
                 }else {
                     konfirmBooking(view);

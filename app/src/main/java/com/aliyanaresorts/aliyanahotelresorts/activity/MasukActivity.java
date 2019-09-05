@@ -83,7 +83,7 @@ public class MasukActivity extends AppCompatActivity {
                 } else if (password.isEmpty()) {
                     mpassword.setError(getResources().getString(R.string.isi));
                     mpassword.requestFocus();
-                }else if(!isNetworkAvailable(getBaseContext())){
+                }else if(isNetworkAvailable(getBaseContext())){
                     noInetDialog.bukaDialog();
                 }else {
                     checkLogin(email, password, v);

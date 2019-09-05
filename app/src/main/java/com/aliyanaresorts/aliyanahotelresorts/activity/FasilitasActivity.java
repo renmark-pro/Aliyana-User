@@ -70,7 +70,7 @@ public class FasilitasActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                if(!isNetworkAvailable(getBaseContext())){
+                if(isNetworkAvailable(getBaseContext())){
                     noInetDialog.bukaDialog();
                 }else {
                     final FasilitasList produk = arrayList.get(position);

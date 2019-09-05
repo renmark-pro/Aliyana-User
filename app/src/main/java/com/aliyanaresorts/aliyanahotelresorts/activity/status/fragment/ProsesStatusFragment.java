@@ -18,7 +18,7 @@ import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.models.ProsesStatusList;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.models.MyBookingList;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.ProsesStatusListAdapter;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -38,7 +38,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_PR
 
 public class ProsesStatusFragment extends Fragment {
 
-    private ArrayList<ProsesStatusList> arrayList;
+    private ArrayList<MyBookingList> arrayList;
     private RecyclerView.Adapter adapter;
     private LoadingDialog loadingDialog;
     private NestedScrollView nestedLayout;
@@ -86,13 +86,16 @@ public class ProsesStatusFragment extends Fragment {
                     if (result.length()>0){
                         for(int i =0;i<result.length(); i++) {
                             JSONObject productObject = result.getJSONObject(i);
-                            arrayList.add(new ProsesStatusList(
+                            arrayList.add(new MyBookingList(
                                     productObject.getString("id"),
                                     productObject.getString("kode_booking"),
+                                    productObject.getString("tipe"),
                                     productObject.getString("jml_kamar"),
-                                    productObject.getString("total"),
                                     productObject.getString("tgl_checkin"),
                                     productObject.getString("tgl_checkout"),
+                                    productObject.getString("total_tagihan"),
+                                    productObject.getString("terbayarkan"),
+                                    productObject.getString("kekurangan"),
                                     productObject.getString("status")
                             ));
                         }

@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/layoutRoomDetail"
     android:orientation="vertical"
+    style="@style/BgRoomDetail"
     tools:context=".activity.RoomDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -25,135 +26,136 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@drawable/bg_grad_transgold">
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.cardview.widget.CardView
-                android:layout_margin="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardUseCompatPadding="true">
-
-                <ImageView
-                    android:contentDescription="@string/kfoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="175dp"
-                    android:id="@+id/fotoKamar"
-                    android:src="@drawable/image_slider_1"
-                    android:scaleType="centerCrop"/>
-
-            </androidx.cardview.widget.CardView>
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:background="@color/colorPrimaryDark">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/harga"
-                    android:textColor="@color/putih"
-                    android:textSize="24sp"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:id="@+id/hargaKamar"
-                    android:text="@string/harga_kamar"
-                    android:textColor="@color/putih"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
                 android:orientation="vertical">
 
+                <androidx.cardview.widget.CardView
+                    android:layout_margin="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:contentDescription="@string/kfoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="175dp"
+                        android:id="@+id/fotoKamar"
+                        android:src="@drawable/image_slider_1"
+                        android:scaleType="centerCrop"/>
+
+                </androidx.cardview.widget.CardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:background="@color/colorPrimaryDark">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fasilitas"
-                        android:textColor="@color/hitam"
-                        android:textSize="18sp" />
+                        android:layout_marginStart="8dp"
+                        android:text="@string/harga"
+                        android:textColor="@color/putih"
+                        android:textSize="24sp"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fasilitas"
-                        android:textSize="18sp"
-                        android:textColor="@color/hitam"
-                        android:id="@+id/fasilitasKamar"/>
+                        android:textSize="24sp"
+                        android:id="@+id/hargaKamar"
+                        android:text="@string/harga_kamar"
+                        android:textColor="@color/putih"/>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="16dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/deskripsi"
-                        android:textColor="@color/hitam"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_marginStart="8dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fasilitas"
+                            android:textColor="@color/hitam"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fasilitas"
+                            android:textSize="18sp"
+                            android:textColor="@color/hitam"
+                            android:id="@+id/fasilitasKamar"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/deskripsi"
+                            android:textColor="@color/hitam"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_marginStart="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fasilitas"
+                            android:textSize="18sp"
+                            android:textColor="@color/hitam"
+                            android:id="@+id/deskripsiKamar"/>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_marginTop="16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fasilitas"
-                        android:textSize="18sp"
-                        android:textColor="@color/hitam"
-                        android:id="@+id/deskripsiKamar"/>
+                        android:background="@drawable/bt_book"
+                        android:text="@string/pesan_skrg"
+                        android:textColor="@color/putih"
+                        android:textSize="16sp"
+                        android:layout_gravity="end"
+                        android:id="@+id/bt_book"
+                        android:padding="16dp"/>
 
                 </LinearLayout>
-
-                <Button
-                    android:layout_marginTop="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bt_book"
-                    android:text="@string/pesan_skrg"
-                    android:textColor="@color/putih"
-                    android:textSize="16sp"
-                    android:layout_gravity="end"
-                    android:id="@+id/bt_book"
-                    android:padding="16dp"/>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/bgroom"/>
+        </androidx.core.widget.NestedScrollView>
 
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

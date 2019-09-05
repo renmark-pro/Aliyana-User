@@ -32,7 +32,6 @@ import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getIntentData;
-import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_DOMAIN_SISTEM;
 import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_FASILITAS_DETAIL;
 

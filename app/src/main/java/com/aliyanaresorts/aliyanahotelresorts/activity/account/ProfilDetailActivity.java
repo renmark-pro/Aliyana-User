@@ -148,7 +148,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
                 }else if (uTelpon.isEmpty()) {
                     telponUser.requestFocus();
                     telponUser.setError(getResources().getString(R.string.isi));
-                }else if (!isValidMobile(uTelpon)){
+                }else if (isValidMobile(uTelpon)){
                     telponUser.requestFocus();
                     telponUser.setError(getResources().getString(R.string.ihp));
                 }else if (jenisId.getSelectedIndex()==0){
@@ -162,7 +162,7 @@ public class ProfilDetailActivity extends AppCompatActivity {
                 }else if (uAlamat.isEmpty()){
                     alamatUser.requestFocus();
                     alamatUser.setError(getResources().getString(R.string.isi));
-                }else  if(!isNetworkAvailable(getBaseContext())){
+                }else  if(isNetworkAvailable(getBaseContext())){
                     noInetDialog.bukaDialog();
                 }else{
                     closeKeyboard(ProfilDetailActivity.this);

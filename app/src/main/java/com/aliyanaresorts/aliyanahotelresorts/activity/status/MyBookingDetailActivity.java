@@ -12,7 +12,7 @@ import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
 import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.AppController;
-import com.aliyanaresorts.aliyanahotelresorts.service.database.models.ProsesDetailList;
+import com.aliyanaresorts.aliyanahotelresorts.service.database.models.MyBookingDetail;
 import com.aliyanaresorts.aliyanahotelresorts.service.database.viewHolders.ProsesDetailListAdapter;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -33,7 +33,7 @@ import static com.aliyanaresorts.aliyanahotelresorts.service.database.API.KEY_BO
 
 public class MyBookingDetailActivity extends AppCompatActivity {
 
-    private ArrayList<ProsesDetailList> arrayList;
+    private ArrayList<MyBookingDetail> arrayList;
     private RecyclerView.Adapter adapter;
     private LoadingDialog loadingDialog;
     private TextView kodeBooking;
@@ -71,13 +71,16 @@ public class MyBookingDetailActivity extends AppCompatActivity {
                     JSONArray result = jsonObject.getJSONArray("booking");
                     for(int i =0;i<result.length(); i++) {
                         JSONObject productObject = result.getJSONObject(i);
-                        arrayList.add(new ProsesDetailList(
+                        arrayList.add(new MyBookingDetail(
                                 productObject.getString("kode_booking"),
-                                productObject.getString("no_room"),
+                                productObject.getString("tipe"),
+                                productObject.getString("jml_kamar"),
                                 productObject.getString("tgl_checkin"),
                                 productObject.getString("tgl_checkout"),
-                                productObject.getString("jml_tamu"),
-                                productObject.getString("tipe")
+                                productObject.getString("total_tagihan"),
+                                productObject.getString("terbayarkan"),
+                                productObject.getString("hutang"),
+                                productObject.getString("status")
                         ));
                     }
                 } catch (JSONException e) {

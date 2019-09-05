@@ -1,5 +1,6 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.info;
 
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aliyanaresorts.aliyanahotelresorts.R;
 import com.aliyanaresorts.aliyanahotelresorts.service.LoadingDialog;
@@ -45,11 +47,23 @@ public class RestoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resto);
         setStyleStatusBarTransparent(this);
 
+        final SwipeRefreshLayout swipe = findViewById(R.id.swipeLayout);
+        Resources res = getResources();
+        swipe.setColorSchemeColors(res.getColor(R.color.colorPrimaryDark), res.getColor(R.color.colorPrimary));
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                arrayList.clear();
+                getDetail();
+                swipe.setRefreshing(false);
+            }
+        });
+
         arrayList = new ArrayList<>();
         RecyclerView recyclerView = findViewById(R.id.restoList);
         recyclerView.setHasFixedSize(true);
         getDetail();
-        LinearLayoutManager layoutManager= new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         adapter = new RestoListAdapter(arrayList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
@@ -59,7 +73,7 @@ public class RestoActivity extends AppCompatActivity {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0) {
+                if (Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0) {
                     //  on Collapse
                     collapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
                     collapsingToolbarLayout.setTitle(getResources().getString(R.string.kcr));
@@ -105,7 +119,7 @@ public class RestoActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray result = jsonObject.getJSONArray("menu");
-                    for(int i =0;i<result.length(); i++) {
+                    for (int i = 0; i < result.length(); i++) {
                         JSONObject productObject = result.getJSONObject(i);
                         arrayList.add(new RestoList(
                                 productObject.getString("id"),

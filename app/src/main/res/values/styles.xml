@@ -66,4 +66,8 @@
         <item name="android:background">@color/transparan</item>
     </style>
 
+    <style name="BgRoomDetail" >
+        <item name="android:background">@drawable/bg_grad_transgold</item>
+    </style>
+
 </resources>

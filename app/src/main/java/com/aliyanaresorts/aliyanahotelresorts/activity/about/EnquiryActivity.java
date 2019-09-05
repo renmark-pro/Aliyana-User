@@ -79,7 +79,7 @@ public class EnquiryActivity extends AppCompatActivity {
                 }else if (isi.isEmpty()){
                     mIsi.requestFocus();
                     mIsi.setError(getResources().getString(R.string.kolom));
-                }else if(!isNetworkAvailable(getBaseContext())){
+                }else if(isNetworkAvailable(getBaseContext())){
                     noInetDialog.bukaDialog();
                 }else {
                     kirim(v, nama, email, isi);
