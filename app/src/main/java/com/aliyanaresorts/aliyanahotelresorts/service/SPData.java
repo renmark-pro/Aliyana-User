@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SPData {
-
         @SuppressLint("StaticFieldLeak")
         private static SPData mInstance;
         @SuppressLint("StaticFieldLeak")
