@@ -11,6 +11,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         app:cardElevation="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardUseCompatPadding="true"
         android:background="@color/putih"
         android:layout_height="match_parent">

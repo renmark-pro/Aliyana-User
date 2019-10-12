@@ -26,6 +26,9 @@
         <androidx.cardview.widget.CardView
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_height="150dp"
@@ -38,6 +41,9 @@
                 android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:cardCornerRadius="10dp"
                 app:cardBackgroundColor="@color/goldtua"
                 >

@@ -10,6 +10,9 @@
         android:layout_width="match_parent"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:background="@color/putih"
         android:layout_height="match_parent">
 
