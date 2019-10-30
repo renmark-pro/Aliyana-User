@@ -1,6 +1,7 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.status.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class ProsesStatusFragment extends Fragment {
                 loadingDialog.tutupDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
+                    Log.e("masalah :", String.valueOf(jsonObject));
                     JSONArray result = jsonObject.getJSONArray("bookings");
                     if (result.length()>0){
                         for(int i =0;i<result.length(); i++) {
@@ -118,7 +120,7 @@ public class ProsesStatusFragment extends Fragment {
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/x-www-form-urlencoded");
-                params.put("Authorization", SPData.getInstance(getActivity()).getKeyToken() );
+                params.put("Authorization", SPData.getInstance(getActivity()).getKeyToken());
                 return params;
             }
         };

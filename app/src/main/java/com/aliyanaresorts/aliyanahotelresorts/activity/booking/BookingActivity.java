@@ -326,7 +326,7 @@ public class BookingActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("tgl_checkin", cekin);
-                params.put("tgl_checkout",cekout);
+                params.put("tgl_checkout", cekout);
                 params.put("jml_tamu", tamu);
                 params.put("tipe", id);
                 return params;

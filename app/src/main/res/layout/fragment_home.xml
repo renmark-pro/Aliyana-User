@@ -43,8 +43,6 @@
                 android:id="@+id/textWelcome"
                 android:textColor="@color/putih"/>
 
-            
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"

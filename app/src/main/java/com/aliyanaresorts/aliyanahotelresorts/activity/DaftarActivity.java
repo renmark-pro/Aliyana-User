@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.closeKeyboard;
+import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.getPhoneWithoutZeroFirst;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isNetworkAvailable;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMail;
 import static com.aliyanaresorts.aliyanahotelresorts.service.Helper.isValidMobile;
@@ -106,28 +108,28 @@ public class DaftarActivity extends AppCompatActivity {
                 String password = mpassword.getText().toString();
                 String cpassword = mcpassword.getText().toString();
 
-                if (mnama.getText().toString().isEmpty()){
+                if (nama.isEmpty()){
                     mnama.requestFocus();
                     mnama.setError(getResources().getString(R.string.isi));
-                }else if(memail.getText().toString().isEmpty()){
+                }else if(email.isEmpty()){
                     memail.requestFocus();
                     memail.setError(getResources().getString(R.string.isi));
-                }else if(!isValidMail(memail.getText().toString())){
+                }else if(!isValidMail(email)){
                     memail.requestFocus();
                     memail.setError(getResources().getString(R.string.imail));
-                }else if(mtelepon.getText().toString().isEmpty()){
+                }else if(telepon.isEmpty()){
                     mtelepon.requestFocus();
                     mtelepon.setError(getResources().getString(R.string.isi));
-                }else if(isValidMobile(mtelepon.getText().toString())){
+                }else if(!isValidMobile("0"+getPhoneWithoutZeroFirst(telepon))){
                     mtelepon.requestFocus();
                     mtelepon.setError(getResources().getString(R.string.ihp));
-                }else if(mpassword.getText().toString().isEmpty()){
+                }else if(password.isEmpty()){
                     mpassword.requestFocus();
                     mpassword.setError(getResources().getString(R.string.isi));
-                }else if(mpassword.getText().toString().length()<6){
+                }else if(password.length()<6){
                     mpassword.requestFocus();
                     mpassword.setError( getResources().getString(R.string.ipw));
-                }else if(mcpassword.getText().toString().isEmpty()){
+                }else if(cpassword.isEmpty()){
                     mcpassword.requestFocus();
                     mcpassword.setError(getResources().getString(R.string.isi));
                 }else if (!cpassword.equals(password)){
@@ -136,7 +138,7 @@ public class DaftarActivity extends AppCompatActivity {
                     noInetDialog.bukaDialog();
                 }else {
                     closeKeyboard(DaftarActivity.this);
-                    checkRegister(nama, email, telepon, password, cpassword, v);
+                    checkRegister(nama, email, getPhoneWithoutZeroFirst(telepon), password, cpassword, v);
                 }
             }
         });

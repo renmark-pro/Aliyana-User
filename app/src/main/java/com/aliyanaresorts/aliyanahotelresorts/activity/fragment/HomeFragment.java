@@ -1,6 +1,7 @@
 package com.aliyanaresorts.aliyanahotelresorts.activity.fragment;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import com.aliyanaresorts.aliyanahotelresorts.activity.PromoListActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.RoomListActivity;
 import com.aliyanaresorts.aliyanahotelresorts.activity.booking.BookingActivity;
 import com.aliyanaresorts.aliyanahotelresorts.service.NoInetDialog;
+import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,8 +37,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 
 import technolifestyle.com.imageslider.FlipperLayout;

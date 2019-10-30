@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -172,6 +173,15 @@ public class Helper {
             }
         }
         return idx;
+    }
+
+    public static String getPhoneWithoutZeroFirst(String s){
+        char[] phone = s.toCharArray();
+        if (phone[0]=='0'){
+            return s.substring(1);
+        }else {
+            return s;
+        }
     }
 
 }
