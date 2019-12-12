@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/BgAbout"
-    tools:context=".activity.account.ProfilDetailActivity">
+    tools:context=".mainMenu.account.ProfilDetailActivity">
 
     <RelativeLayout
         android:id="@+id/layoutFoto"

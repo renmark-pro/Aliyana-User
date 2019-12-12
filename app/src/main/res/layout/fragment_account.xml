@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/BgAbout"
-    tools:context=".activity.fragment.AccountFragment">
+    tools:context=".mainMenu.AccountFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

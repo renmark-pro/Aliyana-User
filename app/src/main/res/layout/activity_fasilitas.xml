@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.RoomListActivity">
+    tools:context=".mainMenu.home.rooms.RoomListActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     style="@style/BgAbout"
-    tools:context=".activity.info.MeetingActivity">
+    tools:context=".mainMenu.home.info.MeetingActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

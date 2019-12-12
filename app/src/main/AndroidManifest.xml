@@ -9,10 +9,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
-        android:name=".service.database.AppController"
+        android:name=".network.AppController"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@drawable/ic_launcher"
@@ -23,117 +24,166 @@
         android:theme="@style/AppThemeGold"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".activity.status.MyBookingDetailActivity"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.booking.PreviewBookingActivity"
+            android:name=".mainMenu.status.menu.detail.MyBookingDetailActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.account.ProfilDetailActivity"
+            android:name=".mainMenu.home.booking.previewBooking.PreviewBookingActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.booking.BookingListingActivity"
-            android:parentActivityName=".activity.booking.BookingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.info.BallroomDetailActivity"
-            android:parentActivityName=".activity.info.BallroomActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.info.MeetingDetailActivity"
-            android:parentActivityName=".activity.info.MeetingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.info.MeetingActivity"
-            android:parentActivityName=".activity.InfoHotelActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.info.BallroomActivity"
-            android:parentActivityName=".activity.InfoHotelActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.info.RestoActivity"
-            android:parentActivityName=".activity.InfoHotelActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.InfoHotelActivity"
+            android:name=".mainMenu.account.ProfilDetailActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.FasilitasDetailActivity"
-            android:parentActivityName=".activity.FasilitasActivity"
+            android:name=".mainMenu.home.booking.roomsMenu.BookingListingActivity"
+            android:parentActivityName=".mainMenu.home.booking.BookingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.PromoDetailActivity"
-            android:parentActivityName=".activity.PromoListActivity"
+            android:name=".mainMenu.home.info.BallroomDetailActivity"
+            android:parentActivityName=".mainMenu.home.info.BallroomActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.PromoListActivity"
+            android:name=".mainMenu.home.info.MeetingDetailActivity"
+            android:parentActivityName=".mainMenu.home.info.MeetingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mainMenu.home.info.MeetingActivity"
+            android:parentActivityName=".mainMenu.home.info.InfoHotelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mainMenu.home.info.BallroomActivity"
+            android:parentActivityName=".mainMenu.home.info.InfoHotelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mainMenu.home.info.resto.RestoActivity"
+            android:parentActivityName=".mainMenu.home.info.InfoHotelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mainMenu.home.info.InfoHotelActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.FasilitasActivity"
+            android:name=".mainMenu.home.fasilitas.FasilitasDetailActivity"
+            android:parentActivityName=".mainMenu.home.fasilitas.FasilitasActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mainMenu.home.promo.PromoDetailActivity"
+            android:parentActivityName=".mainMenu.home.promo.PromoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mainMenu.home.promo.PromoActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".mainMenu.home.fasilitas.FasilitasActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="www.aliyanaresorts.com"
+                    android:pathPrefix="/#facilities" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CropTheme" />
         <activity
-            android:name=".activity.account.FotoProfilAccountActivity"
+            android:name=".mainMenu.account.FotoProfilAccountActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.account.HelpAccountActivity"
+            android:name=".mainMenu.account.HelpAccountActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.account.VoucherAccountActivity"
+            android:name=".mainMenu.account.VoucherAccountActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.account.PromoAccountActivity"
+            android:name=".mainMenu.account.PromoAccountActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.DaftarActivity"
-            android:parentActivityName=".activity.MasukActivity"
+            android:name=".DaftarActivity"
+            android:parentActivityName=".MasukActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.about.EnquiryActivity"
-            android:parentActivityName=".activity.AboutActivity"
+            android:name=".mainMenu.home.about.EnquiryActivity"
+            android:parentActivityName=".mainMenu.home.about.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.about.DetailActivity"
-            android:parentActivityName=".activity.AboutActivity"
+            android:name=".mainMenu.home.about.DetailActivity"
+            android:parentActivityName=".mainMenu.home.about.AboutActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="www.aliyanaresorts.com"
+                    android:path="/#contact" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".mainMenu.home.about.VisiActivity"
+            android:parentActivityName=".mainMenu.home.about.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.about.VisiActivity"
-            android:parentActivityName=".activity.AboutActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.MasukActivity"
+            android:name=".MasukActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AboutActivity"
+            android:name=".mainMenu.home.about.AboutActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="www.aliyanaresorts.com"
+                    android:path="/#about-us" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".mainMenu.home.booking.BookingActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.booking.BookingActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".mainMenu.home.rooms.RoomDetailActivity"
+            android:parentActivityName=".mainMenu.home.rooms.RoomActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.RoomDetailActivity"
-            android:parentActivityName=".activity.RoomListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.RoomListActivity"
+            android:name=".mainMenu.home.rooms.RoomActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="www.aliyanaresorts.com"
+                    android:path="/#rooms" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
@@ -141,8 +191,8 @@
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"
-            tools:targetApi="n"
-            android:supportsPictureInPicture="false">
+            android:supportsPictureInPicture="false"
+            tools:targetApi="n">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -155,8 +205,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="aliyanaresorts.com"
-                    android:scheme="http" />
+                    android:host="www.aliyanaresorts.com"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 
@@ -165,14 +215,14 @@
             android:required="false" />
 
         <service
-            android:name=".service.firebase.MyFirebaseInstanceIdService"
+            android:name=".firebase.MyFirebaseInstanceIdService"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".service.firebase.MyFirebaseMessagingService"
+            android:name=".firebase.MyFirebaseMessagingService"
             tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

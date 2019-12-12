@@ -8,7 +8,7 @@
     android:id="@+id/layoutRoomDetail"
     android:orientation="vertical"
     style="@style/BgRoomDetail"
-    tools:context=".activity.RoomDetailActivity">
+    tools:context=".mainMenu.home.rooms.RoomDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

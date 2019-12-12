@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     style="@style/BgAbout"
-    tools:context=".activity.fragment.StatusFragment">
+    tools:context=".mainMenu.StatusFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

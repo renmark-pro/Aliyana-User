@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/BgAbout"
-    tools:context=".activity.booking.BookingListingActivity">
+    tools:context=".mainMenu.home.booking.BookingListingActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -34,7 +34,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:scrollbars="none"
-                    android:id="@+id/roomList"
+                    android:id="@+id/roomLists"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 

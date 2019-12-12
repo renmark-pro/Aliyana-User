@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     style="@style/BgAbout"
     android:paddingTop="?attr/actionBarSize"
-    tools:context=".activity.status.fragment.InhouseStatusFragment">
+    tools:context=".mainMenu.status.menu.inhouse.InhouseStatusFragment">
 
     <androidx.core.widget.NestedScrollView
         android:visibility="gone"

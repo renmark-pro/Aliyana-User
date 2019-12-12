@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layoutRoot"
     style="@style/BgAbout"
-    tools:context=".activity.about.VisiActivity">
+    tools:context=".mainMenu.home.about.VisiActivity">
 
     <ScrollView
         android:layout_width="match_parent"

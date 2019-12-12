@@ -52,6 +52,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "263105607276-c8l7j2knrdf324306b0rbdpomd0k7m3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aliyanaresorts.aliyanahotelresorts",
+            "certificate_hash": "c24c95cf25729adf4e17cead3ec7a971f14b2987"
+          }
+        },
+        {
           "client_id": "263105607276-rcq2bm5kr4b4929b3llj9auhhgrupgmm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

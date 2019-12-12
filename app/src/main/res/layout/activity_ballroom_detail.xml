@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/layoutRoomDetail"
     android:orientation="vertical"
-    tools:context=".activity.info.BallroomDetailActivity">
+    tools:context=".mainMenu.home.info.BallroomDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

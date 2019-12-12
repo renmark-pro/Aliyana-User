@@ -9,11 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.aliyanaresorts.aliyanahotelresorts.activity.MasukActivity;
-import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.AccountFragment;
-import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.HomeFragment;
-import com.aliyanaresorts.aliyanahotelresorts.activity.fragment.StatusFragment;
-import com.aliyanaresorts.aliyanahotelresorts.service.SPData;
+import com.aliyanaresorts.aliyanahotelresorts.mainMenu.AccountFragment;
+import com.aliyanaresorts.aliyanahotelresorts.mainMenu.HomeFragment;
+import com.aliyanaresorts.aliyanahotelresorts.mainMenu.StatusFragment;
+import com.aliyanaresorts.aliyanahotelresorts.tools.SPData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -59,9 +58,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().detach(homeFragment).attach(homeFragment).setCustomAnimations(R.anim.fade_in,R.anim.fade_out).replace(R.id.container, homeFragment).commit();
                 return true;
             case R.id.navigation_status:
-                HOME = 1;
-                getSupportFragmentManager().beginTransaction().detach(statusFragment).attach(statusFragment).setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, statusFragment).commit();
-                return true;
+                if(SPData.getInstance(this).isLoggedIn()) {
+                    HOME = 1;
+                    getSupportFragmentManager().beginTransaction().detach(statusFragment).attach(statusFragment).setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, statusFragment).commit();
+                    return true;
+                } else {
+                    Intent intent = new Intent(MainActivity.this, MasukActivity.class);
+                    startActivity(intent);
+                }
         }
 
         return false;

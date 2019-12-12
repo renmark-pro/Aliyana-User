@@ -8,7 +8,7 @@
     android:scrollbars="none"
     android:orientation="vertical"
     android:id="@+id/fragment_home"
-    tools:context=".activity.fragment.HomeFragment">
+    tools:context=".mainMenu.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
